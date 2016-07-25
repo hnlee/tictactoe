@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class TicTacToeTest {
 
-    private GameBoard board; 
+    private GameBoard board;
 
     @Before
     public void setUp() {
@@ -16,7 +16,13 @@ public class TicTacToeTest {
 
     @Test
     public void testCreateGameBoard() {
-        assertNotNull(board);
+        int empty = 0;
+        for (String space : board.getBoard()) {
+            if (space == "") {
+                empty++;
+            }
+        }
+        assertEquals(9, empty);
     }
 
     @Test
@@ -29,4 +35,5 @@ public class TicTacToeTest {
         board.move(1, "X");
         assertEquals("X", board.getSpace(1)); 
     }
+
 }

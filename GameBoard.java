@@ -3,19 +3,24 @@ package tictactoe;
 import java.util.ArrayList;
 
 public class GameBoard {
-    ArrayList<String> GameBoard() {
-        ArrayList<String> board = new ArrayList<String>();
+    private ArrayList<String> spaces;
+
+    GameBoard() {
+        spaces = new ArrayList<String>();
         for (int n = 0; n < 9; n++) {
-            board.add("");
+            spaces.add("");
         }
-        return board;
+    }
+
+    public ArrayList<String> getBoard() {
+        return spaces;
     }
 
     public String getSpace(int space) {
-        return board.get(space);
+        return spaces.get(space);
     }
     
     public void move(int space, String marker) {
-        board.set(space, marker);
+        spaces.set(space, marker);
     }
 }
