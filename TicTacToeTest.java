@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 public class TicTacToeTest {
 
+    private GameControlCenter game;
     private GameBoard board;
 
     @Before
     public void setUp() {
+        game = new GameControlCenter();
         board = new GameBoard();
     }
 
@@ -36,4 +38,12 @@ public class TicTacToeTest {
         assertEquals("X", board.getSpace(1)); 
     }
 
+    @Test
+    public void testDetectWin() {
+        int[] row = {0, 4, 8};
+        for (int space : row) {
+            board.move(space, "X");
+        }
+        assertTrue(game.isWon());
+    }
 }
