@@ -39,6 +39,15 @@ public class TicTacToeTest {
     }
 
     @Test
+    public void testGetBoardRows() {
+        int[][] rows = {{0, 1, 2}, {3, 4, 5}, 
+                        {6, 7, 8}, {0, 3, 6}, 
+                        {1, 4, 7}, {2, 5, 8},
+                        {0, 4, 8}, {2, 4, 6}};
+        assertArrayEquals(rows, board.getRows());
+    }
+    
+    @Test
     public void testDetectWin() {
         int[] row = {0, 4, 8};
         for (int space : row) {
@@ -46,4 +55,5 @@ public class TicTacToeTest {
         }
         assertTrue(game.isWon());
     }
+
 }
