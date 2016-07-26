@@ -19,6 +19,10 @@ public class GameBoard {
         return spaces;
     }
 
+    public int getNumRows() {
+        return numRows;
+    }
+
     public int[][] getRows() {
         int[][] rows = new int[(2 * (numRows + 1))][numRows];
         for (int i = 0; i < numRows; i++) {
