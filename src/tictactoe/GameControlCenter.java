@@ -39,7 +39,9 @@ public class GameControlCenter {
         }
     }
 
-
+    public int getMove(GamePlayer player) {
+        return player.move();
+    }
 
 
 //    boolean isWon() {
