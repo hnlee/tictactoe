@@ -18,22 +18,9 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testCreateBoard() {
-        game.setBoard(3);
-        assertNotNull(game.getBoard());
-    }
-
-    @Test
     public void testCreateUI() {
         game.setUI();
         assertNotNull(game.getUI());
-    }
-
-    @Test
-    public void testCreatePlayers() {
-        game.setPlayers();
-        assertNotNull(game.getPlayer(1));
-        assertNotNull(game.getPlayer(2));
     }
 
     @Test
