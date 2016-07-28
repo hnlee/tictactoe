@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public class GameControlCenter {
     private GameBoard board;
+    private GameUI ui;
 
     public void setBoard(int numRows) {
         board = new GameBoard(numRows);
@@ -14,6 +15,16 @@ public class GameControlCenter {
     public GameBoard getBoard() {
         return board;
     }
+
+    public void setUI() {
+        ui = new CommandLineUI();
+    }
+
+    public GameUI getUI() {
+        return ui;
+    }
+
+
 
 //    boolean isWon() {
 //        int[][] rows = board.getRows();

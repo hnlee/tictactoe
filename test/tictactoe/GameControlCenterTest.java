@@ -18,6 +18,11 @@ public class GameControlCenterTest {
         assertNotNull(game.getBoard());
     }
 
-
+    @Test
+    public void testCreateUI() {
+        GameControlCenter game = new GameControlCenter();
+        game.setUI();
+        assertNotNull(game.getUI());
+    }
 
 }
