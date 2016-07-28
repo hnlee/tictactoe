@@ -7,6 +7,8 @@ import java.util.HashSet;
 public class GameControlCenter {
     private GameBoard board;
     private GameUI ui;
+    private GamePlayer playerOne;
+    private GamePlayer playerTwo;
 
     public void setBoard(int numRows) {
         board = new GameBoard(numRows);
@@ -23,6 +25,20 @@ public class GameControlCenter {
     public GameUI getUI() {
         return ui;
     }
+
+    public void setPlayers() {
+        playerOne = new GamePlayer();
+        playerTwo = new GamePlayer();
+    }
+
+    public GamePlayer getPlayer(int playerNum) {
+        if (playerNum == 1) {
+            return playerOne;
+        } else {
+            return playerTwo;
+        }
+    }
+
 
 
 
