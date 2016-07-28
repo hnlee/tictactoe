@@ -62,6 +62,9 @@ public class GameControlCenter {
         return player.move();
     }
 
+    public void updateMove(int move) {
+        record.newMove(move);
+    }
 
 //    boolean isWon() {
 //        int[][] rows = board.getRows();

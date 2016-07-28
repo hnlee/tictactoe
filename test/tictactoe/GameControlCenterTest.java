@@ -33,8 +33,17 @@ public class GameControlCenterTest {
 
     @Test
     public void testGetMove() {
-        game.setPlayers();
-        assertEquals(0, game.getMove(game.getPlayer(1)));
+        game.setUp();
+        assertEquals(3, game.getMove(game.getPlayer(1)));
+    }
+
+    @Test
+    public void testUpdateMove() {
+        game.setUp();
+        GameRecord record = game.getRecord();
+        int move = game.getMove(game.getPlayer(1));
+        game.updateMove(move);
+        assertEquals(move, record.getLastMove());
     }
 
 }

@@ -5,6 +5,6 @@ package tictactoe;
  */
 public class GamePlayer {
     public int move() {
-        return 0;
+        return 3;
     }
 }
