@@ -10,6 +10,11 @@ public class GameControlCenter {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
+    public void setUp() {
+        setPlayers();
+        setBoard(3);
+    }
+
     public void setBoard(int numRows) {
         board = new GameBoard(numRows);
     }
@@ -42,6 +47,7 @@ public class GameControlCenter {
     public int getMove(GamePlayer player) {
         return player.move();
     }
+
 
 
 //    boolean isWon() {
