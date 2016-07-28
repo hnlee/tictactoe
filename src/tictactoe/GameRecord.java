@@ -1,23 +1,25 @@
 package tictactoe;
 
+import java.util.ArrayList;
 
 /**
  * Created by hanalee on 7/28/16.
  */
 public class GameRecord {
-    private int lastMove;
+    private ArrayList<Integer> moves;
     private GameBoard board;
 
     GameRecord(GameBoard board) {
         this.board = board;
+        this.moves = new ArrayList<Integer>();
     }
 
     public void newMove(int move) {
-        lastMove = move;
+        moves.add(move);
     }
 
     public int getLastMove() {
-        return lastMove;
+        return moves.get(moves.size() - 1);
     }
 
     public boolean isValidMove(int move) {
@@ -25,7 +27,9 @@ public class GameRecord {
         if (move > dim * dim || move < 0) {
             return false;
         }
-
+        if (moves.contains(move)) {
+            return false;
+        }
         return true;
 
     }

@@ -34,4 +34,10 @@ public class GameRecordTest {
         assertFalse(record.isValidMove(20));
     }
 
+    @Test
+    public void testMoveInOccupiedSpace() {
+        record.newMove(1);
+        assertFalse(record.isValidMove(1));
+    }
+
 }
