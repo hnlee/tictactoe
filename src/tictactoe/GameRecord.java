@@ -21,6 +21,12 @@ public class GameRecord {
     }
 
     public boolean isValidMove(int move) {
-        return false;
+        int dim = board.getNumRows();
+        if (move > dim * dim || move < 0) {
+            return false;
+        }
+
+        return true;
+
     }
 }

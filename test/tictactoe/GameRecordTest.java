@@ -24,7 +24,10 @@ public class GameRecordTest {
         assertEquals(1, record.getLastMove());
     }
 
-
+    @Test
+    public void testValidMove() {
+        assertTrue(record.isValidMove(1));
+    }
 
     @Test
     public void testMoveOutOfRange() {
