@@ -24,6 +24,7 @@ public class GameBoardTest {
     @Test
     public void testCreateThreeByThreeBoard() {
         GameBoard board = new GameBoard();
+        assertEquals(3, board.getNumRows());
         assertEquals(9, board.getSpaces().length);
     }
 
