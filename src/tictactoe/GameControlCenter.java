@@ -18,6 +18,7 @@ public class GameControlCenter {
     public void setUp() {
         setPlayers();
         setBoard(3);
+        setRecord();
     }
 
     public void setUI() {

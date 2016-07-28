@@ -28,18 +28,13 @@ public class GameControlCenterTest {
         assertNotNull(game.getBoard());
         assertNotNull(game.getPlayer(1));
         assertNotNull(game.getPlayer(2));
+        assertNotNull(game.getRecord());
     }
 
     @Test
     public void testGetMove() {
         game.setPlayers();
         assertEquals(0, game.getMove(game.getPlayer(1)));
-    }
-
-    @Test
-    public void testCreateRecord() {
-        game.setRecord();
-        assertNotNull(game.getRecord());
     }
 
 }
