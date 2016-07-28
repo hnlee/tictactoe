@@ -9,18 +9,25 @@ import org.junit.Before;
  */
 public class GameRecordTest {
 
+    private GameBoard board;
+    private GameRecord record;
+
+    @Before
+    public void setUp() {
+        board = new GameBoard();
+        record = new GameRecord(board);
+    }
+
     @Test
     public void testNewMove() {
-        GameBoard board = new GameBoard();
-        GameRecord record = new GameRecord(board);
         record.newMove(1);
         assertEquals(1, record.getLastMove());
     }
 
+
+
     @Test
     public void testMoveOutOfRange() {
-        GameBoard board = new GameBoard();
-        GameRecord record = new GameRecord(board);
         assertFalse(record.isValidMove(20));
     }
 
