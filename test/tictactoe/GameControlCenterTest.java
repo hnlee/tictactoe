@@ -36,6 +36,10 @@ public class GameControlCenterTest {
         assertEquals(0, game.getMove(game.getPlayer(1)));
     }
 
-
+    @Test
+    public void testCreateRecord() {
+        game.setRecord();
+        assertNotNull(game.getRecord());
+    }
 
 }

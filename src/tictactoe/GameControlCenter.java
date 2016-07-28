@@ -9,6 +9,7 @@ public class GameControlCenter {
     private GameBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
+    private GameRecord record;
 
     GameControlCenter() {
         ui = new CommandLineUI();
@@ -19,20 +20,20 @@ public class GameControlCenter {
         setBoard(3);
     }
 
-    public void setBoard(int numRows) {
-        board = new GameBoard(numRows);
-    }
-
-    public GameBoard getBoard() {
-        return board;
-    }
-
     public void setUI() {
         ui = new CommandLineUI();
     }
 
     public GameUI getUI() {
         return ui;
+    }
+
+    public void setBoard(int numRows) {
+        board = new GameBoard(numRows);
+    }
+
+    public GameBoard getBoard() {
+        return board;
     }
 
     public void setPlayers() {
@@ -48,10 +49,17 @@ public class GameControlCenter {
         }
     }
 
+    public void setRecord() {
+        record = new GameRecord();
+    }
+
+    public GameRecord getRecord() {
+        return record;
+    }
+
     public int getMove(GamePlayer player) {
         return player.move();
     }
-
 
 
 //    boolean isWon() {
