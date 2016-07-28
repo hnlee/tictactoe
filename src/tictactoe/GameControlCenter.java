@@ -63,7 +63,9 @@ public class GameControlCenter {
     }
 
     public void updateMove(int move) {
-        record.newMove(move);
+        if (record.isValidMove(move)) {
+            record.newMove(move);
+        }
     }
 
 }

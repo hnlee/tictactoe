@@ -41,9 +41,19 @@ public class GameControlCenterTest {
     public void testUpdateMove() {
         game.setUp();
         GameRecord record = game.getRecord();
-        int move = game.getMove(game.getPlayer(1));
-        game.updateMove(move);
-        assertEquals(move, record.getLastMove());
+        game.updateMove(1);
+        game.updateMove(2);
+        assertEquals(2, record.getLastMove());
+    }
+
+    @Test
+    public void testInvalidMove() {
+        game.setUp();
+        GameRecord record = game.getRecord();
+        game.updateMove(2);
+        game.updateMove(1);
+        game.updateMove(2);
+        assertEquals(1, record.getLastMove());
     }
 
 }
