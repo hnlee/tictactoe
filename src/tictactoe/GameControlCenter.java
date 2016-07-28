@@ -5,10 +5,14 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class GameControlCenter {
-    private GameBoard board;
     private GameUI ui;
+    private GameBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
+
+    GameControlCenter() {
+        ui = new CommandLineUI();
+    }
 
     public void setUp() {
         setPlayers();

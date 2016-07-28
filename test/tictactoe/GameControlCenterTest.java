@@ -18,8 +18,7 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testCreateUI() {
-        game.setUI();
+    public void testUIExists() {
         assertNotNull(game.getUI());
     }
 
