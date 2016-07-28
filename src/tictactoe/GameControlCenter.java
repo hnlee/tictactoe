@@ -51,7 +51,7 @@ public class GameControlCenter {
     }
 
     public void setRecord() {
-        record = new GameRecord();
+        record = new GameRecord(getBoard());
     }
 
     public GameRecord getRecord() {
