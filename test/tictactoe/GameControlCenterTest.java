@@ -68,8 +68,6 @@ public class GameControlCenterTest {
         game.updateMove(1, playerOne);
         game.analyzeBoard();
         assertEquals("playing", game.getStatus());
-        assertFalse(game.isWon());
-        assertFalse(game.isTied());
     }
 
     private LinkedList<Integer> moveList(int... moves) {
@@ -96,8 +94,6 @@ public class GameControlCenterTest {
         simulateGame(game, 4, 1, 5, 3, 6, 2, 0, 8, 7);
         game.analyzeBoard();
         assertEquals("tie", game.getStatus());
-        assertFalse(game.isWon());
-        assertTrue(game.isTied());
     }
 
 }

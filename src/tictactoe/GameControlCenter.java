@@ -88,18 +88,4 @@ public class GameControlCenter {
         }
     }
 
-    public boolean isWon() {
-        if (status.equals("win")) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isTied() {
-        if (status.equals("tie")) {
-            return true;
-        }
-        return false;
-    }
-
 }
