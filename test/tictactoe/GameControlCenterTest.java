@@ -56,4 +56,13 @@ public class GameControlCenterTest {
         assertEquals(1, record.getLastMove());
     }
 
+    @Test
+    public void testAnalyzeGameInProgress() {
+        game.setUp();
+        game.updateMove(1);
+        game.analyzeBoard();
+        assertFalse(game.isWon());
+        assertFalse(game.isTied());
+    }
+
 }

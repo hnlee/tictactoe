@@ -68,4 +68,15 @@ public class GameControlCenter {
         }
     }
 
+    public void analyzeBoard() {
+    }
+
+    public boolean isWon() {
+        return false;
+    }
+
+    public boolean isTied() {
+        return false;
+    }
+
 }
