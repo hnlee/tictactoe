@@ -25,6 +25,7 @@ public class GameRecordTest {
     public void testNewMove() {
         record.newMove(1, playerOne);
         assertEquals(1, record.getLastMove());
+        assertEquals(playerOne, record.getLastPlayer());
     }
 
     @Test
@@ -44,14 +45,8 @@ public class GameRecordTest {
     }
 
     @Test
-    public void testGetLastMove() {
+    public void testWhoPlayedMove() {
         record.newMove(1, playerOne);
-        assertEquals(1, record.getLastMove());
-    }
-
-    @Test
-    public void testGetLastPlayer() {
-        record.newMove(1, playerOne);
-        assertEquals(playerOne, record.getLastPlayer());
+        assertEquals(playerOne, record.whoPlayedMove(1));
     }
 }
