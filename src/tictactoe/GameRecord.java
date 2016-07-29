@@ -1,6 +1,7 @@
 package tictactoe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 
 /**
@@ -53,5 +54,14 @@ public class GameRecord {
             }
         }
         return null;
+    }
+
+    public ArrayList<Integer> getAllMoves() {
+        ArrayList<Integer> allMoves = new ArrayList<Integer>();
+        for (GamePlayer player : movesByPlayer.keySet()) {
+            allMoves.addAll(movesByPlayer.get(player));
+        }
+        Collections.sort(allMoves);
+        return allMoves;
     }
 }
