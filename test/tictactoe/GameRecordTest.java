@@ -18,7 +18,7 @@ public class GameRecordTest {
 
     @Before
     public void setUp() {
-        board = new GameBoard();
+        board = new GameBoard(3);
         record = new GameRecord(board);
         playerOne = new GamePlayer();
         playerTwo = new GamePlayer();

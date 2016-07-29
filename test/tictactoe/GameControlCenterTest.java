@@ -8,6 +8,7 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
+import java.util.LinkedList;
 
 public class GameControlCenterTest {
     private GameControlCenter game;
@@ -66,8 +67,37 @@ public class GameControlCenterTest {
         GamePlayer playerOne = game.getPlayer(1);
         game.updateMove(1, playerOne);
         game.analyzeBoard();
+        assertEquals("playing", game.getStatus());
         assertFalse(game.isWon());
         assertFalse(game.isTied());
+    }
+
+    private LinkedList<Integer> moveList(int... moves) {
+        LinkedList<Integer> moveList = new LinkedList<Integer>();
+        for (int move : moves) {
+            moveList.add(move);
+        }
+        return moveList;
+    }
+
+    private void simulateGame(GameControlCenter testGame, int...moves) {
+        LinkedList<Integer> moveList = moveList(moves);
+        int player = 1;
+        for (int move : moveList) {
+            game.updateMove(move, game.getPlayer(player));
+            player++;
+            if (player == 3) { player = 1; }
+        }
+    }
+
+    @Test
+    public void testAnalyzeTiedGame() {
+        game.setUp();
+        simulateGame(game, 4, 1, 5, 3, 6, 2, 0, 8, 7);
+        game.analyzeBoard();
+        assertEquals("tie", game.getStatus());
+        assertFalse(game.isWon());
+        assertTrue(game.isTied());
     }
 
 }

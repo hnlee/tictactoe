@@ -1,5 +1,6 @@
 package tictactoe;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -10,15 +11,18 @@ public class GameControlCenter {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;
+    private String status;
 
     GameControlCenter() {
         ui = new CommandLineUI();
+        status = "start";
     }
 
     public void setUp() {
         setPlayers();
         setBoard(3);
         setRecord();
+        status = "set up";
     }
 
     public void setUI() {
@@ -68,14 +72,33 @@ public class GameControlCenter {
         }
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void analyzeBoard() {
+        if (!status.equals("win")) {
+            ArrayList<Integer> spaces = board.getSpaces();
+            ArrayList<Integer> allMoves = record.getAllMoves();
+            if (allMoves.equals(spaces)) {
+                status = "tie";
+            } else {
+                status = "playing";
+            }
+        }
     }
 
     public boolean isWon() {
+        if (status.equals("win")) {
+            return true;
+        }
         return false;
     }
 
     public boolean isTied() {
+        if (status.equals("tie")) {
+            return true;
+        }
         return false;
     }
 
