@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class GameRecord {
     private ArrayList<Integer> moves;
     private GameBoard board;
+    private GamePlayer lastPlayer;
 
     GameRecord(GameBoard board) {
         this.board = board;
@@ -16,6 +17,7 @@ public class GameRecord {
 
     public void newMove(int move, GamePlayer player) {
         moves.add(move);
+        lastPlayer = player;
     }
 
     public int getLastMove() {
@@ -31,6 +33,9 @@ public class GameRecord {
             return false;
         }
         return true;
+    }
 
+    public GamePlayer getLastPlayer() {
+        return lastPlayer;
     }
 }

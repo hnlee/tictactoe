@@ -48,4 +48,10 @@ public class GameRecordTest {
         record.newMove(1, playerOne);
         assertEquals(1, record.getLastMove());
     }
+
+    @Test
+    public void testGetLastPlayer() {
+        record.newMove(1, playerOne);
+        assertEquals(playerOne, record.getLastPlayer());
+    }
 }
