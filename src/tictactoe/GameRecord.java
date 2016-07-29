@@ -14,7 +14,7 @@ public class GameRecord {
         this.moves = new ArrayList<Integer>();
     }
 
-    public void newMove(int move) {
+    public void newMove(int move, GamePlayer player) {
         moves.add(move);
     }
 

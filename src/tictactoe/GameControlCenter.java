@@ -62,9 +62,9 @@ public class GameControlCenter {
         return player.move();
     }
 
-    public void updateMove(int move) {
+    public void updateMove(int move, GamePlayer player) {
         if (record.isValidMove(move)) {
-            record.newMove(move);
+            record.newMove(move, player);
         }
     }
 

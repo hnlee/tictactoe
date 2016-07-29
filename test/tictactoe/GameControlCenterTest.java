@@ -41,8 +41,10 @@ public class GameControlCenterTest {
     public void testUpdateMove() {
         game.setUp();
         GameRecord record = game.getRecord();
-        game.updateMove(1);
-        game.updateMove(2);
+        GamePlayer playerOne = game.getPlayer(1);
+        GamePlayer playerTwo = game.getPlayer(2);
+        game.updateMove(1, playerOne);
+        game.updateMove(2, playerTwo);
         assertEquals(2, record.getLastMove());
     }
 
@@ -50,16 +52,19 @@ public class GameControlCenterTest {
     public void testInvalidMove() {
         game.setUp();
         GameRecord record = game.getRecord();
-        game.updateMove(2);
-        game.updateMove(1);
-        game.updateMove(2);
+        GamePlayer playerOne = game.getPlayer(1);
+        GamePlayer playerTwo = game.getPlayer(2);
+        game.updateMove(2, playerOne);
+        game.updateMove(1, playerTwo);
+        game.updateMove(2, playerOne);
         assertEquals(1, record.getLastMove());
     }
 
     @Test
     public void testAnalyzeGameInProgress() {
         game.setUp();
-        game.updateMove(1);
+        GamePlayer playerOne = game.getPlayer(1);
+        game.updateMove(1, playerOne);
         game.analyzeBoard();
         assertFalse(game.isWon());
         assertFalse(game.isTied());

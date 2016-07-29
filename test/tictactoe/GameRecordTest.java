@@ -11,16 +11,19 @@ public class GameRecordTest {
 
     private GameBoard board;
     private GameRecord record;
+    private GamePlayer playerOne;
+    private GamePlayer playerTwo;
 
     @Before
     public void setUp() {
         board = new GameBoard();
         record = new GameRecord(board);
+        playerOne = new GamePlayer();
     }
 
     @Test
     public void testNewMove() {
-        record.newMove(1);
+        record.newMove(1, playerOne);
         assertEquals(1, record.getLastMove());
     }
 
@@ -36,7 +39,7 @@ public class GameRecordTest {
 
     @Test
     public void testMoveInOccupiedSpace() {
-        record.newMove(1);
+        record.newMove(1, playerOne);
         assertFalse(record.isValidMove(1));
     }
 
