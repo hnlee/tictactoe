@@ -43,4 +43,9 @@ public class GameRecordTest {
         assertFalse(record.isValidMove(1));
     }
 
+    @Test
+    public void testGetLastMove() {
+        record.newMove(1, playerOne);
+        assertEquals(1, record.getLastMove());
+    }
 }
