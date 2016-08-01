@@ -103,6 +103,10 @@ public class GameControlCenterTest {
         game.setUp();
         simulateGame(game, 4, 1, 5, 3, 2, 8, 6);
         game.analyzeBoard();
+        assertEquals(true, game.isRowBlocked(new int[] {0, 1, 2}));
+        assertEquals(false, game.isRowBlocked(new int[] {2, 4, 6}));
+        assertEquals(2, game.getRowOccupancy(new int[] {0, 1, 2}));
+        assertEquals(3, game.getRowOccupancy(new int[] {2, 4, 6}));
         assertEquals("win", game.getStatus());
     }
 
