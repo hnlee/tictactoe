@@ -115,9 +115,24 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testUnblockedRow(){
+    public void testUnblockedRow() {
         game.setUp();
         simulateGame(game, 1, 3, 2);
         assertEquals(false, game.isRowBlocked(new int[] {0, 1, 2}));
     }
+
+    @Test
+    public void testZeroOccupiedRow() {
+        game.setUp();
+        assertEquals(0, game.getRowOccupancy(new int[] {0, 1, 2}));
+    }
+
+    @Test
+    public void testOneOccupiedRow() {
+        game.setUp();
+        simulateGame(game, 1);
+        assertEquals(1, game.getRowOccupancy(new int[] {0, 1, 2}));
+    }
+
+
 }

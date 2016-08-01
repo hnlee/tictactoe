@@ -104,16 +104,16 @@ public class GameControlCenter {
         }
         return false;
     }
-//
-//    public int getRowOccupancy(int[] row) {
-//        ArrayList<Integer> allMoves = record.getAllMoves();
-//        int occupancy = 0;
-//        for (int space : row) {
-//            if (allMoves.contains(space)) {
-//                occupancy++;
-//            }
-//        }
-//        return occupancy;
-//    }
+
+    public int getRowOccupancy(int[] row) {
+        ArrayList<Integer> allMoves = record.getAllMoves();
+        int occupancy = 0;
+        for (int space : row) {
+            if (allMoves.contains(space)) {
+                occupancy = 1;
+            }
+        }
+        return occupancy;
+    }
 
 }
