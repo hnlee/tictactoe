@@ -138,4 +138,5 @@ public class GameControlCenterTest {
         simulateGame(game, 4, 1, 5, 3, 2, 8, 6);
         assertEquals("win", game.analyzeBoard());
     }
+
 }
