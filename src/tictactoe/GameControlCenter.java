@@ -72,18 +72,18 @@ public class GameControlCenter {
         }
     }
 
-    public String getStatus() {
-        return status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
 
-    public void analyzeBoard() {
+    public String analyzeBoard() {
         ArrayList<Integer> allMoves = record.getAllMoves();
         ArrayList<Integer> spaces = board.getSpaces();
-        for (int[] row : board.getRows()) {
-            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
-                status = "win";
-            }
-        }
+//        for (int[] row : board.getRows()) {
+//            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
+//                status = "win";
+//            }
+//        }
         if (!status.equals("win")) {
             if (allMoves.equals(spaces)) {
                 status = "tie";
@@ -91,28 +91,29 @@ public class GameControlCenter {
                 status = "playing";
             }
         }
+        return status;
     }
 
-    public boolean isRowBlocked(int[] row) {
-        ArrayList<GamePlayer> playedBy = new ArrayList<GamePlayer>();
-        for (int space : row) {
-            playedBy.add(record.whoPlayedMove(space));
-        }
-        if (playedBy.contains(playerOne) && playedBy.contains(playerTwo)) {
-            return true;
-        }
-        return false;
-    }
-
-    public int getRowOccupancy(int[] row) {
-        ArrayList<Integer> allMoves = record.getAllMoves();
-        int occupancy = 0;
-        for (int space : row) {
-            if (allMoves.contains(space)) {
-                occupancy++;
-            }
-        }
-        return occupancy;
-    }
+//    public boolean isRowBlocked(int[] row) {
+//        ArrayList<GamePlayer> playedBy = new ArrayList<GamePlayer>();
+//        for (int space : row) {
+//            playedBy.add(record.whoPlayedMove(space));
+//        }
+//        if (playedBy.contains(playerOne) && playedBy.contains(playerTwo)) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    public int getRowOccupancy(int[] row) {
+//        ArrayList<Integer> allMoves = record.getAllMoves();
+//        int occupancy = 0;
+//        for (int space : row) {
+//            if (allMoves.contains(space)) {
+//                occupancy++;
+//            }
+//        }
+//        return occupancy;
+//    }
 
 }
