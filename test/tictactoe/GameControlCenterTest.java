@@ -21,6 +21,7 @@ public class GameControlCenterTest {
     @Test
     public void testUIExists() {
         assertNotNull(game.getUI());
+        assertEquals("start", game.getStatus());
     }
 
     @Test
@@ -30,6 +31,7 @@ public class GameControlCenterTest {
         assertNotNull(game.getPlayer(1));
         assertNotNull(game.getPlayer(2));
         assertNotNull(game.getRecord());
+        assertEquals("ready", game.getStatus());
     }
 
     @Test
@@ -94,6 +96,14 @@ public class GameControlCenterTest {
         simulateGame(game, 4, 1, 5, 3, 6, 2, 0, 8, 7);
         game.analyzeBoard();
         assertEquals("tie", game.getStatus());
+    }
+
+    @Test
+    public void testAnalyzeWonGame() {
+        game.setUp();
+        simulateGame(game, 4, 1, 5, 3, 2, 8, 6);
+        game.analyzeBoard();
+        assertEquals("win", game.getStatus());
     }
 
 }

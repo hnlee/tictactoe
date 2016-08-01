@@ -22,7 +22,7 @@ public class GameControlCenter {
         setPlayers();
         setBoard(3);
         setRecord();
-        status = "set up";
+        status = "ready";
     }
 
     public void setUI() {
@@ -77,9 +77,23 @@ public class GameControlCenter {
     }
 
     public void analyzeBoard() {
+        int[][] rows = board.getRows();
+        ArrayList<Integer> spaces = board.getSpaces();
+        ArrayList<Integer> allMoves = record.getAllMoves();
+        for (int[] row : rows) {
+            HashSet<GamePlayer> playedBy = new HashSet<GamePlayer>();
+            if (!allMoves.containsAll(Arrays.asList(row))) {
+                break;
+            }
+            for (int space : row) {
+                playedBy.add(record.whoPlayedMove(space));
+            }
+            if (playedBy.size() == 1) {
+                status = "win";
+                break;
+            }
+        }
         if (!status.equals("win")) {
-            ArrayList<Integer> spaces = board.getSpaces();
-            ArrayList<Integer> allMoves = record.getAllMoves();
             if (allMoves.equals(spaces)) {
                 status = "tie";
             } else {
