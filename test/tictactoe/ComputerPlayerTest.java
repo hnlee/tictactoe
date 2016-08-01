@@ -1,5 +1,6 @@
 package tictactoe;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -10,11 +11,19 @@ import java.util.InputMismatchException;
  */
 public class ComputerPlayerTest {
 
+    private ComputerPlayer computer;
+    private GameBoard board;
+    private GameRecord record;
+
+    @Before
+    public void setUp() {
+        computer = new ComputerPlayer();
+        board = new GameBoard(3);
+        record = new GameRecord(board);
+    }
+
     @Test
     public void testGetEmptySpacesOnEmptyBoard() {
-        ComputerPlayer computer = new ComputerPlayer();
-        GameBoard board = new GameBoard(3);
-        GameRecord record = new GameRecord(board);
         ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
         for (int space = 0; space < 9; space++) {
             emptySpaces.add(space);
@@ -24,9 +33,6 @@ public class ComputerPlayerTest {
 
     @Test
     public void testGetEmptySpacesOnFullBoard() {
-        ComputerPlayer computer = new ComputerPlayer();
-        GameBoard board = new GameBoard(3);
-        GameRecord record = new GameRecord(board);
         for (int space = 0; space < 9; space++) {
             record.newMove(space, computer);
         }
