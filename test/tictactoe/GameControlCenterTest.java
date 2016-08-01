@@ -135,4 +135,10 @@ public class GameControlCenterTest {
     }
 
 
+    @Test
+    public void testTwoOccupiedRow() {
+        game.setUp();
+        simulateGame(game, 1, 2);
+        assertEquals(2, game.getRowOccupancy(new int[] {0, 1 ,2}));
+    }
 }

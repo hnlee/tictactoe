@@ -110,7 +110,7 @@ public class GameControlCenter {
         int occupancy = 0;
         for (int space : row) {
             if (allMoves.contains(space)) {
-                occupancy = 1;
+                occupancy++;
             }
         }
         return occupancy;
