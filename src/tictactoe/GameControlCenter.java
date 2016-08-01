@@ -79,11 +79,11 @@ public class GameControlCenter {
     public String analyzeBoard() {
         ArrayList<Integer> allMoves = record.getAllMoves();
         ArrayList<Integer> spaces = board.getSpaces();
-//        for (int[] row : board.getRows()) {
-//            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
-//                status = "win";
-//            }
-//        }
+        for (int[] row : board.getRows()) {
+            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
+                status = "win";
+            }
+        }
         if (!status.equals("win")) {
             if (allMoves.equals(spaces)) {
                 status = "tie";
