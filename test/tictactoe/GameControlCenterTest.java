@@ -68,8 +68,7 @@ public class GameControlCenterTest {
         game.setUp();
         GamePlayer playerOne = game.getPlayer(1);
         game.updateMove(1, playerOne);
-        game.analyzeBoard();
-        assertEquals("playing", game.getStatus());
+        assertEquals("playing", game.analyzeBoard());
     }
 
     private LinkedList<Integer> moveList(int... moves) {
@@ -108,5 +107,17 @@ public class GameControlCenterTest {
 //        game.analyzeBoard();
 //        assertEquals("win", game.getStatus());
 //    }
+    @Test
+    public void testBlockedRow() {
+        game.setUp();
+        simulateGame(game, 1, 2);
+        assertEquals(true, game.isRowBlocked(new int[] {0, 1, 2}));
+    }
 
+    @Test
+    public void testUnblockedRow(){
+        game.setUp();
+        simulateGame(game, 1, 3, 2);
+        assertEquals(false, game.isRowBlocked(new int[] {0, 1, 2}));
+    }
 }
