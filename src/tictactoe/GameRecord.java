@@ -17,10 +17,6 @@ public class GameRecord {
         this.movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
     }
 
-    public GameBoard getBoard() {
-        return board;
-    }
-
     public void newMove(int move, GamePlayer player) {
         lastPlayer = player;
         if (!movesByPlayer.containsKey(player)) {

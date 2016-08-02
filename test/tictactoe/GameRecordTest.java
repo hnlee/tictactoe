@@ -27,11 +27,6 @@ public class GameRecordTest {
     }
 
     @Test
-    public void testGetBoard() {
-        assertEquals(board, record.getBoard());
-    }
-
-    @Test
     public void testNewMove() {
         record.newMove(1, playerOne);
         assertEquals(1, record.getLastMove());
