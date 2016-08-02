@@ -14,12 +14,14 @@ public class ComputerPlayerTest {
     private ComputerPlayer computer;
     private GameBoard board;
     private GameRecord record;
+    private GamePlayer opponent;
 
     @Before
     public void setUp() {
         computer = new ComputerPlayer();
         board = new GameBoard(3);
         record = new GameRecord(board);
+        opponent = new GamePlayer();
     }
 
     @Test
@@ -39,4 +41,6 @@ public class ComputerPlayerTest {
         ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
         assertEquals(new ArrayList<Integer>(), computer.getEmptySpaces(record));
     }
+
+
 }
