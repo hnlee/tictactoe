@@ -82,4 +82,12 @@ public class GameBoardTest {
         int[][] rowsWithZero = new int[][] {{0, 1, 2}, {0, 3, 6}, {0, 4, 8}};
         assertArrayEquals(rowsWithZero, board.getRowsWithSpace(0));
     }
+
+    @Test
+    public void testGetRowsWithSpaceFour() {
+        GameBoard board = new GameBoard(3);
+        int[][] rowsWithFour = new int[][] {{3, 4, 5}, {1, 4, 7},
+                                            {0, 4, 8}, {2, 4, 6}};
+        assertArrayEquals(rowsWithFour, board.getRowsWithSpace(4));
+    }
 }
