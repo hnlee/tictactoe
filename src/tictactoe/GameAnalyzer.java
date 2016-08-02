@@ -43,6 +43,10 @@ public class GameAnalyzer {
         return occupancy;
     }
 
+    public boolean isGameTied() {
+        return true;
+    }
+
     public int scoreMinMax(int move) {
         if (move == 8) {
             return 1;

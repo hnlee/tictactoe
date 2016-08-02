@@ -58,6 +58,13 @@ public class GameAnalyzerTest {
     }
 
     @Test
+    public void testDetectTieInTiedGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               4, 1, 5, 3, 6, 2, 0, 8, 7);
+        assertTrue(analyzer.isGameTied());
+    }
+
+    @Test
     public void testScoreOneEmptySpaceDraw() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                                4, 1, 5, 3, 6, 2, 0, 8);
