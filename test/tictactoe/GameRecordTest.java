@@ -68,4 +68,24 @@ public class GameRecordTest {
         Collections.sort(allMoves);
         assertEquals(allMoves, record.getAllMoves());
     }
+
+    @Test
+    public void testGetLastPlayerAfterZeroMoves() {
+        assertNull(record.getLastPlayer());
+    }
+
+    @Test
+    public void testGetLastPlayerAfterOneMove() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               1);
+        assertEquals(playerOne, record.getLastPlayer());
+    }
+
+    @Test
+    public void testGetLastPlayerAfterTwoMoves() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               1, 2);
+        assertEquals(playerTwo, record.getLastPlayer());
+    }
+
 }
