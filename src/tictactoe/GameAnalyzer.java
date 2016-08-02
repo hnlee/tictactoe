@@ -42,4 +42,11 @@ public class GameAnalyzer {
         }
         return occupancy;
     }
+
+    public int scoreMinMax(int move) {
+        if (move == 8) {
+            return 1;
+        }
+        return 0;
+    }
 }

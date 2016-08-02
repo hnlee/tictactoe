@@ -28,33 +28,15 @@ public class GameAnalyzerTest {
         assertNotNull(analyzer);
     }
 
-    private void simulateGame(int... moves) {
-        for (int move : moves) {
-            GamePlayer[] order = new GamePlayer[2];
-            if (moves.length % 2 == 0) {
-                order[0] = playerOne;
-                order[1] = playerTwo;
-            } else {
-                order[0] = playerTwo;
-                order[1] = playerOne;
-            }
-            if (record.getAllMoves().size() % 2 == 0) {
-                record.newMove(move, order[0]);
-            } else {
-                record.newMove(move, order[1]);
-            }
-        }
-    }
-
     @Test
     public void testBlockedRow() {
-        simulateGame(1, 2);
+        Simulator.simulateGame(playerOne, playerTwo, record, 1, 2);
         assertEquals(true, analyzer.isRowBlocked(new int[] {0, 1, 2}));
     }
 
     @Test
     public void testUnblockedRow() {
-        simulateGame(1, 3, 2);
+        Simulator.simulateGame(playerOne, playerTwo, record, 1, 3, 2);
         assertEquals(false, analyzer.isRowBlocked(new int[] {0, 1, 2}));
     }
 
@@ -65,26 +47,28 @@ public class GameAnalyzerTest {
 
     @Test
     public void testOneOccupiedRow() {
-        simulateGame(1);
+        Simulator.simulateGame(playerOne, playerTwo, record, 1);
         assertEquals(1, analyzer.getRowOccupancy(new int[] {0, 1, 2}));
     }
 
     @Test
     public void testTwoOccupiedRow() {
-        simulateGame(1, 2);
+        Simulator.simulateGame(playerOne, playerTwo, record, 1, 2);
         assertEquals(2, analyzer.getRowOccupancy(new int[] {0, 1 ,2}));
     }
 
     @Test
     public void testScoreOneEmptySpaceDraw() {
-        simulateGame(4, 1, 5, 3, 6, 2, 0, 8);
-        assertEquals(0, computer.scoreMinMax(7, record));
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               4, 1, 5, 3, 6, 2, 0, 8);
+        assertEquals(0, analyzer.scoreMinMax(7));
     }
 
     @Test
     public void testScoreOneEmptySpaceWin() {
-        simulateGame(4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, computer.scoreMinMax(8, record));
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               4, 1, 5, 3, 6, 2, 0, 7);
+        assertEquals(1, analyzer.scoreMinMax(8));
     }
 
 }
