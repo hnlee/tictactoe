@@ -58,10 +58,45 @@ public class GameAnalyzerTest {
     }
 
     @Test
-    public void testDetectTieInTiedGame() {
+    public void testIsWinInWonGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               4, 1, 5, 3, 6, 2, 0, 7, 8);
+        assertTrue(analyzer.isGameWon());
+    }
+
+    @Test
+    public void testIsNotWinInTiedGame() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                                4, 1, 5, 3, 6, 2, 0, 8, 7);
+        assertFalse(analyzer.isGameWon());
+    }
+
+    @Test
+    public void testIsNotWinInUnfinishedGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               4, 1, 5, 3, 6, 2, 0);
+        assertFalse(analyzer.isGameWon());
+    }
+
+    @Test
+    public void testIsTieInTiedGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 0, 8, 7);
         assertTrue(analyzer.isGameTied());
+    }
+
+    @Test
+    public void testIsNotTieInWonGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 0, 7, 8);
+        assertFalse(analyzer.isGameTied());
+    }
+
+    @Test
+    public void testIsNotTieInUnfinishedGame() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 0);
+        assertFalse(analyzer.isGameWon());
     }
 
     @Test

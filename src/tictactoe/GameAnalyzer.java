@@ -43,8 +43,22 @@ public class GameAnalyzer {
         return occupancy;
     }
 
+    public boolean isGameWon() {
+        for (int[] row : board.getRows()) {
+            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isGameTied() {
-        return true;
+        ArrayList<Integer> allSpaces = board.getSpaces();
+        ArrayList<Integer> allMoves = record.getAllMoves();
+        if (allSpaces.equals(allMoves)) {
+            return !isGameWon();
+        }
+        return false;
     }
 
     public int scoreMinMax(int move) {
