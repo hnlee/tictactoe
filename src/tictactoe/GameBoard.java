@@ -1,6 +1,5 @@
 package tictactoe;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,4 +64,24 @@ public class GameBoard {
     public int[][] getRows() {
         return rows;
     }
+
+    public boolean isSpaceInRow(int space, int[] row) {
+        for (int rowSpace : row) {
+            if (space == rowSpace) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int[][] getRowsWithSpace(int space) {
+        ArrayList<int[]> rowsWithSpace = new ArrayList<int[]>();
+        for (int[] row : rows) {
+            if (isSpaceInRow(space, row)) {
+                rowsWithSpace.add(row);
+            }
+        }
+        return rowsWithSpace.toArray(new int[rowsWithSpace.size()][numRows]);
+    }
+
 }

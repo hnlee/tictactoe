@@ -3,9 +3,6 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-
 public class GameBoardTest {
 
     @Test
@@ -58,5 +55,31 @@ public class GameBoardTest {
                 {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
                 {0, 4, 8}, {2, 4, 6}};
         assertArrayEquals(rows, board.getRows());
+    }
+
+    @Test
+    public void testSpaceInRow() {
+        GameBoard board = new GameBoard(3);
+        assertTrue(board.isSpaceInRow(0, new int[] {0, 1, 2}));
+    }
+
+    @Test
+    public void testSpaceNotInRow() {
+        GameBoard board = new GameBoard(3);
+        assertFalse(board.isSpaceInRow(0, new int[] {3, 4, 5}));
+    }
+
+    @Test
+    public void testGetRowsWithSpaceOne() {
+        GameBoard board = new GameBoard(3);
+        int[][] rowsWithOne = new int[][] {{0, 1, 2}, {1, 4, 7}};
+        assertArrayEquals(rowsWithOne, board.getRowsWithSpace(1));
+    }
+
+    @Test
+    public void testGetRowsWithSpaceZero() {
+        GameBoard board = new GameBoard(3);
+        int[][] rowsWithZero = new int[][] {{0, 1, 2}, {0, 3, 6}, {0, 4, 8}};
+        assertArrayEquals(rowsWithZero, board.getRowsWithSpace(0));
     }
 }
