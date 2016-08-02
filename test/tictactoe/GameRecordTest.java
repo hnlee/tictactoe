@@ -3,8 +3,9 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
+
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Hashtable;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -86,6 +87,19 @@ public class GameRecordTest {
         Simulator.simulateGame(playerOne, playerTwo, record,
                                1, 2);
         assertEquals(playerTwo, record.getLastPlayer());
+    }
+
+    @Test
+    public void testGetMovesByPlayer() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                               1, 2);
+        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
+        movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
+        movesByPlayer.put(playerOne, new ArrayList<Integer>());
+        movesByPlayer.put(playerTwo, new ArrayList<Integer>());
+        movesByPlayer.get(playerOne).add(1);
+        movesByPlayer.get(playerTwo).add(2);
+        assertEquals(movesByPlayer, record.getMovesByPlayer());
     }
 
 }
