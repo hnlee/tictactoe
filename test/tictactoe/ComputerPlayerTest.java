@@ -24,23 +24,4 @@ public class ComputerPlayerTest {
         opponent = new GamePlayer();
     }
 
-    @Test
-    public void testGetEmptySpacesOnEmptyBoard() {
-        ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
-        for (int space = 0; space < 9; space++) {
-            emptySpaces.add(space);
-        }
-        assertEquals(emptySpaces, computer.getEmptySpaces(record));
-    }
-
-    @Test
-    public void testGetEmptySpacesOnFullBoard() {
-        for (int space = 0; space < 9; space++) {
-            record.newMove(space, computer);
-        }
-        ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
-        assertEquals(new ArrayList<Integer>(), computer.getEmptySpaces(record));
-    }
-
-
 }
