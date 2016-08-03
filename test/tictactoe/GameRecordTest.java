@@ -98,4 +98,27 @@ public class GameRecordTest {
         assertEquals(movesByPlayer, record.getMovesByPlayer());
     }
 
+    @Test
+    public void testCopyRecord() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                1, 2);
+        GameRecord newRecord = record.copyRecord();
+        assertNotEquals(newRecord, record);
+        assertEquals(newRecord.getMovesByPlayer().keySet(),
+                     record.getMovesByPlayer().keySet());
+    }
+
+    @Test
+    public void testAddNewMoveToCopy() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                1, 2);
+        GameRecord newRecord = record.copyRecord();
+        assertEquals(newRecord.getMovesByPlayer().get(playerOne),
+                     record.getMovesByPlayer().get(playerOne));
+        newRecord.newMove(0, playerOne);
+        assertNotEquals(newRecord.getMovesByPlayer().get(playerOne),
+                        record.getMovesByPlayer().get(playerOne));
+        assertEquals(2, newRecord.getMovesByPlayer().get(playerOne).size());
+        assertEquals(1, record.getMovesByPlayer().get(playerOne).size());
+    }
 }

@@ -68,4 +68,14 @@ public class GameRecord {
     public Hashtable<GamePlayer, ArrayList<Integer>> getMovesByPlayer() {
         return movesByPlayer;
     }
+
+    public GameRecord copyRecord() {
+        GameRecord copy = new GameRecord(board);
+        Hashtable<GamePlayer,
+                  ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();
+        for (GamePlayer player : movesByPlayer.keySet()) {
+            copyMoves.put(player, (ArrayList<Integer>) movesByPlayer.get(player).clone());
+        }
+        return copy;
+    }
 }
