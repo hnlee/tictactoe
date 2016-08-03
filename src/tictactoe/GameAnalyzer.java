@@ -1,6 +1,7 @@
 package tictactoe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by hanalee on 8/2/16.
@@ -52,8 +53,8 @@ public class GameAnalyzer {
     public boolean isGameTied(GameRecord record) {
         ArrayList<Integer> allSpaces = board.getSpaces();
         ArrayList<Integer> allMoves = record.getAllMoves();
-        if (allSpaces.equals(allMoves)) {
-            return !isGameWon(record);
+        if (allSpaces.equals(allMoves) && !isGameWon(record)) {
+            return true;
         }
         return false;
     }
@@ -80,34 +81,29 @@ public class GameAnalyzer {
         return nextPlayer;
     }
 
-    public float scoreMove(GameRecord nextGameState,
-                           int move) {
+    public int scoreMove(GameRecord nextGameState,
+                         int move) {
         GamePlayer nextPlayer = getNextPlayer(nextGameState);
         nextGameState.newMove(move, nextPlayer);
-        float score = 0.0f;
+        int score;
         if (isGameWon(nextGameState)) {
-            score = 1.0f;
+            return 1;
         } else if (isGameTied(nextGameState)) {
-            score = 0.0f;
+            return 0;
         } else {
-            float opponentScore = minMaxScore(nextGameState);
-            ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
-            score = -opponentScore;
+            ArrayList<Integer> opponentScores = scoreNextMoves(nextGameState);
+            return Collections.max(opponentScores);
         }
-        return score;
     }
 
-    public float minMaxScore(GameRecord record) {
-        GameRecord nextGameState = record.copyRecord();
-        ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
-        float maxScore = 0.0f;
+    public ArrayList<Integer> scoreNextMoves(GameRecord record) {
+        ArrayList<Integer> emptySpaces = getEmptySpaces(record);
+        ArrayList<Integer> scores = new ArrayList<Integer>();
         for (int emptySpace : emptySpaces) {
-            float score = scoreMove(nextGameState, emptySpace);
-            if (maxScore < score) {
-                maxScore = score;
-            }
+            GameRecord nextGameState = record.copyRecord();
+            scores.add(-1 * scoreMove(nextGameState, emptySpace));
         }
-        return maxScore;
+        return scores;
     }
 
 }
