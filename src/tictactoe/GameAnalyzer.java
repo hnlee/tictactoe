@@ -69,7 +69,13 @@ public class GameAnalyzer {
         nextGameState.newMove(move, nextPlayer);
         if (isGameWon(nextGameState)) {
             return 1;
+        } else {
+            int opponentScore = scoreMinMax(nextGameState, 8);
+            if (opponentScore == 1) {
+                return -opponentScore;
+            } else {
+                return 0;
+            }
         }
-        return 0;
     }
 }

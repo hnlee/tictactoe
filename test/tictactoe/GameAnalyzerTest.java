@@ -32,20 +32,20 @@ public class GameAnalyzerTest {
     public void testBlockedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1, 2);
         assertEquals(true, analyzer.isRowBlocked(record,
-                                                 new int[] {0, 1, 2}));
+                new int[] {0, 1, 2}));
     }
 
     @Test
     public void testUnblockedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1, 3, 2);
         assertEquals(false, analyzer.isRowBlocked(record,
-                                                  new int[] {0, 1, 2}));
+                new int[] {0, 1, 2}));
     }
 
     @Test
     public void testZeroOccupiedRow() {
         assertEquals(0, analyzer.getRowOccupancy(record,
-                                                 new int[] {0, 1, 2}));
+                new int[] {0, 1, 2}));
     }
 
     @Test
@@ -65,21 +65,21 @@ public class GameAnalyzerTest {
     @Test
     public void testIsWinInWonGame() {
         Simulator.simulateGame(playerOne, playerTwo, record,
-                               4, 1, 5, 3, 6, 2, 0, 7, 8);
+                4, 1, 5, 3, 6, 2, 0, 7, 8);
         assertTrue(analyzer.isGameWon(record));
     }
 
     @Test
     public void testIsNotWinInTiedGame() {
         Simulator.simulateGame(playerOne, playerTwo, record,
-                               4, 1, 5, 3, 6, 2, 0, 8, 7);
+                4, 1, 5, 3, 6, 2, 0, 8, 7);
         assertFalse(analyzer.isGameWon(record));
     }
 
     @Test
     public void testIsNotWinInUnfinishedGame() {
         Simulator.simulateGame(playerOne, playerTwo, record,
-                               4, 1, 5, 3, 6, 2, 0);
+                4, 1, 5, 3, 6, 2, 0);
         assertFalse(analyzer.isGameWon(record));
     }
 
@@ -107,14 +107,14 @@ public class GameAnalyzerTest {
     @Test
     public void testScoreTyingSpace() {
         Simulator.simulateGame(playerOne, playerTwo, record,
-                               4, 1, 5, 3, 6, 2, 0, 8);
+                4, 1, 5, 3, 6, 2, 0, 8);
         assertEquals(0, analyzer.scoreMinMax(record, 7));
     }
 
     @Test
     public void testScoreWinningSpace() {
         Simulator.simulateGame(playerOne, playerTwo, record,
-                               4, 1, 5, 3, 6, 2, 0, 7);
+                4, 1, 5, 3, 6, 2, 0, 7);
         assertEquals(1, analyzer.scoreMinMax(record, 8));
     }
 
@@ -125,5 +125,10 @@ public class GameAnalyzerTest {
         assertEquals(1, analyzer.scoreMinMax(record, 8));
     }
 
-
+    @Test
+    public void testScoreLosingSpace() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 0);
+        assertEquals(-1, analyzer.scoreMinMax(record, 7));
+    }
 }
