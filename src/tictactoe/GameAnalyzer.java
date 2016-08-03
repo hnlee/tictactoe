@@ -9,19 +9,16 @@ public class GameAnalyzer {
     private GameBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
-    private GameRecord record;
 
     GameAnalyzer(GameBoard board,
                  GamePlayer playerOne,
-                 GamePlayer playerTwo,
-                 GameRecord record) {
+                 GamePlayer playerTwo) {
         this.board = board;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
-        this.record = record;
     }
 
-    public boolean isRowBlocked(int[] row) {
+    public boolean isRowBlocked(GameRecord record, int[] row) {
         ArrayList<GamePlayer> playedBy = new ArrayList<GamePlayer>();
         for (int space : row) {
             playedBy.add(record.whoPlayedMove(space));
@@ -32,7 +29,7 @@ public class GameAnalyzer {
         return false;
     }
 
-    public int getRowOccupancy(int[] row) {
+    public int getRowOccupancy(GameRecord record, int[] row) {
         ArrayList<Integer> allMoves = record.getAllMoves();
         int occupancy = 0;
         for (int space : row) {
@@ -43,26 +40,34 @@ public class GameAnalyzer {
         return occupancy;
     }
 
-    public boolean isGameWon() {
+    public boolean isGameWon(GameRecord record) {
         for (int[] row : board.getRows()) {
-            if (getRowOccupancy(row) == 3 && !isRowBlocked(row)) {
+            if (getRowOccupancy(record, row) == 3 && !isRowBlocked(record, row)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isGameTied() {
+    public boolean isGameTied(GameRecord record) {
         ArrayList<Integer> allSpaces = board.getSpaces();
         ArrayList<Integer> allMoves = record.getAllMoves();
         if (allSpaces.equals(allMoves)) {
-            return !isGameWon();
+            return !isGameWon(record);
         }
         return false;
     }
 
-    public int scoreMinMax(int move) {
-        if (move == 8) {
+    public int scoreMinMax(GameRecord record, int move) {
+        GameRecord nextGameState = record.copyRecord();
+        GamePlayer nextPlayer;
+        if (playerOne == record.getLastPlayer()) {
+            nextPlayer = playerTwo;
+        } else {
+            nextPlayer = playerOne;
+        }
+        nextGameState.newMove(move, nextPlayer);
+        if (isGameWon(nextGameState)) {
             return 1;
         }
         return 0;
