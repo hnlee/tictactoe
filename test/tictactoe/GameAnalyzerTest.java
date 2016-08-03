@@ -157,4 +157,19 @@ public class GameAnalyzerTest {
         emptySpaces.add(7);
         assertEquals(emptySpaces, analyzer.getEmptySpaces(record));
     }
+
+    @Test
+    public void testScoreWinningSpaceAfterFourMoves() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 0);
+        assertEquals(1, analyzer.scoreMinMax(record, 3));
+    }
+
+    @Test
+    public void testScoreLosingSpaceAfterThreeMoves() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5);
+        assertEquals(-1, analyzer.scoreMinMax(record, 0));
+    }
+
 }

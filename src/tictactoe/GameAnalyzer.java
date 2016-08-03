@@ -85,8 +85,13 @@ public class GameAnalyzer {
             return 0;
         } else {
             ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
-            int emptySpace = emptySpaces.get(0);
-            int opponentScore = scoreMinMax(nextGameState, emptySpace);
+            int opponentScore = 0;
+            for (int emptySpace : emptySpaces) {
+                opponentScore = scoreMinMax(nextGameState, emptySpace);
+                if (opponentScore == 1) {
+                    break;
+                }
+            }
             return -opponentScore;
         }
     }
