@@ -70,29 +70,44 @@ public class GameAnalyzer {
         return emptySpaces;
     }
 
-    public int scoreMinMax(GameRecord record, int move) {
-        GameRecord nextGameState = record.copyRecord();
+    public GamePlayer getNextPlayer(GameRecord record) {
         GamePlayer nextPlayer;
         if (playerOne == record.getLastPlayer()) {
             nextPlayer = playerTwo;
         } else {
             nextPlayer = playerOne;
         }
-        nextGameState.newMove(move, nextPlayer);
-        if (isGameWon(nextGameState)) {
-            return 1;
-        } else if (isGameTied(nextGameState)) {
-            return 0;
-        } else {
-            ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
-            int opponentScore = 0;
-            for (int emptySpace : emptySpaces) {
-                opponentScore = scoreMinMax(nextGameState, emptySpace);
-                if (opponentScore == 1) {
-                    break;
-                }
-            }
-            return -opponentScore;
-        }
+        return nextPlayer;
     }
+
+    public float scoreMove(GameRecord nextGameState,
+                           int move) {
+        GamePlayer nextPlayer = getNextPlayer(nextGameState);
+        nextGameState.newMove(move, nextPlayer);
+        float score = 0.0f;
+        if (isGameWon(nextGameState)) {
+            score = 1.0f;
+        } else if (isGameTied(nextGameState)) {
+            score = 0.0f;
+        } else {
+            float opponentScore = minMaxScore(nextGameState);
+            ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
+            score = -opponentScore;
+        }
+        return score;
+    }
+
+    public float minMaxScore(GameRecord record) {
+        GameRecord nextGameState = record.copyRecord();
+        ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
+        float maxScore = 0.0f;
+        for (int emptySpace : emptySpaces) {
+            float score = scoreMove(nextGameState, emptySpace);
+            if (maxScore < score) {
+                maxScore = score;
+            }
+        }
+        return maxScore;
+    }
+
 }

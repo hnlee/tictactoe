@@ -111,42 +111,50 @@ public class GameAnalyzerTest {
     public void testScoreTyingSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 8);
-        assertEquals(0, analyzer.scoreMinMax(record, 7));
+        assertEquals(0, analyzer.scoreMove(record, 7), 0.0f);
     }
 
     @Test
     public void testScoreWinningSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, analyzer.scoreMinMax(record, 8));
+        assertEquals(1, analyzer.scoreMove(record, 8), 0.0f);
     }
 
     @Test
     public void testScoreWinningSpaceWithReversePlayerOrder() {
         Simulator.simulateGame(playerTwo, playerOne, record,
                 4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, analyzer.scoreMinMax(record, 8));
+        assertEquals(1, analyzer.scoreMove(record, 8), 0.0f);
+    }
+
+    @Test
+    public void testGetNextPlayer() {
+        Simulator.simulateGame(playerOne, playerTwo, record, 1);
+        assertEquals(playerTwo, analyzer.getNextPlayer(record));
+        record.newMove(2, playerTwo);
+        assertEquals(playerOne, analyzer.getNextPlayer(record));
     }
 
     @Test
     public void testScoreLosingSpace() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0);
-        assertEquals(-1, analyzer.scoreMinMax(record, 7));
+        assertEquals(-1, analyzer.scoreMove(record, 7), 0.0f);
     }
 
     @Test
     public void testScoreWinningSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(1, analyzer.scoreMinMax(record, 0));
+        assertEquals(1, analyzer.scoreMove(record, 0), 0.0f);
     }
 
     @Test
     public void testScoreTyingSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(0, analyzer.scoreMinMax(record, 8));
+        assertEquals(0, analyzer.scoreMove(record, 8), 0.0f);
     }
 
     @Test
@@ -162,14 +170,28 @@ public class GameAnalyzerTest {
     public void testScoreWinningSpaceAfterFourMoves() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 0);
-        assertEquals(1, analyzer.scoreMinMax(record, 3));
+        assertEquals(1, analyzer.scoreMove(record, 3), 0.0f);
     }
 
     @Test
     public void testScoreLosingSpaceAfterThreeMoves() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5);
-        assertEquals(-1, analyzer.scoreMinMax(record, 0));
+        assertEquals(-1, analyzer.scoreMove(record, 0), 0.0f);
+    }
+
+    @Test
+    public void testScoreForkingSpace() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 7);
+        assertEquals(1, analyzer.scoreMove(record, 0, playerTwo), 0.0f);
+    }
+
+    @Test
+    public void testScoreBadButNotLosingMove() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 7);
+        assertEquals(0, analyzer.scoreMove(record, 2, playerTwo), 0.0f);
     }
 
 }
