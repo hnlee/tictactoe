@@ -2,6 +2,9 @@ package tictactoe;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
@@ -105,14 +108,14 @@ public class GameAnalyzerTest {
     }
 
     @Test
-    public void testScoreTyingSpace() {
+    public void testScoreTyingSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 8);
         assertEquals(0, analyzer.scoreMinMax(record, 7));
     }
 
     @Test
-    public void testScoreWinningSpace() {
+    public void testScoreWinningSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 7);
         assertEquals(1, analyzer.scoreMinMax(record, 8));
@@ -130,5 +133,28 @@ public class GameAnalyzerTest {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0);
         assertEquals(-1, analyzer.scoreMinMax(record, 7));
+    }
+
+    @Test
+    public void testScoreWinningSpaceWithTwoMovesLeft() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 7);
+        assertEquals(1, analyzer.scoreMinMax(record, 0));
+    }
+
+    @Test
+    public void testScoreTyingSpaceWithTwoMovesLeft() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 7);
+        assertEquals(0, analyzer.scoreMinMax(record, 8));
+    }
+
+    @Test
+    public void testGetEmptySpacesOnBoard() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6, 2, 0, 8);
+        ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
+        emptySpaces.add(7);
+        assertEquals(emptySpaces, analyzer.getEmptySpaces(record));
     }
 }

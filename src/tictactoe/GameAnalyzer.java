@@ -58,6 +58,18 @@ public class GameAnalyzer {
         return false;
     }
 
+    public ArrayList<Integer> getEmptySpaces(GameRecord record) {
+        ArrayList<Integer> allSpaces = board.getSpaces();
+        ArrayList<Integer> allMoves = record.getAllMoves();
+        ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
+        for (int space : allSpaces) {
+            if (!allMoves.contains(space)) {
+                emptySpaces.add(space);
+            }
+        }
+        return emptySpaces;
+    }
+
     public int scoreMinMax(GameRecord record, int move) {
         GameRecord nextGameState = record.copyRecord();
         GamePlayer nextPlayer;
@@ -69,13 +81,13 @@ public class GameAnalyzer {
         nextGameState.newMove(move, nextPlayer);
         if (isGameWon(nextGameState)) {
             return 1;
+        } else if (isGameTied(nextGameState)) {
+            return 0;
         } else {
-            int opponentScore = scoreMinMax(nextGameState, 8);
-            if (opponentScore == 1) {
-                return -opponentScore;
-            } else {
-                return 0;
-            }
+            ArrayList<Integer> emptySpaces = getEmptySpaces(nextGameState);
+            int emptySpace = emptySpaces.get(0);
+            int opponentScore = scoreMinMax(nextGameState, emptySpace);
+            return -opponentScore;
         }
     }
 }
