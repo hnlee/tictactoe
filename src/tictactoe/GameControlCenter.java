@@ -55,7 +55,10 @@ public class GameControlCenter {
     public GameAnalyzer getAnalyzer() { return analyzer; }
 
     public int getMove(GamePlayer player) {
-        return player.move(analyzer, record);
+        if (player instanceof ComputerPlayer) {
+            return player.move(analyzer, record);
+        }
+        return player.move();
     }
 
     public void updateMove(int move, GamePlayer player) {
