@@ -193,4 +193,27 @@ public class GameAnalyzerTest {
         assertEquals(scores, analyzer.scoreNextMoves(record));
     }
 
+    @Test
+    public void testForkingMove() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 7);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
+        scores.put(0, 1);
+        scores.put(2, 0);
+        scores.put(6, 0);
+        scores.put(8, 0);
+        assertEquals(scores, analyzer.scoreNextMoves(record));
+    }
+
+    @Test
+    public void testBlockForkingMove() {
+        Simulator.simulateGame(playerOne, playerTwo, record,
+                4, 1, 5, 3, 6);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
+        scores.put(0, -1);
+        scores.put(2, 0);
+        scores.put(7, -1);
+        scores.put(8, -1);
+        assertEquals(scores, analyzer.scoreNextMoves(record));
+    }
 }
