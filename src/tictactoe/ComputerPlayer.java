@@ -19,11 +19,10 @@ public class ComputerPlayer extends GamePlayer {
                 bestMoves.add(nextMove);
             }
         }
-        int index = 0;
-        if (bestMoves.size() > 1) {
-            Random random = new Random();
-            index = random.nextInt(bestMoves.size());
+        if (bestMoves.size() == 1) {
+            return bestMoves.get(0);
         }
-        return bestMoves.get(index);
+        Random random = new Random();
+        return bestMoves.get(random.nextInt(bestMoves.size()));
     }
 }
