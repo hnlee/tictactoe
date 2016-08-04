@@ -25,7 +25,7 @@ public class GameAnalyzerTest {
         playerOne = new GamePlayer();
         playerTwo = new GamePlayer();
         record = new GameRecord(board);
-        analyzer = new GameAnalyzer(board, playerOne, playerTwo);
+        analyzer = new GameAnalyzer(playerOne, playerTwo);
     }
 
     @Test

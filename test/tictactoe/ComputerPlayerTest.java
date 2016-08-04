@@ -24,4 +24,11 @@ public class ComputerPlayerTest {
         opponent = new GamePlayer();
     }
 
+    @Test
+    public void testMakeWinningMove() {
+        Simulator.simulateGame(opponent, computer, record,
+                4, 1, 5, 2);
+        assertEquals(3, computer.move());
+    }
+
 }

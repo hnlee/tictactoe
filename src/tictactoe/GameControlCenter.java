@@ -23,9 +23,7 @@ public class GameControlCenter {
         setPlayers();
         board = new GameBoard(numRows);
         record = new GameRecord(getBoard());
-        analyzer = new GameAnalyzer(board,
-                playerOne,
-                playerTwo);
+        analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
     }
 

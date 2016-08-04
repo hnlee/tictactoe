@@ -8,14 +8,11 @@ import java.util.Hashtable;
  * Created by hanalee on 8/2/16.
  */
 public class GameAnalyzer {
-    private GameBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
-    GameAnalyzer(GameBoard board,
-                 GamePlayer playerOne,
+    GameAnalyzer(GamePlayer playerOne,
                  GamePlayer playerTwo) {
-        this.board = board;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
     }
@@ -44,7 +41,7 @@ public class GameAnalyzer {
     }
 
     public boolean isGameWon(GameRecord record) {
-        for (int[] row : board.getRows()) {
+        for (int[] row : record.getBoard().getRows()) {
             if (getRowOccupancy(record, row) == 3 &&
                     getRowPlayers(record, row).size() == 1) {
                 return true;
@@ -54,7 +51,7 @@ public class GameAnalyzer {
     }
 
     public boolean isGameTied(GameRecord record) {
-        ArrayList<Integer> allSpaces = board.getSpaces();
+        ArrayList<Integer> allSpaces = record.getBoard().getSpaces();
         ArrayList<Integer> allMoves = record.getAllMoves();
         if (allSpaces.equals(allMoves) && !isGameWon(record)) {
             return true;
@@ -63,7 +60,7 @@ public class GameAnalyzer {
     }
 
     public ArrayList<Integer> getEmptySpaces(GameRecord record) {
-        ArrayList<Integer> allSpaces = board.getSpaces();
+        ArrayList<Integer> allSpaces = record.getBoard().getSpaces();
         ArrayList<Integer> allMoves = record.getAllMoves();
         ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
         for (int space : allSpaces) {
