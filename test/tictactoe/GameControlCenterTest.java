@@ -8,7 +8,6 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
-import java.util.LinkedList;
 
 public class GameControlCenterTest {
     private GameControlCenter game;
@@ -26,7 +25,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testSetUpGame() {
-        game.setUp();
+        game.setUp(3);
         assertNotNull(game.getBoard());
         assertNotNull(game.getPlayer(1));
         assertNotNull(game.getPlayer(2));
@@ -36,13 +35,13 @@ public class GameControlCenterTest {
 
     @Test
     public void testGetMove() {
-        game.setUp();
+        game.setUp(3);
         assertEquals(3, game.getMove(game.getPlayer(1)));
     }
 
     @Test
     public void testUpdateMove() {
-        game.setUp();
+        game.setUp(3);
         GameRecord record = game.getRecord();
         GamePlayer playerOne = game.getPlayer(1);
         GamePlayer playerTwo = game.getPlayer(2);
@@ -53,7 +52,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testInvalidMove() {
-        game.setUp();
+        game.setUp(3);
         GameRecord record = game.getRecord();
         GamePlayer playerOne = game.getPlayer(1);
         GamePlayer playerTwo = game.getPlayer(2);
@@ -65,7 +64,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeGameInProgress() {
-        game.setUp();
+        game.setUp(3);
         GamePlayer playerOne = game.getPlayer(1);
         game.updateMove(1, playerOne);
         assertEquals("playing", game.analyzeBoard());
@@ -73,7 +72,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeTiedGame() {
-        game.setUp();
+        game.setUp(3);
         Simulator.simulateGame(game.getPlayer(1),
                 game.getPlayer(2),
                 game.getRecord(),
@@ -83,7 +82,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeWonGame() {
-        game.setUp();
+        game.setUp(3);
         Simulator.simulateGame(game.getPlayer(1),
                 game.getPlayer(2),
                 game.getRecord(),

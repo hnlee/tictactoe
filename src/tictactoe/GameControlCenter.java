@@ -11,6 +11,7 @@ public class GameControlCenter {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;
+    private GameAnalyzer analyzer;
     private String status;
 
     GameControlCenter() {
@@ -18,23 +19,18 @@ public class GameControlCenter {
         status = "start";
     }
 
-    public void setUp() {
+    public void setUp(int numRows) {
         setPlayers();
-        setBoard(3);
-        setRecord();
+        board = new GameBoard(numRows);
+        record = new GameRecord(getBoard());
+        analyzer = new GameAnalyzer(board,
+                playerOne,
+                playerTwo);
         status = "ready";
-    }
-
-    public void setUI() {
-        ui = new CommandLineUI();
     }
 
     public GameUI getUI() {
         return ui;
-    }
-
-    public void setBoard(int numRows) {
-        board = new GameBoard(numRows);
     }
 
     public GameBoard getBoard() {
@@ -52,10 +48,6 @@ public class GameControlCenter {
         } else {
             return playerTwo;
         }
-    }
-
-    public void setRecord() {
-        record = new GameRecord(getBoard());
     }
 
     public GameRecord getRecord() {
@@ -79,9 +71,6 @@ public class GameControlCenter {
     public String analyzeBoard() {
         ArrayList<Integer> allMoves = record.getAllMoves();
         ArrayList<Integer> spaces = board.getSpaces();
-        GameAnalyzer analyzer = new GameAnalyzer(board,
-                playerOne,
-                playerTwo);
         if (analyzer.isGameWon(record)) {
             status = "win";
         } else {
