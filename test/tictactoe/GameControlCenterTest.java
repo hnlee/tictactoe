@@ -91,4 +91,28 @@ public class GameControlCenterTest {
         assertEquals("win", game.analyzeBoard());
     }
 
+
+    @Test
+    public void testSetUpHumanVsComputer() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Human", "Computer"});
+        assertTrue(game.getPlayer(2) instanceof ComputerPlayer);
+        assertTrue(game.getPlayer(1) instanceof HumanPlayer);
+    }
+
+    @Test
+    public void testSetUpComputerVsHuman() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Computer", "Human"});
+        assertTrue(game.getPlayer(1) instanceof ComputerPlayer);
+        assertTrue(game.getPlayer(2) instanceof HumanPlayer);
+    }
+
+    @Test
+    public void testRunGame() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Human", "Computer"});
+        game.run();
+
+    }
 }

@@ -40,6 +40,19 @@ public class GameControlCenter {
         playerTwo = new GamePlayer();
     }
 
+    public void setPlayers(String[] playerTypes) {
+        GamePlayer[] players = new GamePlayer[2];
+        for (int index = 0; index < 2; index++) {
+            if (playerTypes[index] == "Computer") {
+                players[index] = new ComputerPlayer();
+            } else {
+                players[index] = new HumanPlayer();
+            }
+        }
+        playerOne = players[0];
+        playerTwo = players[1];
+    }
+
     public GamePlayer getPlayer(int playerNum) {
         if (playerNum == 1) {
             return playerOne;
@@ -84,5 +97,9 @@ public class GameControlCenter {
             }
         }
         return status;
+    }
+
+    public void run() {
+
     }
 }
