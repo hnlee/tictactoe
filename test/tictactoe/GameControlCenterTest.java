@@ -46,9 +46,11 @@ public class GameControlCenterTest {
         GameRecord record = game.getRecord();
         GamePlayer playerOne = game.getPlayer(1);
         GamePlayer playerTwo = game.getPlayer(2);
-        game.updateMove(1, playerOne);
-        game.updateMove(2, playerTwo);
+        boolean validate;
+        validate = game.updateMove(1, playerOne);
+        validate = game.updateMove(2, playerTwo);
         assertEquals(2, record.getLastMove());
+        assertTrue(validate);
     }
 
     @Test
@@ -57,10 +59,12 @@ public class GameControlCenterTest {
         GameRecord record = game.getRecord();
         GamePlayer playerOne = game.getPlayer(1);
         GamePlayer playerTwo = game.getPlayer(2);
-        game.updateMove(2, playerOne);
-        game.updateMove(1, playerTwo);
-        game.updateMove(2, playerOne);
+        boolean validate;
+        validate = game.updateMove(2, playerOne);
+        validate = game.updateMove(1, playerTwo);
+        validate = game.updateMove(2, playerOne);
         assertEquals(1, record.getLastMove());
+        assertFalse(validate);
     }
 
     @Test
@@ -68,7 +72,8 @@ public class GameControlCenterTest {
         game.setUp(3);
         GamePlayer playerOne = game.getPlayer(1);
         game.updateMove(1, playerOne);
-        assertEquals("playing", game.analyzeBoard());
+        game.analyzeBoard();
+        assertEquals("playing", game.getStatus());
     }
 
     @Test
@@ -78,7 +83,8 @@ public class GameControlCenterTest {
                 game.getPlayer(2),
                 game.getRecord(),
                 4, 1, 5, 3, 6, 2, 0, 8, 7);
-        assertEquals("tie", game.analyzeBoard());
+        game.analyzeBoard();
+        assertEquals("tie", game.getStatus());
     }
 
     @Test
@@ -88,7 +94,8 @@ public class GameControlCenterTest {
                 game.getPlayer(2),
                 game.getRecord(),
                 4, 1, 5, 3, 2, 8, 6);
-        assertEquals("win", game.analyzeBoard());
+        game.analyzeBoard();
+        assertEquals("win", game.getStatus());
     }
 
 
@@ -113,6 +120,6 @@ public class GameControlCenterTest {
         game.setUp(3);
         game.setPlayers(new String[] {"Human", "Computer"});
         game.run();
-
+        assertEquals("finish", game.getStatus());
     }
 }

@@ -74,17 +74,19 @@ public class GameControlCenter {
         return player.move();
     }
 
-    public void updateMove(int move, GamePlayer player) {
+    public boolean updateMove(int move, GamePlayer player) {
         if (record.isValidMove(move)) {
             record.newMove(move, player);
+            return true;
         }
+        return false;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public String analyzeBoard() {
+    public void analyzeBoard() {
         ArrayList<Integer> allMoves = record.getAllMoves();
         ArrayList<Integer> spaces = board.getSpaces();
         if (analyzer.isGameWon(record)) {
@@ -96,10 +98,26 @@ public class GameControlCenter {
                 status = "playing";
             }
         }
-        return status;
     }
 
     public void run() {
-
+        int moveNumber = 0;
+        GamePlayer currentPlayer;
+        analyzeBoard();
+        while (status.equals("playing")) {
+            if (moveNumber % 2 == 0) {
+                currentPlayer = playerOne;
+            } else {
+                currentPlayer = playerTwo;
+            }
+            boolean validate = false;
+            while (!validate) {
+                int move = getMove(currentPlayer);
+                validate = updateMove(move, currentPlayer);
+            }
+            analyzeBoard();
+            moveNumber++;
+        }
+        status = "finish";
     }
 }
