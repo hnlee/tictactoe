@@ -30,6 +30,7 @@ public class GameControlCenterTest {
         assertNotNull(game.getPlayer(1));
         assertNotNull(game.getPlayer(2));
         assertNotNull(game.getRecord());
+        assertNotNull(game.getAnalyzer());
         assertEquals("ready", game.getStatus());
     }
 
