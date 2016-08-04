@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.IdentityHashMap;
 
 import static org.junit.Assert.*;
 
@@ -34,35 +36,35 @@ public class GameAnalyzerTest {
     @Test
     public void testBlockedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1, 2);
-        assertEquals(true, analyzer.isRowBlocked(record,
-                new int[] {0, 1, 2}));
+        assertEquals(2, analyzer.getRowPlayers(record,
+                new int[]{0, 1, 2}).size());
     }
 
     @Test
     public void testUnblockedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1, 3, 2);
-        assertEquals(false, analyzer.isRowBlocked(record,
-                new int[] {0, 1, 2}));
+        assertEquals(1, analyzer.getRowPlayers(record,
+                new int[]{0, 1, 2}).size());
     }
 
     @Test
     public void testZeroOccupiedRow() {
         assertEquals(0, analyzer.getRowOccupancy(record,
-                new int[] {0, 1, 2}));
+                new int[]{0, 1, 2}));
     }
 
     @Test
     public void testOneOccupiedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1);
         assertEquals(1, analyzer.getRowOccupancy(record,
-                                                 new int[] {0, 1, 2}));
+                new int[]{0, 1, 2}));
     }
 
     @Test
     public void testTwoOccupiedRow() {
         Simulator.simulateGame(playerOne, playerTwo, record, 1, 2);
         assertEquals(2, analyzer.getRowOccupancy(record,
-                                                 new int[] {0, 1 ,2}));
+                new int[]{0, 1, 2}));
     }
 
     @Test
@@ -111,21 +113,21 @@ public class GameAnalyzerTest {
     public void testScoreTyingSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 8);
-        assertEquals(0, analyzer.scoreMove(record, 7));
+        assertEquals(0, analyzer.scoreMove(record, 7, playerOne));
     }
 
     @Test
     public void testScoreWinningSpaceWithOneMoveLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, analyzer.scoreMove(record, 8));
+        assertEquals(1, analyzer.scoreMove(record, 8, playerOne));
     }
 
     @Test
     public void testScoreWinningSpaceWithReversePlayerOrder() {
         Simulator.simulateGame(playerTwo, playerOne, record,
                 4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, analyzer.scoreMove(record, 8));
+        assertEquals(1, analyzer.scoreMove(record, 8, playerTwo));
     }
 
     @Test
@@ -140,21 +142,21 @@ public class GameAnalyzerTest {
     public void testScoreLosingSpace() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 0);
-        assertEquals(-1, analyzer.scoreMove(record, 7));
+        assertEquals(-1, analyzer.scoreMove(record, 7, playerTwo));
     }
 
     @Test
     public void testScoreWinningSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(1, analyzer.scoreMove(record, 0));
+        assertEquals(1, analyzer.scoreMove(record, 0, playerTwo));
     }
 
     @Test
     public void testScoreTyingSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(0, analyzer.scoreMove(record, 8));
+        assertEquals(0, analyzer.scoreMove(record, 8, playerTwo));
     }
 
     @Test
@@ -170,61 +172,24 @@ public class GameAnalyzerTest {
     public void testScoreWinningSpaceAfterFourMoves() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 0);
-        assertEquals(1, analyzer.scoreMove(record, 3));
+        assertEquals(1, analyzer.scoreMove(record, 3, playerOne));
     }
 
     @Test
     public void testScoreLosingSpaceAfterThreeMoves() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5);
-        assertEquals(-1, analyzer.scoreMove(record, 0));
-    }
-
-//    @Test
-//    public void testScoreNextMovesInMidGame() {
-//        Simulator.simulateGame(playerOne, playerTwo, record,
-//                4, 1, 5, 3, 2, 6);
-//        ArrayList<Integer> scores = new ArrayList<Integer>();
-//        scores.add(0);
-//        scores.add(-1);
-//        scores.add(1);
-//        assertEquals(0, analyzer.scoreMove(record, 0));
-//        assertEquals(scores, analyzer.scoreNextMoves(record));
-//        assertEquals(-1, analyzer.scoreMove(record, 7));
-//        assertEquals(1, analyzer.scoreMove(record, 8));
-//    }
-
-
-    @Test
-    public void testProblemMoveBranchOne() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                4, 1, 5, 3, 2, 6);
-        record.newMove(0, playerOne);
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        scores.add(0);
-        scores.add(-1);
-        assertEquals(scores, analyzer.scoreNextMoves(record));
+        assertEquals(-1, analyzer.scoreMove(record, 0, playerTwo));
     }
 
     @Test
-    public void testProblemMoveBranchTwo() {
+    public void testScoreNextMovesInMidGame() {
         Simulator.simulateGame(playerOne, playerTwo, record,
                 4, 1, 5, 3, 2, 6);
-        record.newMove(0, playerOne);
-        record.newMove(7, playerTwo);
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        scores.add(-1);
-        assertEquals(scores, analyzer.scoreNextMoves(record));
-    }
-
-    @Test
-    public void testProblemMoveBranchThree() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                4, 1, 5, 3, 2, 6);
-        record.newMove(0, playerOne);
-        record.newMove(8, playerTwo);
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        scores.add(0);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
+        scores.put(0, 0);
+        scores.put(7, -1);
+        scores.put(8, 1);
         assertEquals(scores, analyzer.scoreNextMoves(record));
     }
 

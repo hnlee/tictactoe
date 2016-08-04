@@ -2,6 +2,7 @@ package tictactoe;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
 /**
  * Created by hanalee on 8/2/16.
@@ -19,15 +20,16 @@ public class GameAnalyzer {
         this.playerTwo = playerTwo;
     }
 
-    public boolean isRowBlocked(GameRecord record, int[] row) {
-        ArrayList<GamePlayer> playedBy = new ArrayList<GamePlayer>();
+    public ArrayList<GamePlayer> getRowPlayers(GameRecord record, int[] row) {
+        ArrayList<GamePlayer> rowPlayedBy = new ArrayList<GamePlayer>();
         for (int space : row) {
-            playedBy.add(record.whoPlayedMove(space));
+            GamePlayer spacePlayedBy = record.whoPlayedMove(space);
+            if (spacePlayedBy != null &&
+                    !rowPlayedBy.contains(spacePlayedBy)) {
+                rowPlayedBy.add(spacePlayedBy);
+            }
         }
-        if (playedBy.contains(playerOne) && playedBy.contains(playerTwo)) {
-            return true;
-        }
-        return false;
+        return rowPlayedBy;
     }
 
     public int getRowOccupancy(GameRecord record, int[] row) {
@@ -43,7 +45,8 @@ public class GameAnalyzer {
 
     public boolean isGameWon(GameRecord record) {
         for (int[] row : board.getRows()) {
-            if (getRowOccupancy(record, row) == 3 && !isRowBlocked(record, row)) {
+            if (getRowOccupancy(record, row) == 3 &&
+                    getRowPlayers(record, row).size() == 1) {
                 return true;
             }
         }
@@ -81,27 +84,28 @@ public class GameAnalyzer {
         return nextPlayer;
     }
 
-    public int scoreMove(GameRecord nextGameState,
-                         int move) {
-        GamePlayer nextPlayer = getNextPlayer(nextGameState);
-        nextGameState.newMove(move, nextPlayer);
-        int score;
+    public int scoreMove(GameRecord record,
+                         int emptySpace,
+                         GamePlayer player) {
+        GameRecord nextGameState = record.copyRecord();
+        nextGameState.newMove(emptySpace, player);
         if (isGameWon(nextGameState)) {
             return 1;
-        } else if (isGameTied(nextGameState)) {
-            return 0;
-        } else {
-            ArrayList<Integer> opponentScores = scoreNextMoves(nextGameState);
-            return Collections.max(opponentScores);
         }
+        if (isGameTied(nextGameState)) {
+            return 0;
+        }
+        Hashtable<Integer, Integer> nextScores = scoreNextMoves(nextGameState);
+        int nextScore = Collections.max(nextScores.values());
+        return -1 * nextScore;
     }
 
-    public ArrayList<Integer> scoreNextMoves(GameRecord record) {
+    public Hashtable<Integer, Integer> scoreNextMoves(GameRecord record) {
         ArrayList<Integer> emptySpaces = getEmptySpaces(record);
-        ArrayList<Integer> scores = new ArrayList<Integer>();
+        GamePlayer nextPlayer = getNextPlayer(record);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int emptySpace : emptySpaces) {
-            GameRecord nextGameState = record.copyRecord();
-            scores.add(-1 * scoreMove(nextGameState, emptySpace));
+            scores.put(emptySpace, scoreMove(record, emptySpace, nextPlayer));
         }
         return scores;
     }
