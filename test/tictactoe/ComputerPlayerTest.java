@@ -15,6 +15,7 @@ public class ComputerPlayerTest {
     private GameBoard board;
     private GameRecord record;
     private GamePlayer opponent;
+    private GameAnalyzer analyzer;
 
     @Before
     public void setUp() {
@@ -28,7 +29,8 @@ public class ComputerPlayerTest {
     public void testMakeWinningMove() {
         Simulator.simulateGame(opponent, computer, record,
                 4, 1, 5, 2);
-        assertEquals(3, computer.move());
+        analyzer = new GameAnalyzer(opponent, computer);
+        assertEquals(3, computer.move(analyzer, record));
     }
 
 }

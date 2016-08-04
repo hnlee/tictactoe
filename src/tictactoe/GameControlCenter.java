@@ -55,7 +55,7 @@ public class GameControlCenter {
     public GameAnalyzer getAnalyzer() { return analyzer; }
 
     public int getMove(GamePlayer player) {
-        return player.move();
+        return player.move(analyzer, record);
     }
 
     public void updateMove(int move, GamePlayer player) {
