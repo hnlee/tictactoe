@@ -71,71 +71,23 @@ public class GameControlCenterTest {
         assertEquals("playing", game.analyzeBoard());
     }
 
-    private LinkedList<Integer> moveList(int... moves) {
-        LinkedList<Integer> moveList = new LinkedList<Integer>();
-        for (int move : moves) {
-            moveList.add(move);
-        }
-        return moveList;
-    }
-
-    private void simulateGame(GameControlCenter testGame, int...moves) {
-        LinkedList<Integer> moveList = moveList(moves);
-        int player = 1;
-        for (int move : moveList) {
-            game.updateMove(move, game.getPlayer(player));
-            player++;
-            if (player == 3) { player = 1; }
-        }
-    }
-
     @Test
     public void testAnalyzeTiedGame() {
         game.setUp();
-        simulateGame(game, 4, 1, 5, 3, 6, 2, 0, 8, 7);
+        Simulator.simulateGame(game.getPlayer(1),
+                game.getPlayer(2),
+                game.getRecord(),
+                4, 1, 5, 3, 6, 2, 0, 8, 7);
         assertEquals("tie", game.analyzeBoard());
-    }
-
-
-    @Test
-    public void testBlockedRow() {
-        game.setUp();
-        simulateGame(game, 1, 2);
-        assertEquals(true, game.isRowBlocked(new int[] {0, 1, 2}));
-    }
-
-    @Test
-    public void testUnblockedRow() {
-        game.setUp();
-        simulateGame(game, 1, 3, 2);
-        assertEquals(false, game.isRowBlocked(new int[] {0, 1, 2}));
-    }
-
-    @Test
-    public void testZeroOccupiedRow() {
-        game.setUp();
-        assertEquals(0, game.getRowOccupancy(new int[] {0, 1, 2}));
-    }
-
-    @Test
-    public void testOneOccupiedRow() {
-        game.setUp();
-        simulateGame(game, 1);
-        assertEquals(1, game.getRowOccupancy(new int[] {0, 1, 2}));
-    }
-
-
-    @Test
-    public void testTwoOccupiedRow() {
-        game.setUp();
-        simulateGame(game, 1, 2);
-        assertEquals(2, game.getRowOccupancy(new int[] {0, 1 ,2}));
     }
 
     @Test
     public void testAnalyzeWonGame() {
         game.setUp();
-        simulateGame(game, 4, 1, 5, 3, 2, 8, 6);
+        Simulator.simulateGame(game.getPlayer(1),
+                game.getPlayer(2),
+                game.getRecord(),
+                4, 1, 5, 3, 2, 8, 6);
         assertEquals("win", game.analyzeBoard());
     }
 
