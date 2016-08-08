@@ -37,7 +37,9 @@ public class GameControlCenterTest {
     @Test
     public void testGetMove() {
         game.setUp(3);
-        assertEquals(3, game.getMove(game.getPlayer(1)));
+        int move = game.getMove(game.getPlayer(1));
+        assertTrue(move >= 0);
+        assertTrue(move < 9);
     }
 
     @Test
@@ -118,7 +120,7 @@ public class GameControlCenterTest {
     @Test
     public void testRunGame() {
         game.setUp(3);
-        game.setPlayers(new String[] {"Human", "Computer"});
+        game.setPlayers(new String[] {"Auto", "Computer"});
         game.run();
         assertEquals("finish", game.getStatus());
     }

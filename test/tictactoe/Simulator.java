@@ -16,7 +16,6 @@ public class Simulator {
                 record.newMove(move, playerTwo);
             }
         }
-
     }
 
 }

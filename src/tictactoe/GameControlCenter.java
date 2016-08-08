@@ -45,8 +45,10 @@ public class GameControlCenter {
         for (int index = 0; index < 2; index++) {
             if (playerTypes[index] == "Computer") {
                 players[index] = new ComputerPlayer();
-            } else {
+            } else if (playerTypes[index] == "Human") {
                 players[index] = new HumanPlayer();
+            } else {
+                players[index] = new GamePlayer();
             }
         }
         playerOne = players[0];
@@ -71,7 +73,7 @@ public class GameControlCenter {
         if (player instanceof ComputerPlayer) {
             return player.move(analyzer, record);
         }
-        return player.move();
+        return player.move(board.getNumRows());
     }
 
     public boolean updateMove(int move, GamePlayer player) {
