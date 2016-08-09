@@ -124,4 +124,5 @@ public class GameControlCenterTest {
         game.run();
         assertEquals("finish", game.getStatus());
     }
+
 }
