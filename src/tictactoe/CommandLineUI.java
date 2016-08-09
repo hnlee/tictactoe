@@ -28,17 +28,18 @@ public class CommandLineUI implements GameUI {
         return board;
     }
 
-    @Override
-    public void displayMessage(String message) {
-        System.out.println(message);
-    }
-
     public String convertBoardToString(GameRecord record) {
-        Object[] labels = new String[9];
-        for (int n = 0; n < 9; n++) {
+        int numRows = record.getBoard().getNumRows();
+        Object[] labels = new String[(numRows * numRows)];
+        for (int n = 0; n < (numRows * numRows); n++) {
             labels[n] = String.format("%d", n);
         }
         return String.format(generateBoardAsString(record), labels);
+    }
+
+    @Override
+    public void displayMessage(String message) {
+        System.out.println(message);
     }
 
 }
