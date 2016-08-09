@@ -10,4 +10,6 @@ public interface GameUI {
 
     void displayBoard(GameRecord record);
 
+    String getUserInput();
+
 }

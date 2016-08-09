@@ -128,4 +128,11 @@ public class CommandLineUITest {
         assertEquals("Tic Tac Toe", ui.getUserInput());
     }
 
+    @Test
+    public void testDisplayPrompt() {
+        String prompt = "Enter move";
+        input = new ByteArrayInputStream("0".getBytes());
+        System.setIn(input);
+        assertEquals("0", ui.displayPrompt(prompt));
+    }
 }

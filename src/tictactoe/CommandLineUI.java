@@ -56,8 +56,15 @@ public class CommandLineUI implements GameUI {
         System.out.print(convertBoardToString(record));
     }
 
+    @Override
     public String getUserInput() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
+    public String displayPrompt(String prompt) {
+        displayMessage(prompt);
+        return getUserInput();
+    }
+
 }
