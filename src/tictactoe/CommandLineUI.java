@@ -3,6 +3,7 @@ package tictactoe;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
+import java.util.Scanner;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -55,4 +56,8 @@ public class CommandLineUI implements GameUI {
         System.out.print(convertBoardToString(record));
     }
 
+    public String getUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
 }
