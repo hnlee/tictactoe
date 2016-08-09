@@ -36,19 +36,19 @@ public class GameControlCenter {
     }
 
     public void setPlayers() {
-        playerOne = new GamePlayer();
-        playerTwo = new GamePlayer();
+        playerOne = new GamePlayer("X");
+        playerTwo = new GamePlayer("O");
     }
 
     public void setPlayers(String[] playerTypes) {
         GamePlayer[] players = new GamePlayer[2];
         for (int index = 0; index < 2; index++) {
             if (playerTypes[index] == "Computer") {
-                players[index] = new ComputerPlayer();
+                players[index] = new ComputerPlayer("O");
             } else if (playerTypes[index] == "Human") {
-                players[index] = new HumanPlayer();
+                players[index] = new HumanPlayer("X");
             } else {
-                players[index] = new GamePlayer();
+                players[index] = new GamePlayer("X");
             }
         }
         playerOne = players[0];

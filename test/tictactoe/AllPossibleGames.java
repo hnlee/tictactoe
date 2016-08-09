@@ -17,10 +17,10 @@ public class AllPossibleGames {
 
     @Before
     public void setUp() {
-        computer = new ComputerPlayer();
+        computer = new ComputerPlayer("O");
         board = new GameBoard(3);
         record = new GameRecord(board);
-        opponent = new GamePlayer();
+        opponent = new GamePlayer("X");
         analyzer = new GameAnalyzer(opponent, computer);
     }
 

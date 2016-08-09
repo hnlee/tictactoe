@@ -22,8 +22,8 @@ public class GameRecordTest {
     public void setUp() {
         board = new GameBoard(3);
         record = new GameRecord(board);
-        playerOne = new GamePlayer();
-        playerTwo = new GamePlayer();
+        playerOne = new GamePlayer("X");
+        playerTwo = new GamePlayer("O");
     }
 
     @Test

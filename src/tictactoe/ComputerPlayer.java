@@ -10,6 +10,10 @@ import java.util.Random;
  */
 public class ComputerPlayer extends GamePlayer {
 
+    public ComputerPlayer(String marker) {
+        super(marker);
+    }
+
     public int move(GameAnalyzer analyzer, GameRecord record) {
         Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());

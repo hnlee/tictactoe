@@ -18,6 +18,8 @@ public class CommandLineUITest {
     private CommandLineUI ui;
     private GameBoard board;
     private GameRecord record;
+    private GamePlayer playerOne;
+    private GamePlayer playerTwo;
 
     @Before
     public void setUp() {
@@ -26,6 +28,8 @@ public class CommandLineUITest {
         ui = new CommandLineUI();
         board = new GameBoard(3);
         record = new GameRecord(board);
+        playerOne = new GamePlayer("X");
+        playerTwo = new GamePlayer("O");
     }
 
     @Test
@@ -73,6 +77,20 @@ public class CommandLineUITest {
         GameBoard twoByTwoBoard = new GameBoard(2);
         GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard);
         assertEquals(boardString, ui.convertBoardToString(twoByTwoRecord));
+    }
+
+    @Test
+    public void testConvertNonEmptyBoardIntoString() {
+        String boardString = " 0 | O | 2 \n" +
+                             "---+---+---\n" +
+                             " O | X | X \n" +
+                             "---+---+---\n" +
+                             " 6 | 7 | 8 \n";
+        Simulator.simulateGame(playerOne,
+                playerTwo,
+                record,
+                4, 1, 5, 3);
+        assertEquals(boardString, ui.convertBoardToString(record));
     }
 
 }

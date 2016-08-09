@@ -3,6 +3,7 @@ package tictactoe;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -31,8 +32,16 @@ public class CommandLineUI implements GameUI {
     public String convertBoardToString(GameRecord record) {
         int numRows = record.getBoard().getNumRows();
         Object[] labels = new String[(numRows * numRows)];
-        for (int n = 0; n < (numRows * numRows); n++) {
-            labels[n] = String.format("%d", n);
+        for (int space = 0; space < (numRows * numRows); space++) {
+            labels[space] = String.format("%d", space);
+        }
+        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer = record.getMovesByPlayer();
+        if (movesByPlayer != null) {
+            for (GamePlayer player : movesByPlayer.keySet()) {
+                for (int move : movesByPlayer.get(player)) {
+                    labels[move] = player.getMarker();
+                }
+            }
         }
         return String.format(generateBoardAsString(record), labels);
     }
