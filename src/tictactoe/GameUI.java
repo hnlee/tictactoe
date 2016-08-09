@@ -1,7 +1,5 @@
 package tictactoe;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 
 /**
  * Created by hanalee on 7/28/16.
