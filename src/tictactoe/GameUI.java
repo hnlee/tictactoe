@@ -10,4 +10,6 @@ public interface GameUI {
 
     void displayMessage(String message);
 
+    void displayBoard(GameRecord record);
+
 }

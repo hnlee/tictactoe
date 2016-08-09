@@ -51,4 +51,9 @@ public class CommandLineUI implements GameUI {
         System.out.println(message);
     }
 
+    @Override
+    public void displayBoard(GameRecord record) {
+        System.out.print(convertBoardToString(record));
+    }
+
 }

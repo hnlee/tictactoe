@@ -93,4 +93,29 @@ public class CommandLineUITest {
         assertEquals(boardString, ui.convertBoardToString(record));
     }
 
+    @Test
+    public void testDisplayEmptyBoard() {
+        String boardString = " 0 | 1 | 2 \n" +
+                             "---+---+---\n" +
+                             " 3 | 4 | 5 \n" +
+                             "---+---+---\n" +
+                             " 6 | 7 | 8 \n";
+        ui.displayBoard(record);
+        assertEquals(boardString, output.toString());
+    }
+
+    @Test
+    public void testDisplayNonEmptyBoard() {
+        String boardString = " 0 | O | 2 \n" +
+                "---+---+---\n" +
+                " O | X | X \n" +
+                "---+---+---\n" +
+                " 6 | 7 | 8 \n";
+        Simulator.simulateGame(playerOne,
+                playerTwo,
+                record,
+                4, 1, 5, 3);
+        ui.displayBoard(record);
+        assertEquals(boardString, output.toString());
+    }
 }
