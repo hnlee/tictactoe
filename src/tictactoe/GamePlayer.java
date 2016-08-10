@@ -26,4 +26,8 @@ public class GamePlayer {
         int numRows = record.getBoard().getNumRows();
         return random.nextInt(numRows * numRows);
     };
+
+    public int move(GameUI ui) {
+        return random.nextInt();
+    }
 }
