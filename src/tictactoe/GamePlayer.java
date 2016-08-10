@@ -7,9 +7,11 @@ import java.util.Random;
  */
 public class GamePlayer {
     private String marker;
+    private Random random;
 
     GamePlayer(String marker) {
         this.marker = marker;
+        this.random = new Random();
     }
 
     public String getMarker() {
@@ -17,10 +19,11 @@ public class GamePlayer {
     }
 
     public int move(int numRows) {
-        Random random = new Random();
         return random.nextInt(numRows * numRows);
     }
+
     public int move(GameAnalyzer analyzer, GameRecord record) {
-        return 0;
+        int numRows = record.getBoard().getNumRows();
+        return random.nextInt(numRows * numRows);
     };
 }
