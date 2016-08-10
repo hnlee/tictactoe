@@ -3,7 +3,6 @@ package tictactoe;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import static org.junit.Assert.*;
@@ -130,5 +129,6 @@ public class CommandLineUITest {
         String prompt = "Enter move";
         input.setInputStream("0");
         assertEquals("0", ui.displayPrompt(prompt));
+        assertEquals(prompt + "\n", output.toString());
     }
 }

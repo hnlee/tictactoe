@@ -12,4 +12,6 @@ public interface GameUI {
 
     String getUserInput();
 
+    String displayPrompt(String prompt);
+
 }
