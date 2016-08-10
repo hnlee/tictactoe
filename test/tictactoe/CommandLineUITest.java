@@ -1,12 +1,10 @@
 package tictactoe;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class CommandLineUITest {
     private ByteArrayOutputStream output;
-    private ByteArrayInputStream input;
+    private MockInputStream input;
     private CommandLineUI ui;
     private GameBoard board;
     private GameRecord record;
@@ -25,8 +23,8 @@ public class CommandLineUITest {
     @Before
     public void setUp() {
         output = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(output));
-        ui = new CommandLineUI();
+        input = new MockInputStream();
+        ui = new CommandLineUI(input, output);
         board = new GameBoard(3);
         record = new GameRecord(board);
         playerOne = new GamePlayer("X");
@@ -123,16 +121,14 @@ public class CommandLineUITest {
     @Test
     public void testGetUserInput() {
         String message = "Tic Tac Toe";
-        input = new ByteArrayInputStream(message.getBytes());
-        System.setIn(input);
+        input.setInputStream(message);
         assertEquals("Tic Tac Toe", ui.getUserInput());
     }
 
     @Test
     public void testDisplayPrompt() {
         String prompt = "Enter move";
-        input = new ByteArrayInputStream("0".getBytes());
-        System.setIn(input);
+        input.setInputStream("0");
         assertEquals("0", ui.displayPrompt(prompt));
     }
 }

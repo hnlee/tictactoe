@@ -1,5 +1,8 @@
 package tictactoe;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Hashtable;
@@ -9,6 +12,19 @@ import java.util.Scanner;
  * Created by hanalee on 7/28/16.
  */
 public class CommandLineUI implements GameUI {
+
+    private PrintStream outputStream;
+    private InputStream inputStream;
+
+    public CommandLineUI() {
+        this.inputStream = System.in;
+        this.outputStream = System.out;
+    }
+
+    public CommandLineUI(InputStream input, OutputStream output) {
+        this.inputStream = input;
+        this.outputStream = new PrintStream(output);
+    }
 
     private String generateBoardElementsAsString(String space,
                                                  String separator,
@@ -48,17 +64,17 @@ public class CommandLineUI implements GameUI {
 
     @Override
     public void displayMessage(String message) {
-        System.out.println(message);
+        outputStream.println(message);
     }
 
     @Override
     public void displayBoard(GameRecord record) {
-        System.out.print(convertBoardToString(record));
+        outputStream.print(convertBoardToString(record));
     }
 
     @Override
     public String getUserInput() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }
 
