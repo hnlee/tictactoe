@@ -21,8 +21,8 @@ public class GameAnalyzerTest {
     @Before
     public void setUp() {
         board = new GameBoard(3);
-        playerOne = new GamePlayer("X");
-        playerTwo = new GamePlayer("O");
+        playerOne = new MockGamePlayer("X");
+        playerTwo = new MockGamePlayer("O");
         record = new GameRecord(board);
         analyzer = new GameAnalyzer(playerOne, playerTwo);
     }

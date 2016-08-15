@@ -26,8 +26,8 @@ public class CommandLineUITest {
         ui = new CommandLineUI(input, output);
         board = new GameBoard(3);
         record = new GameRecord(board);
-        playerOne = new GamePlayer("X");
-        playerTwo = new GamePlayer("O");
+        playerOne = new MockGamePlayer("X");
+        playerTwo = new MockGamePlayer("O");
     }
 
     @Test

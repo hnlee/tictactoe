@@ -20,7 +20,7 @@ public class HumanPlayerTest {
 
     @Before
     public void setUp() {
-        human = new HumanPlayer("X");
+        human = new HumanPlayer(new StringMarker("X"));
         input = new MockInputStream();
         output = new ByteArrayOutputStream();
         ui = new CommandLineUI(input, output);

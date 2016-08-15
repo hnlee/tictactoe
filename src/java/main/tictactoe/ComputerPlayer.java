@@ -8,12 +8,19 @@ import java.util.Random;
 /**
  * Created by hanalee on 8/1/16.
  */
-public class ComputerPlayer extends GamePlayer {
+public class ComputerPlayer implements GamePlayer {
 
-    public ComputerPlayer(String marker) {
-        super(marker);
+    private PlayerMarker marker;
+
+    public ComputerPlayer(PlayerMarker marker) {
+        this.marker = marker;
     }
 
+    public PlayerMarker getMarker() {
+        return marker;
+    };
+
+    @Override
     public int move(GameAnalyzer analyzer, GameRecord record) {
         Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
