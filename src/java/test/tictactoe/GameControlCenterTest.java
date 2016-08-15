@@ -136,19 +136,4 @@ public class GameControlCenterTest {
         assertEquals(0, record.getLastMove());
     }
 
-    @Test
-    public void testInvalidHumanMove() {
-        game.setUp(3);
-        game.setPlayers(new String[] {"Human", "Computer"});
-        GamePlayer playerOne = game.getPlayer(1);
-        GameRecord record = game.getRecord();
-        input.setInputStream("0");
-        game.updateMove(playerOne);
-        input.setInputStream("1");
-        game.updateMove(playerOne);
-        input.setInputStream("0");
-        game.updateMove(playerOne);
-        assertEquals(1, record.getLastMove());
-    }
-
 }
