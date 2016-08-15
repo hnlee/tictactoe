@@ -1,20 +1,16 @@
 package tictactoe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class GameBoard {
     private int numRows;
-    private ArrayList<Integer> spaces;
     private int[][] rows;
 
     GameBoard(int numRows) {
         this.numRows = numRows;
-        this.spaces = new ArrayList<Integer>();
-        for (int space = 0; space < numRows * numRows; space++) {
-            this.spaces.add(space);
-        }
-        Collections.sort(spaces);
         setRows();
     }
 
@@ -22,7 +18,13 @@ public class GameBoard {
         return numRows;
     }
 
-    public ArrayList<Integer> getSpaces() { return spaces; }
+    public ArrayList<Integer> getSpaces() {
+        ArrayList<Integer> spaces = new ArrayList<Integer>();
+        for (int i = 0; i < (numRows * numRows); i++) {
+            spaces.add(i);
+        }
+        return spaces;
+    }
 
     public int[][] getHorizontalRows() {
         int[][] horizontalRows = new int[numRows][numRows];

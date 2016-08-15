@@ -3,17 +3,16 @@ apply plugin: 'application'
 
 mainClassName = 'tictactoe.GameControlCenter'
 
+dependencies {
+  testCompile 'junit:junit:4.12'
+}
 
-// tag::jar[]
 jar { 
     baseName = 'tictactoe'
     version = 0.1
 }
-// end::jar[]
 
 
-// tag::wrapper[]
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14'
 }
-// end::wrapper[]
