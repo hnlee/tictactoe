@@ -12,6 +12,8 @@ public interface GameUI {
 
     String getUserInput();
 
-    String displayPrompt(String prompt);
-
+    default String displayPrompt(String prompt) {
+        displayMessage(prompt);
+        return getUserInput();
+    }
 }

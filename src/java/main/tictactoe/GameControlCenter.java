@@ -14,13 +14,13 @@ public class GameControlCenter {
     private String status;
 
     GameControlCenter() {
-        ui = new CommandLineUI();
-        status = "start";
+        this.ui = new CommandLineUI();
+        this.status = "start";
     }
 
-    GameControlCenter(InputStream input, OutputStream output) {
-        ui = new CommandLineUI(input, output);
-        status = "start";
+    GameControlCenter(GameUI ui) {
+        this.ui = ui;
+        this.status = "start";
     }
 
     public void setUp() {
@@ -91,8 +91,6 @@ public class GameControlCenter {
     }
 
     public void analyzeBoard() {
-        ArrayList<Integer> allMoves = record.getAllMoves();
-        ArrayList<Integer> spaces = board.getSpaces();
         if (analyzer.isGameWon(record)) {
             status = "win";
         } else {

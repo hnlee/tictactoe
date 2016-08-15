@@ -78,9 +78,4 @@ public class CommandLineUI implements GameUI {
         return scanner.nextLine();
     }
 
-    public String displayPrompt(String prompt) {
-        displayMessage(prompt);
-        return getUserInput();
-    }
-
 }

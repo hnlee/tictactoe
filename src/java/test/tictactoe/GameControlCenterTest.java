@@ -16,12 +16,14 @@ public class GameControlCenterTest {
     private MockInputStream input;
     private MockGamePlayer firstPlayer;
     private MockGamePlayer secondPlayer;
+    private MockUI ui;
 
     @Before
     public void setUp() {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         input = new MockInputStream();
-        game = new GameControlCenter(input, output);
+        ui = new MockUI(input, output);
+        game = new GameControlCenter(ui);
         firstPlayer = new MockGamePlayer("X");
         secondPlayer = new MockGamePlayer("O");
     }
