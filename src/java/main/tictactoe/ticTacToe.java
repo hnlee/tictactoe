@@ -6,7 +6,9 @@ package tictactoe;
 public class ticTacToe {
 
     public static void main() {
-
+        GameControlCenter game = new GameControlCenter();
+        game.setUp();
+        game.run();
     }
 
 }
