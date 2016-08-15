@@ -17,14 +17,14 @@ public class AllPossibleGames {
 
     @Before
     public void setUp() {
-        computer = new ComputerPlayer("O");
+        computer = new ComputerPlayer(new StringMarker("O"));
         board = new GameBoard(3);
         record = new GameRecord(board);
-        opponent = new GamePlayer("X");
+        opponent = new MockGamePlayer("X");
         analyzer = new GameAnalyzer(opponent, computer);
     }
 
-    public boolean runGame(GameRecord gameRecord) {
+    private boolean runGame(GameRecord gameRecord) {
         ArrayList<Integer> emptySpaces = analyzer.getEmptySpaces(gameRecord);
         ArrayList<Boolean> outcomes = new ArrayList<Boolean>();
         for (int space : emptySpaces) {
@@ -46,10 +46,7 @@ public class AllPossibleGames {
                 outcomes.add(runGame(newRecord));
             }
         }
-        if (outcomes.contains(false)) {
-            return false;
-        }
-        return true;
+        return !outcomes.contains(false);
     }
 
     @Test

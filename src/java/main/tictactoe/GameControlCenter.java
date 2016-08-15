@@ -23,8 +23,20 @@ public class GameControlCenter {
         status = "start";
     }
 
-    public void setUp(int numRows) {
-        setPlayers();
+    public void setUp() {
+        playerOne = new HumanPlayer(new StringMarker("X"));
+        playerTwo = new ComputerPlayer(new StringMarker("O"));
+        board = new GameBoard(3);
+        record = new GameRecord(getBoard());
+        analyzer = new GameAnalyzer(playerOne, playerTwo);
+        status = "ready";
+    }
+
+    public void setUp(int numRows,
+                      GamePlayer firstPlayer,
+                      GamePlayer secondPlayer) {
+        playerOne = firstPlayer;
+        playerTwo = secondPlayer;
         board = new GameBoard(numRows);
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
@@ -37,26 +49,6 @@ public class GameControlCenter {
 
     public GameBoard getBoard() {
         return board;
-    }
-
-    public void setPlayers() {
-        playerOne = new GamePlayer("X");
-        playerTwo = new GamePlayer("O");
-    }
-
-    public void setPlayers(String[] playerTypes) {
-        GamePlayer[] players = new GamePlayer[2];
-        for (int index = 0; index < 2; index++) {
-            if (playerTypes[index] == "Computer") {
-                players[index] = new ComputerPlayer("O");
-            } else if (playerTypes[index] == "Human") {
-                players[index] = new HumanPlayer("X");
-            } else {
-                players[index] = new GamePlayer("X");
-            }
-        }
-        playerOne = players[0];
-        playerTwo = players[1];
     }
 
     public GamePlayer getPlayer(int playerNum) {

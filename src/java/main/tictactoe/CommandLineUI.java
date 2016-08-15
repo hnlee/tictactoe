@@ -55,7 +55,7 @@ public class CommandLineUI implements GameUI {
         if (movesByPlayer != null) {
             for (GamePlayer player : movesByPlayer.keySet()) {
                 for (int move : movesByPlayer.get(player)) {
-                    labels[move] = player.getMarker();
+                    labels[move] = player.getMarker().toString();
                 }
             }
         }

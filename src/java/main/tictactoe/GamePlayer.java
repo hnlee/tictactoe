@@ -5,29 +5,23 @@ import java.util.Random;
 /**
  * Created by hanalee on 7/28/16.
  */
-public class GamePlayer {
-    private String marker;
-    private Random random;
+public interface GamePlayer {
 
-    GamePlayer(String marker) {
-        this.marker = marker;
-        this.random = new Random();
-    }
+    Random random = new Random();
 
-    public String getMarker() {
-        return marker;
-    }
+    PlayerMarker getMarker();
 
-    public int move(int numRows) {
+    default int move(int numRows) {
         return random.nextInt(numRows * numRows);
     }
 
-    public int move(GameAnalyzer analyzer, GameRecord record) {
+    default int move(GameAnalyzer analyzer, GameRecord record) {
         int numRows = record.getBoard().getNumRows();
         return random.nextInt(numRows * numRows);
-    };
+    }
 
-    public int move(GameUI ui) {
+    default int move(GameUI ui) {
         return random.nextInt();
     }
+
 }
