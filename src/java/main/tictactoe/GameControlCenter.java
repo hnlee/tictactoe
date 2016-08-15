@@ -1,5 +1,7 @@
 package tictactoe;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class GameControlCenter {
@@ -13,6 +15,11 @@ public class GameControlCenter {
 
     GameControlCenter() {
         ui = new CommandLineUI();
+        status = "start";
+    }
+
+    GameControlCenter(InputStream input, OutputStream output) {
+        ui = new CommandLineUI(input, output);
         status = "start";
     }
 
@@ -70,15 +77,21 @@ public class GameControlCenter {
         if (player instanceof ComputerPlayer) {
             return player.move(analyzer, record);
         }
+        if (player instanceof HumanPlayer) {
+            return player.move(ui);
+        }
         return player.move(board.getNumRows());
     }
 
-    public boolean updateMove(int move, GamePlayer player) {
-        if (record.isValidMove(move)) {
-            record.newMove(move, player);
-            return true;
+    public void updateMove(GamePlayer player) {
+        boolean validate = false;
+        while (!validate) {
+            int move = getMove(player);
+            validate = record.isValidMove(move);
+            if (validate) {
+                record.newMove(move, player);
+            }
         }
-        return false;
     }
 
     public String getStatus() {
@@ -109,11 +122,7 @@ public class GameControlCenter {
             } else {
                 currentPlayer = playerTwo;
             }
-            boolean validate = false;
-            while (!validate) {
-                int move = getMove(currentPlayer);
-                validate = updateMove(move, currentPlayer);
-            }
+            updateMove(currentPlayer);
             analyzeBoard();
             moveNumber++;
         }

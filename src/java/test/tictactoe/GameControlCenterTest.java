@@ -9,12 +9,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 
+import java.io.ByteArrayOutputStream;
+
 public class GameControlCenterTest {
     private GameControlCenter game;
+    private MockInputStream input;
 
     @Before
     public void setUp() {
-        game = new GameControlCenter();
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        input = new MockInputStream();
+        game = new GameControlCenter(input, output);
     }
 
     @Test
@@ -48,32 +53,17 @@ public class GameControlCenterTest {
         GameRecord record = game.getRecord();
         GamePlayer playerOne = game.getPlayer(1);
         GamePlayer playerTwo = game.getPlayer(2);
-        boolean validate;
-        validate = game.updateMove(1, playerOne);
-        validate = game.updateMove(2, playerTwo);
-        assertEquals(2, record.getLastMove());
-        assertTrue(validate);
-    }
-
-    @Test
-    public void testInvalidMove() {
-        game.setUp(3);
-        GameRecord record = game.getRecord();
-        GamePlayer playerOne = game.getPlayer(1);
-        GamePlayer playerTwo = game.getPlayer(2);
-        boolean validate;
-        validate = game.updateMove(2, playerOne);
-        validate = game.updateMove(1, playerTwo);
-        validate = game.updateMove(2, playerOne);
-        assertEquals(1, record.getLastMove());
-        assertFalse(validate);
+        game.updateMove(playerOne);
+        game.updateMove(playerTwo);
+        assertEquals(playerTwo, record.getLastPlayer());
     }
 
     @Test
     public void testAnalyzeGameInProgress() {
         game.setUp(3);
         GamePlayer playerOne = game.getPlayer(1);
-        game.updateMove(1, playerOne);
+        GameRecord record = game.getRecord();
+        record.newMove(1, playerOne);
         game.analyzeBoard();
         assertEquals("playing", game.getStatus());
     }
@@ -118,11 +108,47 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testRunGame() {
+    public void testRunGameWithComputer() {
         game.setUp(3);
         game.setPlayers(new String[] {"Auto", "Computer"});
         game.run();
         assertEquals("finish", game.getStatus());
+    }
+
+    @Test
+    public void testGetHumanMove() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Human", "Computer"});
+        GamePlayer playerOne = game.getPlayer(1);
+        input.setInputStream("0");
+        int move = game.getMove(playerOne);
+        assertEquals(0, move);
+    }
+
+    @Test
+    public void testUpdateHumanMove() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Human", "Computer"});
+        GamePlayer playerOne = game.getPlayer(1);
+        GameRecord record = game.getRecord();
+        input.setInputStream("0");
+        game.updateMove(playerOne);
+        assertEquals(0, record.getLastMove());
+    }
+
+    @Test
+    public void testInvalidHumanMove() {
+        game.setUp(3);
+        game.setPlayers(new String[] {"Human", "Computer"});
+        GamePlayer playerOne = game.getPlayer(1);
+        GameRecord record = game.getRecord();
+        input.setInputStream("0");
+        game.updateMove(playerOne);
+        input.setInputStream("1");
+        game.updateMove(playerOne);
+        input.setInputStream("0");
+        game.updateMove(playerOne);
+        assertEquals(1, record.getLastMove());
     }
 
 }
