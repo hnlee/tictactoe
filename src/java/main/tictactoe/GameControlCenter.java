@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class GameControlCenter {
     private GameUI ui;
-    private GameBoard board;
+    private SquareBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;
@@ -28,7 +28,7 @@ public class GameControlCenter {
     public void setUp() {
         playerOne = new HumanPlayer(new StringMarker("X"));
         playerTwo = new ComputerPlayer(new StringMarker("O"));
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
@@ -42,7 +42,7 @@ public class GameControlCenter {
                       GamePlayer secondPlayer) {
         playerOne = firstPlayer;
         playerTwo = secondPlayer;
-        board = new GameBoard(numRows);
+        board = new SquareBoard(numRows);
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
@@ -55,7 +55,7 @@ public class GameControlCenter {
         return ui;
     }
 
-    public GameBoard getBoard() {
+    public SquareBoard getBoard() {
         return board;
     }
 

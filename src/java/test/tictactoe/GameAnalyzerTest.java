@@ -13,14 +13,14 @@ import static org.junit.Assert.*;
  */
 public class GameAnalyzerTest {
     private GameAnalyzer analyzer;
-    private GameBoard board;
+    private SquareBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;
 
     @Before
     public void setUp() {
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);

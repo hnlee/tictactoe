@@ -14,7 +14,7 @@ public class CommandLineUITest {
     private ByteArrayOutputStream output;
     private MockInputStream input;
     private CommandLineUI ui;
-    private GameBoard board;
+    private SquareBoard board;
     private GameRecord record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
@@ -24,7 +24,7 @@ public class CommandLineUITest {
         output = new ByteArrayOutputStream();
         input = new MockInputStream();
         ui = new CommandLineUI(input, output);
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         record = new GameRecord(board);
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
@@ -54,7 +54,7 @@ public class CommandLineUITest {
         String boardString =  " %s | %s \n" +
                               "---+---\n" +
                               " %s | %s \n";
-        GameBoard twoByTwoBoard = new GameBoard(2);
+        SquareBoard twoByTwoBoard = new SquareBoard(2);
         GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard);
         assertEquals(boardString, ui.generateBoardAsString(twoByTwoRecord));
     }
@@ -74,7 +74,7 @@ public class CommandLineUITest {
         String boardString = " 0 | 1 \n" +
                              "---+---\n" +
                              " 2 | 3 \n";
-        GameBoard twoByTwoBoard = new GameBoard(2);
+        SquareBoard twoByTwoBoard = new SquareBoard(2);
         GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard);
         assertEquals(boardString, ui.convertBoardToString(twoByTwoRecord));
     }

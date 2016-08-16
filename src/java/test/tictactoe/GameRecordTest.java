@@ -13,14 +13,14 @@ import java.util.Collections;
  */
 public class GameRecordTest {
 
-    private GameBoard board;
+    private SquareBoard board;
     private GameRecord record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
     @Before
     public void setUp() {
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         record = new GameRecord(board);
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");

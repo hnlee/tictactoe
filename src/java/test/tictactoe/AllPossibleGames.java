@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class AllPossibleGames {
     private ComputerPlayer computer;
-    private GameBoard board;
+    private SquareBoard board;
     private GameRecord record;
     private GamePlayer opponent;
     private GameAnalyzer analyzer;
@@ -21,7 +21,7 @@ public class AllPossibleGames {
         PlayerMarker oMarker = new StringMarker("O");
         computer = new ComputerPlayer(oMarker);
         opponent = new MockGamePlayer(xMarker);
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         record = new GameRecord(board);
         analyzer = new GameAnalyzer(opponent, computer);
     }

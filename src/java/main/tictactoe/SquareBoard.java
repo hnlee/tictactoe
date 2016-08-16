@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GameBoard {
+public class SquareBoard {
     private int numRows;
     private int[][] rows;
 
-    GameBoard(int numRows) {
+    SquareBoard(int numRows) {
         this.numRows = numRows;
         setRows();
     }

@@ -12,7 +12,7 @@ import java.util.Hashtable;
 public class ComputerPlayerTest {
 
     private ComputerPlayer computer;
-    private GameBoard board;
+    private SquareBoard board;
     private GameRecord record;
     private GamePlayer opponent;
     private GameAnalyzer analyzer;
@@ -23,7 +23,7 @@ public class ComputerPlayerTest {
         PlayerMarker oMarker = new StringMarker("O");
         computer = new ComputerPlayer(xMarker);
         opponent = new MockGamePlayer(oMarker);
-        board = new GameBoard(3);
+        board = new SquareBoard(3);
         record = new GameRecord(board);
     }
 
