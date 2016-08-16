@@ -19,10 +19,12 @@ public class ComputerPlayerTest {
 
     @Before
     public void setUp() {
-        computer = new ComputerPlayer(new StringMarker("X"));
+        PlayerMarker xMarker = new StringMarker("X");
+        PlayerMarker oMarker = new StringMarker("O");
+        computer = new ComputerPlayer(xMarker);
+        opponent = new MockGamePlayer(oMarker);
         board = new GameBoard(3);
         record = new GameRecord(board);
-        opponent = new MockGamePlayer("O");
     }
 
     @Test

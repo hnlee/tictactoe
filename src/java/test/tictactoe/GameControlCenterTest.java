@@ -17,6 +17,8 @@ public class GameControlCenterTest {
     private ByteArrayOutputStream output;
     private MockGamePlayer firstPlayer;
     private MockGamePlayer secondPlayer;
+    private HumanPlayer humanPlayer;
+    private ComputerPlayer computerPlayer;
     private MockUI ui;
 
     @Before
@@ -25,8 +27,13 @@ public class GameControlCenterTest {
         input = new MockInputStream();
         ui = new MockUI(input, output);
         game = new GameControlCenter(ui);
-        firstPlayer = new MockGamePlayer("X");
-        secondPlayer = new MockGamePlayer("O");
+
+        PlayerMarker xMarker = new StringMarker("X");
+        PlayerMarker oMarker = new StringMarker("O");
+        firstPlayer = new MockGamePlayer(xMarker);
+        secondPlayer = new MockGamePlayer(oMarker);
+        humanPlayer = new HumanPlayer(xMarker);
+        computerPlayer = new ComputerPlayer(oMarker);
     }
 
     @Test
@@ -58,19 +65,16 @@ public class GameControlCenterTest {
     public void testUpdateMove() {
         game.setUp(3, firstPlayer, secondPlayer);
         GameRecord record = game.getRecord();
-        GamePlayer playerOne = game.getPlayer(1);
-        GamePlayer playerTwo = game.getPlayer(2);
-        game.updateMove(playerOne);
-        game.updateMove(playerTwo);
-        assertEquals(playerTwo, record.getLastPlayer());
+        game.updateMove(firstPlayer);
+        game.updateMove(secondPlayer);
+        assertEquals(secondPlayer, record.getLastPlayer());
     }
 
     @Test
     public void testAnalyzeGameInProgress() {
         game.setUp(3, firstPlayer, secondPlayer);
-        GamePlayer playerOne = game.getPlayer(1);
         GameRecord record = game.getRecord();
-        record.newMove(1, playerOne);
+        record.newMove(1, firstPlayer);
         game.analyzeBoard();
         assertEquals("playing", game.getStatus());
     }
@@ -100,61 +104,47 @@ public class GameControlCenterTest {
 
     @Test
     public void testSetUpHumanVsComputer() {
-        game.setUp(3,
-                   new HumanPlayer(new StringMarker("X")),
-                   new ComputerPlayer(new StringMarker("O")));
+        game.setUp(3, humanPlayer, computerPlayer);
         assertTrue(game.getPlayer(2) instanceof ComputerPlayer);
         assertTrue(game.getPlayer(1) instanceof HumanPlayer);
     }
 
     @Test
     public void testSetUpComputerVsHuman() {
-        game.setUp(3,
-                   new ComputerPlayer(new StringMarker("X")),
-                   new HumanPlayer(new StringMarker("O")));
+        game.setUp(3, computerPlayer, humanPlayer);
         assertTrue(game.getPlayer(1) instanceof ComputerPlayer);
         assertTrue(game.getPlayer(2) instanceof HumanPlayer);
     }
 
     @Test
     public void testRunGameWithComputer() {
-        game.setUp(3,
-                   firstPlayer,
-                   new ComputerPlayer(new StringMarker("O")));
+        game.setUp(3, firstPlayer, computerPlayer);
         game.run();
         assertEquals("finish", game.getStatus());
     }
 
     @Test
     public void testGetHumanMove() {
-        game.setUp(3,
-                   new HumanPlayer(new StringMarker("X")),
-                   secondPlayer);
-        GamePlayer playerOne = game.getPlayer(1);
+        game.setUp(3, humanPlayer, secondPlayer);
         input.setInputStream("0");
-        int move = game.getMove(playerOne);
+        int move = game.getMove(humanPlayer);
         assertEquals(0, move);
     }
 
     @Test
     public void testUpdateHumanMove() {
-        game.setUp(3,
-                   new HumanPlayer(new StringMarker("X")),
-                   secondPlayer);
-        GamePlayer playerOne = game.getPlayer(1);
+        game.setUp(3, humanPlayer, secondPlayer);
         GameRecord record = game.getRecord();
         input.setInputStream("0");
-        game.updateMove(playerOne);
+        game.updateMove(humanPlayer);
         assertEquals(0, record.getLastMove());
-        assertEquals(playerOne, record.getLastPlayer());
+        assertEquals(humanPlayer, record.getLastPlayer());
     }
 
     @Test
     public void testDisplayBoardAfterMove() {
         game.setUp(3, firstPlayer, secondPlayer);
-        GamePlayer playerOne = game.getPlayer(1);
-        input.setInputStream("0");
-        game.updateMove(playerOne);
+        game.updateMove(firstPlayer);
         String boardString = game.getBoard().toString();
         assertTrue(output.toString().endsWith(boardString));
     }
@@ -175,10 +165,17 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayMoveNumber() {
         game.setUp(3, firstPlayer, secondPlayer);
-        GamePlayer playerOne = game.getPlayer(1);
-        input.setInputStream("0");
-        game.updateMove(playerOne);
+        game.updateMove(firstPlayer);
         assertTrue(output.toString().contains("Move #1"));
     }
-    
+
+    @Test
+    public void testInvalidHumanMove() {
+        game.setUp(3, firstPlayer, secondPlayer);
+        GamePlayer playerOne = game.getPlayer(1);
+        input.setInputStream("9\n0");
+        game.updateMove(humanPlayer);
+        assertTrue(output.toString().contains("Invalid move"));
+    }
+
 }

@@ -7,8 +7,8 @@ public class MockGamePlayer implements GamePlayer {
 
     private PlayerMarker marker;
 
-    public MockGamePlayer(String marker) {
-        this.marker = new StringMarker(marker);
+    public MockGamePlayer(PlayerMarker marker) {
+        this.marker = marker;
     }
 
     public PlayerMarker getMarker() {

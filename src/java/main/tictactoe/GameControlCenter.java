@@ -92,6 +92,8 @@ public class GameControlCenter {
                 record.newMove(move, player);
                 ui.displayMoveNumber(moveNumber);
                 ui.displayBoard(record);
+            } else {
+                ui.displayError("invalid");
             }
         }
     }

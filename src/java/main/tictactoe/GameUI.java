@@ -29,8 +29,16 @@ public interface GameUI {
         displayMessage("Game over");
     }
 
-    default void promptMove() {
-        displayPrompt("Enter move");
+    default String promptMove() {
+        return displayPrompt("Enter move");
+    }
+
+    default void displayError(String errorType) {
+        if (errorType.equals("invalid")) {
+            displayMessage("Invalid move");
+        } else {
+            displayMessage("Error");
+        }
     }
 
 }

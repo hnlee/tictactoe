@@ -34,7 +34,7 @@ public class GameRecord {
 
     public boolean isValidMove(int move) {
         int dim = board.getNumRows();
-        if (move > dim * dim || move < 0) {
+        if (move > dim * dim - 1 || move < 0) {
             return false;
         }
         for (GamePlayer player : movesByPlayer.keySet()) {

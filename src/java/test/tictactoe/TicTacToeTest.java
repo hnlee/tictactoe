@@ -47,6 +47,6 @@ public class TicTacToeTest {
         String[] args = {};
         TicTacToe.main(args);
         String messages = output.toString();
-        assertTrue(messages.endsWith("Game over.\n"));
+        assertTrue(messages.endsWith("Game over\n"));
     }
 }

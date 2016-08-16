@@ -21,8 +21,10 @@ public class GameAnalyzerTest {
     @Before
     public void setUp() {
         board = new GameBoard(3);
-        playerOne = new MockGamePlayer("X");
-        playerTwo = new MockGamePlayer("O");
+        PlayerMarker xMarker = new StringMarker("X");
+        PlayerMarker oMarker = new StringMarker("O");
+        playerOne = new MockGamePlayer(xMarker);
+        playerTwo = new MockGamePlayer(oMarker);
         record = new GameRecord(board);
         analyzer = new GameAnalyzer(playerOne, playerTwo);
     }

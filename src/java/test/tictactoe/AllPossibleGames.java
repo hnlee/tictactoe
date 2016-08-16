@@ -17,10 +17,12 @@ public class AllPossibleGames {
 
     @Before
     public void setUp() {
-        computer = new ComputerPlayer(new StringMarker("O"));
+        PlayerMarker xMarker = new StringMarker("X");
+        PlayerMarker oMarker = new StringMarker("O");
+        computer = new ComputerPlayer(oMarker);
+        opponent = new MockGamePlayer(xMarker);
         board = new GameBoard(3);
         record = new GameRecord(board);
-        opponent = new MockGamePlayer("X");
         analyzer = new GameAnalyzer(opponent, computer);
     }
 
