@@ -12,6 +12,8 @@ public class GameControlCenter {
     private GameRecord record;
     private GameAnalyzer analyzer;
     private String status;
+    private int moveNumber;
+
 
     GameControlCenter() {
         this.ui = new CommandLineUI();
@@ -30,6 +32,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        moveNumber = 0;
         ui.displayMessage("Tic Tac Toe");
         ui.displayBoard(record);
     }
@@ -43,6 +46,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        moveNumber = 0;
         ui.displayMessage("Tic Tac Toe");
         ui.displayBoard(record);
     }
@@ -86,6 +90,7 @@ public class GameControlCenter {
             validate = record.isValidMove(move);
             if (validate) {
                 record.newMove(move, player);
+                ui.displayMessage(String.format("Move #%d", moveNumber + 1));
                 ui.displayBoard(record);
             }
         }
@@ -108,7 +113,6 @@ public class GameControlCenter {
     }
 
     public void run() {
-        int moveNumber = 0;
         GamePlayer currentPlayer;
         analyzeBoard();
         while (status.equals("playing")) {

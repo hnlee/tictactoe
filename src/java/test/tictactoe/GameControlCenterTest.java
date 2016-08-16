@@ -171,4 +171,13 @@ public class GameControlCenterTest {
         game.setUp(3, firstPlayer, secondPlayer);
         assertTrue(output.toString().startsWith("Tic Tac Toe\n"));
     }
+
+    @Test
+    public void testDisplayMoveNumber() {
+        game.setUp(3, firstPlayer, secondPlayer);
+        GamePlayer playerOne = game.getPlayer(1);
+        input.setInputStream("0");
+        game.updateMove(playerOne);
+        assertTrue(output.toString().contains("Move #1"));
+    }
 }
