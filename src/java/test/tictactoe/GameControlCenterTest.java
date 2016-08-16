@@ -180,4 +180,5 @@ public class GameControlCenterTest {
         game.updateMove(playerOne);
         assertTrue(output.toString().contains("Move #1"));
     }
+    
 }

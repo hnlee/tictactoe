@@ -47,7 +47,7 @@ public class GameControlCenter {
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
         moveNumber = 0;
-        ui.displayMessage("Tic Tac Toe");
+        ui.displayTitle();
         ui.displayBoard(record);
     }
 
@@ -90,7 +90,7 @@ public class GameControlCenter {
             validate = record.isValidMove(move);
             if (validate) {
                 record.newMove(move, player);
-                ui.displayMessage(String.format("Move #%d", moveNumber + 1));
+                ui.displayMoveNumber(moveNumber);
                 ui.displayBoard(record);
             }
         }
@@ -126,6 +126,6 @@ public class GameControlCenter {
             moveNumber++;
         }
         status = "finish";
-        ui.displayMessage("Game over.");
+        ui.displayEnding();
     }
 }

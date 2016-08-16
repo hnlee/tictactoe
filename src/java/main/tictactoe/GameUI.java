@@ -16,4 +16,21 @@ public interface GameUI {
         displayMessage(prompt);
         return getUserInput();
     }
+
+    default void displayTitle() {
+        displayMessage("Tic Tac Toe");
+    }
+
+    default void displayMoveNumber(int moveNumber) {
+        displayMessage(String.format("Move #%d", moveNumber + 1));
+    }
+
+    default void displayEnding() {
+        displayMessage("Game over");
+    }
+
+    default void promptMove() {
+        displayPrompt("Enter move");
+    }
+
 }

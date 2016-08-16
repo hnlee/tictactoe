@@ -16,8 +16,7 @@ public class HumanPlayer implements GamePlayer {
     }
 
     public int move(GameUI ui) {
-        String prompt = "Enter move";
-        String playerInput = ui.displayPrompt(prompt);
+        String playerInput = ui.promptMove();
         return Integer.parseInt(playerInput);
     }
 
