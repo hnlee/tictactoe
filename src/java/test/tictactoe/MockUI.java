@@ -18,15 +18,15 @@ public class MockUI implements GameUI {
         this.outputStream = new PrintStream(output);
     }
 
-    void displayMessage(String message) {
+    public void displayMessage(String message) {
         outputStream.println(message);
     }
 
-    void displayBoard(GameRecord record) {
+    public void displayBoard(GameRecord record) {
         outputStream.print(record.getBoard());
     }
 
-    String getUserInput() {
+    public String getUserInput() {
         Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }
