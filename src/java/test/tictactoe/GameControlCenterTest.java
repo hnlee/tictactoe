@@ -151,9 +151,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testDisplayBoardAfterMove() {
-        game.setUp(3,
-                   new HumanPlayer(new StringMarker("X")),
-                   secondPlayer);
+        game.setUp(3, firstPlayer, secondPlayer);
         GamePlayer playerOne = game.getPlayer(1);
         input.setInputStream("0");
         game.updateMove(playerOne);
@@ -161,4 +159,10 @@ public class GameControlCenterTest {
         assertTrue(output.toString().endsWith(boardString));
     }
 
+    @Test
+    public void testDisplayBoardAtGameStart() {
+        game.setUp(3, firstPlayer, secondPlayer);
+        String boardString = game.getBoard().toString();
+        assertTrue(output.toString().endsWith(boardString));
+    }
 }

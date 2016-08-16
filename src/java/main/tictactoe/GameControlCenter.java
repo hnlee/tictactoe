@@ -30,6 +30,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        ui.displayBoard(record);
     }
 
     public void setUp(int numRows,
@@ -41,6 +42,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        ui.displayBoard(record);
     }
 
     public GameUI getUI() {
