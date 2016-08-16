@@ -15,10 +15,12 @@ public class CommandLineUI implements GameUI {
 
     private PrintStream outputStream;
     private InputStream inputStream;
+    private Scanner scanner;
 
     public CommandLineUI() {
         this.inputStream = System.in;
         this.outputStream = System.out;
+        this.scanner = new Scanner(inputStream);
     }
 
     public CommandLineUI(InputStream input, OutputStream output) {
@@ -74,7 +76,6 @@ public class CommandLineUI implements GameUI {
 
     @Override
     public String getUserInput() {
-        Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }
 

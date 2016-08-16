@@ -117,5 +117,6 @@ public class GameControlCenter {
             moveNumber++;
         }
         status = "finish";
+        ui.displayMessage("Game over.");
     }
 }
