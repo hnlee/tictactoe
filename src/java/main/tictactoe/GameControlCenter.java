@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class GameControlCenter {
     private GameUI ui;
-    private SquareBoard board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;
@@ -28,8 +27,7 @@ public class GameControlCenter {
     public void setUp() {
         playerOne = new HumanPlayer(new StringMarker("X"));
         playerTwo = new ComputerPlayer(new StringMarker("O"));
-        board = new SquareBoard(3);
-        record = new GameRecord(getBoard());
+        record = new GameRecord(new SquareBoard(3));
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
         moveNumber = 0;
@@ -37,13 +35,12 @@ public class GameControlCenter {
         ui.displayBoard(record);
     }
 
-    public void setUp(int numRows,
+    public void setUp(Board board,
                       GamePlayer firstPlayer,
                       GamePlayer secondPlayer) {
         playerOne = firstPlayer;
         playerTwo = secondPlayer;
-        board = new SquareBoard(numRows);
-        record = new GameRecord(getBoard());
+        record = new GameRecord(board);
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
         moveNumber = 0;
@@ -53,10 +50,6 @@ public class GameControlCenter {
 
     public GameUI getUI() {
         return ui;
-    }
-
-    public SquareBoard getBoard() {
-        return board;
     }
 
     public GamePlayer getPlayer(int playerNum) {
@@ -80,7 +73,7 @@ public class GameControlCenter {
         if (player instanceof HumanPlayer) {
             return player.move(ui);
         }
-        return player.move(board.getNumRows());
+        return player.move(record.getBoard().getNumRows());
     }
 
     public void updateMove(GamePlayer player) {

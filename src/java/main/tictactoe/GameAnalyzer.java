@@ -3,6 +3,7 @@ package tictactoe;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by hanalee on 8/2/16.
@@ -51,18 +52,18 @@ public class GameAnalyzer {
     }
 
     public boolean isGameTied(GameRecord record) {
-        ArrayList<Integer> allSpaces = record.getBoard().getSpaces();
-        ArrayList<Integer> allMoves = record.getAllMoves();
+        List<Integer> allSpaces = record.getBoard().getSpaces();
+        List<Integer> allMoves = record.getAllMoves();
         if (allSpaces.equals(allMoves) && !isGameWon(record)) {
             return true;
         }
         return false;
     }
 
-    public ArrayList<Integer> getEmptySpaces(GameRecord record) {
-        ArrayList<Integer> allSpaces = record.getBoard().getSpaces();
-        ArrayList<Integer> allMoves = record.getAllMoves();
-        ArrayList<Integer> emptySpaces = new ArrayList<Integer>();
+    public List<Integer> getEmptySpaces(GameRecord record) {
+        List<Integer> allSpaces = record.getBoard().getSpaces();
+        List<Integer> allMoves = record.getAllMoves();
+        List<Integer> emptySpaces = new ArrayList<Integer>();
         for (int space : allSpaces) {
             if (!allMoves.contains(space)) {
                 emptySpaces.add(space);
@@ -98,7 +99,7 @@ public class GameAnalyzer {
     }
 
     public Hashtable<Integer, Integer> scoreNextMoves(GameRecord record) {
-        ArrayList<Integer> emptySpaces = getEmptySpaces(record);
+        List<Integer> emptySpaces = getEmptySpaces(record);
         GamePlayer nextPlayer = getNextPlayer(record);
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int emptySpace : emptySpaces) {

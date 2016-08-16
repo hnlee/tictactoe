@@ -8,16 +8,16 @@ import java.util.Collections;
  * Created by hanalee on 7/28/16.
  */
 public class GameRecord {
-    private SquareBoard board;
+    private Board board;
     private GamePlayer lastPlayer;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
 
-    GameRecord(SquareBoard board) {
+    GameRecord(Board board) {
         this.board = board;
         this.movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
     }
 
-    public SquareBoard getBoard() { return board; }
+    public Board getBoard() { return board; }
 
     public void newMove(int move, GamePlayer player) {
         lastPlayer = player;

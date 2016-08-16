@@ -8,7 +8,7 @@ import java.util.List;
 public interface Board {
 
     int getNumRows();
-    
+
     List<Integer> getSpaces();
 
     int[][] getRows();

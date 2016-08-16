@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class GameAnalyzerTest {
     private GameAnalyzer analyzer;
-    private SquareBoard board;
+    private Board board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private GameRecord record;

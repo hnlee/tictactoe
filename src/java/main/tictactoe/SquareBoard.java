@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class SquareBoard {
+public class SquareBoard implements Board {
     private int numRows;
     private int[][] rows;
 

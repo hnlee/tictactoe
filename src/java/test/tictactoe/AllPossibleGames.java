@@ -4,13 +4,14 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hanalee on 8/8/16.
  */
 public class AllPossibleGames {
     private ComputerPlayer computer;
-    private SquareBoard board;
+    private Board board;
     private GameRecord record;
     private GamePlayer opponent;
     private GameAnalyzer analyzer;
@@ -27,7 +28,7 @@ public class AllPossibleGames {
     }
 
     private boolean runGame(GameRecord gameRecord) {
-        ArrayList<Integer> emptySpaces = analyzer.getEmptySpaces(gameRecord);
+        List<Integer> emptySpaces = analyzer.getEmptySpaces(gameRecord);
         ArrayList<Boolean> outcomes = new ArrayList<Boolean>();
         for (int space : emptySpaces) {
             GameRecord newRecord = gameRecord.copyRecord();

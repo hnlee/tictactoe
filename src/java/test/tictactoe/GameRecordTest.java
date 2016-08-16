@@ -13,7 +13,7 @@ import java.util.Collections;
  */
 public class GameRecordTest {
 
-    private SquareBoard board;
+    private Board board;
     private GameRecord record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
