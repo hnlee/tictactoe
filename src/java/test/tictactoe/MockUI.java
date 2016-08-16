@@ -12,10 +12,13 @@ public class MockUI implements GameUI {
 
     private PrintStream outputStream;
     private InputStream inputStream;
+    private Scanner scanner;
+
 
     public MockUI(InputStream input, OutputStream output) {
         this.inputStream = input;
         this.outputStream = new PrintStream(output);
+        this.scanner =  new Scanner(inputStream);
     }
 
     public void displayMessage(String message) {
@@ -27,7 +30,6 @@ public class MockUI implements GameUI {
     }
 
     public String getUserInput() {
-        Scanner scanner = new Scanner(inputStream);
         return scanner.nextLine();
     }
 

@@ -82,6 +82,7 @@ public class GameControlCenter {
             validate = record.isValidMove(move);
             if (validate) {
                 record.newMove(move, player);
+                ui.displayBoard(record);
             }
         }
     }

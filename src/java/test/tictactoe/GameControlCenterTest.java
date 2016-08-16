@@ -14,13 +14,14 @@ import java.io.ByteArrayOutputStream;
 public class GameControlCenterTest {
     private GameControlCenter game;
     private MockInputStream input;
+    private ByteArrayOutputStream output;
     private MockGamePlayer firstPlayer;
     private MockGamePlayer secondPlayer;
     private MockUI ui;
 
     @Before
     public void setUp() {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        output = new ByteArrayOutputStream();
         input = new MockInputStream();
         ui = new MockUI(input, output);
         game = new GameControlCenter(ui);
@@ -145,6 +146,19 @@ public class GameControlCenterTest {
         input.setInputStream("0");
         game.updateMove(playerOne);
         assertEquals(0, record.getLastMove());
+        assertEquals(playerOne, record.getLastPlayer());
+    }
+
+    @Test
+    public void testDisplayBoardAfterMove() {
+        game.setUp(3,
+                   new HumanPlayer(new StringMarker("X")),
+                   secondPlayer);
+        GamePlayer playerOne = game.getPlayer(1);
+        input.setInputStream("0");
+        game.updateMove(playerOne);
+        String boardString = game.getBoard().toString();
+        assertTrue(output.toString().endsWith(boardString));
     }
 
 }
