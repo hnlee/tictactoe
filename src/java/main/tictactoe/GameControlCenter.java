@@ -30,6 +30,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        ui.displayMessage("Tic Tac Toe");
         ui.displayBoard(record);
     }
 
@@ -42,6 +43,7 @@ public class GameControlCenter {
         record = new GameRecord(getBoard());
         analyzer = new GameAnalyzer(playerOne, playerTwo);
         status = "ready";
+        ui.displayMessage("Tic Tac Toe");
         ui.displayBoard(record);
     }
 

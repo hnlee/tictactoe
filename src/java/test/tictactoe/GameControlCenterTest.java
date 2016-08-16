@@ -165,4 +165,10 @@ public class GameControlCenterTest {
         String boardString = game.getBoard().toString();
         assertTrue(output.toString().endsWith(boardString));
     }
+
+    @Test
+    public void testDisplayTitleAtGameStart() {
+        game.setUp(3, firstPlayer, secondPlayer);
+        assertTrue(output.toString().startsWith("Tic Tac Toe\n"));
+    }
 }
