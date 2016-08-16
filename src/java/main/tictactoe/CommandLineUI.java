@@ -26,6 +26,7 @@ public class CommandLineUI implements GameUI {
     public CommandLineUI(InputStream input, OutputStream output) {
         this.inputStream = input;
         this.outputStream = new PrintStream(output);
+        this.scanner = new Scanner(inputStream);
     }
 
     private String generateBoardElementsAsString(String space,
