@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by hanalee on 8/17/16.
  */
-public interface MoveTree {
+public interface MoveHistory {
 
     Board getBoard();
 

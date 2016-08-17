@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by hanalee on 7/28/16.
  */
-public class GameRecord implements MoveTree {
+public class GameRecord implements MoveHistory {
     private Board board;
     private GamePlayer lastPlayer;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
