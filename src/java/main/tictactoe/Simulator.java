@@ -5,10 +5,10 @@ package tictactoe;
  */
 public class Simulator {
 
-    public static void simulateGame(GamePlayer playerOne,
-                                    GamePlayer playerTwo,
-                                    MoveHistory record,
+    public static void simulateGame(MoveHistory record,
                                     int... moves) {
+        GamePlayer playerOne = record.getPlayer(1);
+        GamePlayer playerTwo = record.getPlayer(2);
         for (int move : moves) {
             if (record.getAllMoves().size() % 2 == 0) {
                 record.newMove(move, playerOne);

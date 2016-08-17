@@ -11,11 +11,28 @@ import java.util.List;
 public class GameRecord implements MoveHistory {
     private Board board;
     private GamePlayer lastPlayer;
+    private GamePlayer playerOne;
+    private GamePlayer playerTwo;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
 
     GameRecord(Board board) {
         this.board = board;
         this.movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
+    }
+
+    public void setPlayers(GamePlayer firstPlayer,
+                           GamePlayer secondPlayer) {
+        playerOne = firstPlayer;
+        playerTwo = secondPlayer;
+        movesByPlayer.put(playerOne, new ArrayList<Integer>());
+        movesByPlayer.put(playerTwo, new ArrayList<Integer>());
+    }
+
+    public GamePlayer getPlayer(int playerNum) {
+        if (playerNum == 2) {
+            return playerTwo;
+        }
+        return playerOne;
     }
 
     public Board getBoard() { return board; }
@@ -59,8 +76,13 @@ public class GameRecord implements MoveHistory {
         return movesByPlayer;
     }
 
-    public GameRecord copyRecord() {
+    public MoveHistory copyRecord() {
         GameRecord copy = new GameRecord(board);
+        if (playerOne.equals(lastPlayer)) {
+            copy.setPlayers(playerTwo, playerOne);
+        } else {
+            copy.setPlayers(playerOne, playerTwo);
+        }
         Hashtable<GamePlayer,
                   ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();
         for (GamePlayer player : movesByPlayer.keySet()) {

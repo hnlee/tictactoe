@@ -13,38 +13,43 @@ public class ComputerPlayerTest {
 
     private ComputerPlayer computer;
     private SquareBoard board;
-    private GameRecord record;
+    private MoveHistory record;
     private GamePlayer opponent;
-    private GameAnalyzer analyzer;
+    private Scorer analyzer;
 
     @Before
     public void setUp() {
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
-        computer = new ComputerPlayer(xMarker);
-        opponent = new MockGamePlayer(oMarker);
         board = new SquareBoard(3);
         record = new GameRecord(board);
+        analyzer = new GameAnalyzer();
+        computer = new ComputerPlayer(xMarker, record);
+        opponent = new MockGamePlayer(oMarker);
+    }
+
+    @Test
+    public void testGetAnalyzer() {
+        assertNotNull(computer.getAnalyzer());
     }
 
     @Test
     public void testMakeWinningMove() {
-        Simulator.simulateGame(opponent, computer, record,
+        record.setPlayers(opponent, computer);
+        Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
-        analyzer = new GameAnalyzer(opponent, computer);
-        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
-        assertEquals(3, computer.move(analyzer, record));
+        assertEquals(3, computer.move());
     }
 
     @Test
     public void testMoveOnEmptyBoard() {
-        analyzer = new GameAnalyzer(computer, opponent);
+        record.setPlayers(computer, opponent);
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int space = 0; space < 9; space++) {
             scores.put(space, 0);
         }
         assertEquals(scores, analyzer.scoreNextMoves(record));
-        assertTrue(board.getSpaces().contains(computer.move(analyzer, record)));
+        assertTrue(board.getSpaces().contains(computer.move()));
     }
 
 }

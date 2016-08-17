@@ -30,6 +30,7 @@ public class CommandLineUITest {
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
+        record.setPlayers(playerOne, playerTwo);
     }
 
     @Test
@@ -86,9 +87,7 @@ public class CommandLineUITest {
                              " O | X | X \n" +
                              "---+---+---\n" +
                              " 6 | 7 | 8 \n";
-        Simulator.simulateGame(playerOne,
-                playerTwo,
-                record,
+        Simulator.simulateGame(record,
                 4, 1, 5, 3);
         assertEquals(boardString, ui.convertBoardToString(record));
     }
@@ -111,9 +110,7 @@ public class CommandLineUITest {
                              " O | X | X \n" +
                              "---+---+---\n" +
                              " 6 | 7 | 8 \n";
-        Simulator.simulateGame(playerOne,
-                playerTwo,
-                record,
+        Simulator.simulateGame(record,
                 4, 1, 5, 3);
         ui.displayBoard(record);
         assertEquals(boardString, output.toString());

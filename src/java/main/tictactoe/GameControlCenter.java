@@ -9,41 +9,42 @@ public class GameControlCenter {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private MoveHistory record;
-    private GameAnalyzer analyzer;
+    private StatusChecker analyzer;
     private String status;
     private int moveNumber;
 
 
     GameControlCenter() {
         this.ui = new CommandLineUI();
+        this.record = new GameRecord(new SquareBoard(3));
         this.status = "start";
     }
 
-    GameControlCenter(GameUI ui) {
+    GameControlCenter(GameUI ui, Board board) {
         this.ui = ui;
+        this.record = new GameRecord(board);
         this.status = "start";
     }
 
     public void setUp() {
         playerOne = new HumanPlayer(new StringMarker("X"), ui);
-        playerTwo = new ComputerPlayer(new StringMarker("O"));
-        record = new GameRecord(new SquareBoard(3));
-        analyzer = new GameAnalyzer(playerOne, playerTwo);
-        status = "ready";
+        playerTwo = new ComputerPlayer(new StringMarker("O"), record);
+        record.setPlayers(playerOne, playerTwo);
+        analyzer = new GameAnalyzer();
         moveNumber = 0;
-        ui.displayMessage("Tic Tac Toe");
+        status = "ready";
+        ui.displayTitle();
         ui.displayBoard(record);
     }
 
-    public void setUp(Board board,
-                      GamePlayer firstPlayer,
+    public void setUp(GamePlayer firstPlayer,
                       GamePlayer secondPlayer) {
         playerOne = firstPlayer;
         playerTwo = secondPlayer;
-        record = new GameRecord(board);
-        analyzer = new GameAnalyzer(playerOne, playerTwo);
-        status = "ready";
+        record.setPlayers(playerOne, playerTwo);
+        analyzer = new GameAnalyzer();
         moveNumber = 0;
+        status = "ready";
         ui.displayTitle();
         ui.displayBoard(record);
     }
@@ -55,31 +56,20 @@ public class GameControlCenter {
     public GamePlayer getPlayer(int playerNum) {
         if (playerNum == 1) {
             return playerOne;
-        } else {
-            return playerTwo;
         }
+        return playerTwo;
     }
 
     public MoveHistory getRecord() {
         return record;
     }
 
-    public GameAnalyzer getAnalyzer() { return analyzer; }
-
-    public int getMove(GamePlayer player) {
-        if (player instanceof ComputerPlayer) {
-            return player.move(analyzer, record);
-        }
-        if (player instanceof HumanPlayer) {
-            return player.move();
-        }
-        return player.move(record.getBoard().getNumRows());
-    }
+    public StatusChecker getAnalyzer() { return analyzer; }
 
     public void updateMove(GamePlayer player) {
         boolean validate = false;
         while (!validate) {
-            int move = getMove(player);
+            int move = player.move();
             validate = analyzer.isValidMove(move, record);
             if (validate) {
                 record.newMove(move, player);

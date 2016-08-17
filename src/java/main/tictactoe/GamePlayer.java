@@ -7,21 +7,8 @@ import java.util.Random;
  */
 public interface GamePlayer {
 
-    Random random = new Random();
-
     PlayerMarker getMarker();
 
-    default int move(int numRows) {
-        return random.nextInt(numRows * numRows);
-    }
-
-    default int move(GameAnalyzer analyzer, MoveHistory record) {
-        int numRows = record.getBoard().getNumRows();
-        return random.nextInt(numRows * numRows);
-    }
-
-    default int move() {
-        return random.nextInt();
-    }
+    int move();
 
 }

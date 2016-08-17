@@ -26,6 +26,7 @@ public class GameRecordTest {
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
+        record.setPlayers(playerOne, playerTwo);
     }
 
     @Test
@@ -66,22 +67,19 @@ public class GameRecordTest {
 
     @Test
     public void testGetLastPlayerAfterOneMove() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                               1);
+        Simulator.simulateGame(record, 1);
         assertEquals(playerOne, record.getLastPlayer());
     }
 
     @Test
     public void testGetLastPlayerAfterTwoMoves() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                               1, 2);
+        Simulator.simulateGame(record, 1, 2);
         assertEquals(playerTwo, record.getLastPlayer());
     }
 
     @Test
     public void testGetMovesByPlayer() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                               1, 2);
+        Simulator.simulateGame(record, 1, 2);
         Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
         movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
         movesByPlayer.put(playerOne, new ArrayList<Integer>());
@@ -93,9 +91,8 @@ public class GameRecordTest {
 
     @Test
     public void testCopyRecord() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                1, 2);
-        GameRecord newRecord = record.copyRecord();
+        Simulator.simulateGame(record, 1, 2);
+        MoveHistory newRecord = record.copyRecord();
         assertNotEquals(newRecord, record);
         assertEquals(newRecord.getMovesByPlayer().keySet(),
                      record.getMovesByPlayer().keySet());
@@ -103,9 +100,8 @@ public class GameRecordTest {
 
     @Test
     public void testAddNewMoveToCopy() {
-        Simulator.simulateGame(playerOne, playerTwo, record,
-                1, 2);
-        GameRecord newRecord = record.copyRecord();
+        Simulator.simulateGame(record, 1, 2);
+        MoveHistory newRecord = record.copyRecord();
         assertEquals(newRecord.getMovesByPlayer().get(playerOne),
                      record.getMovesByPlayer().get(playerOne));
         newRecord.newMove(0, playerOne);

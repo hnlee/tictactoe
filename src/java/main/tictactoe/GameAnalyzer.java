@@ -8,15 +8,7 @@ import java.util.List;
 /**
  * Created by hanalee on 8/2/16.
  */
-public class GameAnalyzer implements Endgame, Scoring {
-    private GamePlayer playerOne;
-    private GamePlayer playerTwo;
-
-    GameAnalyzer(GamePlayer playerOne,
-                 GamePlayer playerTwo) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-    }
+public class GameAnalyzer implements StatusChecker, Scorer {
 
     public ArrayList<GamePlayer> getRowPlayers(MoveHistory record, int[] row) {
         ArrayList<GamePlayer> rowPlayedBy = new ArrayList<GamePlayer>();
@@ -88,19 +80,17 @@ public class GameAnalyzer implements Endgame, Scoring {
     }
 
     public GamePlayer getNextPlayer(MoveHistory record) {
-        GamePlayer nextPlayer;
-        if (playerOne == record.getLastPlayer()) {
-            nextPlayer = playerTwo;
-        } else {
-            nextPlayer = playerOne;
+        GamePlayer lastPlayer = record.getLastPlayer();
+        if (record.getPlayer(1).equals(lastPlayer)) {
+            return record.getPlayer(2);
         }
-        return nextPlayer;
+        return record.getPlayer(1);
     }
 
     public int scoreMove(MoveHistory record,
                          int emptySpace,
                          GamePlayer player) {
-        GameRecord nextGameState = record.copyRecord();
+        MoveHistory nextGameState = record.copyRecord();
         nextGameState.newMove(emptySpace, player);
         if (isGameWon(nextGameState)) {
             return 1;
@@ -114,9 +104,9 @@ public class GameAnalyzer implements Endgame, Scoring {
     }
 
     public Hashtable<Integer, Integer> scoreNextMoves(MoveHistory record) {
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         List<Integer> emptySpaces = getEmptySpaces(record);
         GamePlayer nextPlayer = getNextPlayer(record);
-        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int emptySpace : emptySpaces) {
             scores.put(emptySpace, scoreMove(record, emptySpace, nextPlayer));
         }

@@ -1,9 +1,11 @@
 package tictactoe;
 
+import java.util.List;
+
 /**
  * Created by hanalee on 8/17/16.
  */
-public interface Endgame {
+public interface StatusChecker {
 
     boolean isGameWon(MoveHistory record);
 
@@ -11,4 +13,5 @@ public interface Endgame {
 
     boolean isValidMove(int move, MoveHistory record);
 
+    List<Integer> getEmptySpaces(MoveHistory record);
 }

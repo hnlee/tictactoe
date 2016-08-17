@@ -9,6 +9,10 @@ import java.util.List;
  */
 public interface MoveHistory {
 
+    void setPlayers(GamePlayer playerOne, GamePlayer playerTwo);
+
+    GamePlayer getPlayer(int playerNumber);
+
     Board getBoard();
 
     void newMove(int move, GamePlayer player);
@@ -23,6 +27,6 @@ public interface MoveHistory {
 
     Hashtable<GamePlayer, ArrayList<Integer>> getMovesByPlayer();
 
-    GameRecord copyRecord();
+    MoveHistory copyRecord();
 
 }
