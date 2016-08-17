@@ -25,7 +25,7 @@ public class GameControlCenter {
     }
 
     public void setUp() {
-        playerOne = new HumanPlayer(new StringMarker("X"));
+        playerOne = new HumanPlayer(new StringMarker("X"), ui);
         playerTwo = new ComputerPlayer(new StringMarker("O"));
         record = new GameRecord(new SquareBoard(3));
         analyzer = new GameAnalyzer(playerOne, playerTwo);
@@ -71,7 +71,7 @@ public class GameControlCenter {
             return player.move(analyzer, record);
         }
         if (player instanceof HumanPlayer) {
-            return player.move(ui);
+            return player.move();
         }
         return player.move(record.getBoard().getNumRows());
     }

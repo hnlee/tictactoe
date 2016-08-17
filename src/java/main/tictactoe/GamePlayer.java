@@ -20,7 +20,7 @@ public interface GamePlayer {
         return random.nextInt(numRows * numRows);
     }
 
-    default int move(GameUI ui) {
+    default int move() {
         return random.nextInt();
     }
 

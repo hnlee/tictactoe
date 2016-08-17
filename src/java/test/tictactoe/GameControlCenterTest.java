@@ -34,7 +34,7 @@ public class GameControlCenterTest {
         PlayerMarker oMarker = new StringMarker("O");
         firstPlayer = new MockGamePlayer(xMarker);
         secondPlayer = new MockGamePlayer(oMarker);
-        humanPlayer = new HumanPlayer(xMarker);
+        humanPlayer = new HumanPlayer(xMarker, ui);
         computerPlayer = new ComputerPlayer(oMarker);
     }
 

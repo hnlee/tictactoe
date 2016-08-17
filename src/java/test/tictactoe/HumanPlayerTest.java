@@ -20,16 +20,16 @@ public class HumanPlayerTest {
 
     @Before
     public void setUp() {
-        human = new HumanPlayer(new StringMarker("X"));
         input = new MockInputStream();
         output = new ByteArrayOutputStream();
-        ui = new CommandLineUI(input, output);
+        ui = new MockUI(input, output);
+        human = new HumanPlayer(new StringMarker("X"), ui);
     }
 
     @Test
     public void testMove() {
         input.setInputStream("0");
-        int move = human.move(ui);
+        int move = human.move();
         assertEquals(0, move);
     }
 

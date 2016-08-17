@@ -6,16 +6,18 @@ package tictactoe;
 public class HumanPlayer implements GamePlayer {
 
     private PlayerMarker marker;
+    private GameUI ui;
 
-    public HumanPlayer(PlayerMarker marker) {
+    public HumanPlayer(PlayerMarker marker, GameUI ui) {
         this.marker = marker;
+        this.ui = ui;
     }
 
     public PlayerMarker getMarker() {
         return marker;
     }
 
-    public int move(GameUI ui) {
+    public int move() {
         String playerInput = ui.promptMove();
         return Integer.parseInt(playerInput);
     }
