@@ -5,8 +5,10 @@ package tictactoe;
  */
 public interface Endgame {
 
-    boolean isGameWon(GameRecord record);
+    boolean isGameWon(MoveHistory record);
 
-    boolean isGameTied(GameRecord record);
+    boolean isGameTied(MoveHistory record);
+
+    boolean isValidMove(int move, MoveHistory record);
 
 }

@@ -15,7 +15,7 @@ public interface GamePlayer {
         return random.nextInt(numRows * numRows);
     }
 
-    default int move(GameAnalyzer analyzer, GameRecord record) {
+    default int move(GameAnalyzer analyzer, MoveHistory record) {
         int numRows = record.getBoard().getNumRows();
         return random.nextInt(numRows * numRows);
     }

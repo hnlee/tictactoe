@@ -33,19 +33,6 @@ public class GameRecord implements MoveHistory {
         return lastPlayerMoves.get(lastPlayerMoves.size() - 1);
     }
 
-    public boolean isValidMove(int move) {
-        int dim = board.getNumRows();
-        if (move > dim * dim - 1 || move < 0) {
-            return false;
-        }
-        for (GamePlayer player : movesByPlayer.keySet()) {
-            if (movesByPlayer.get(player).contains(move)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public GamePlayer getLastPlayer() {
         return lastPlayer;
     }

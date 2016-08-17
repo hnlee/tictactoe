@@ -18,7 +18,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         this.playerTwo = playerTwo;
     }
 
-    public ArrayList<GamePlayer> getRowPlayers(GameRecord record, int[] row) {
+    public ArrayList<GamePlayer> getRowPlayers(MoveHistory record, int[] row) {
         ArrayList<GamePlayer> rowPlayedBy = new ArrayList<GamePlayer>();
         for (int space : row) {
             GamePlayer spacePlayedBy = record.whoPlayedMove(space);
@@ -30,7 +30,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return rowPlayedBy;
     }
 
-    public int getRowOccupancy(GameRecord record, int[] row) {
+    public int getRowOccupancy(MoveHistory record, int[] row) {
         List<Integer> allMoves = record.getAllMoves();
         int occupancy = 0;
         for (int space : row) {
@@ -41,7 +41,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return occupancy;
     }
 
-    public boolean isGameWon(GameRecord record) {
+    public boolean isGameWon(MoveHistory record) {
         for (int[] row : record.getBoard().getRows()) {
             if (getRowOccupancy(record, row) == 3 &&
                     getRowPlayers(record, row).size() == 1) {
@@ -51,7 +51,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return false;
     }
 
-    public boolean isGameTied(GameRecord record) {
+    public boolean isGameTied(MoveHistory record) {
         List<Integer> allSpaces = record.getBoard().getSpaces();
         List<Integer> allMoves = record.getAllMoves();
         if (allSpaces.equals(allMoves) && !isGameWon(record)) {
@@ -60,7 +60,22 @@ public class GameAnalyzer implements Endgame, Scoring {
         return false;
     }
 
-    public List<Integer> getEmptySpaces(GameRecord record) {
+    public boolean isValidMove(int move, MoveHistory record) {
+        Board board = record.getBoard();
+        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer = record.getMovesByPlayer();
+        int dim = board.getNumRows();
+        if (move > dim * dim - 1 || move < 0) {
+            return false;
+        }
+        for (GamePlayer player : movesByPlayer.keySet()) {
+            if (movesByPlayer.get(player).contains(move)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Integer> getEmptySpaces(MoveHistory record) {
         List<Integer> allSpaces = record.getBoard().getSpaces();
         List<Integer> allMoves = record.getAllMoves();
         List<Integer> emptySpaces = new ArrayList<Integer>();
@@ -72,7 +87,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return emptySpaces;
     }
 
-    public GamePlayer getNextPlayer(GameRecord record) {
+    public GamePlayer getNextPlayer(MoveHistory record) {
         GamePlayer nextPlayer;
         if (playerOne == record.getLastPlayer()) {
             nextPlayer = playerTwo;
@@ -82,7 +97,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return nextPlayer;
     }
 
-    public int scoreMove(GameRecord record,
+    public int scoreMove(MoveHistory record,
                          int emptySpace,
                          GamePlayer player) {
         GameRecord nextGameState = record.copyRecord();
@@ -98,7 +113,7 @@ public class GameAnalyzer implements Endgame, Scoring {
         return -1 * nextScore;
     }
 
-    public Hashtable<Integer, Integer> scoreNextMoves(GameRecord record) {
+    public Hashtable<Integer, Integer> scoreNextMoves(MoveHistory record) {
         List<Integer> emptySpaces = getEmptySpaces(record);
         GamePlayer nextPlayer = getNextPlayer(record);
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();

@@ -65,7 +65,7 @@ public class GameControlCenterTest {
     @Test
     public void testUpdateMove() {
         game.setUp(board, firstPlayer, secondPlayer);
-        GameRecord record = game.getRecord();
+        MoveHistory record = game.getRecord();
         game.updateMove(firstPlayer);
         game.updateMove(secondPlayer);
         assertEquals(secondPlayer, record.getLastPlayer());
@@ -74,7 +74,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeGameInProgress() {
         game.setUp(board, firstPlayer, secondPlayer);
-        GameRecord record = game.getRecord();
+        MoveHistory record = game.getRecord();
         record.newMove(1, firstPlayer);
         game.analyzeBoard();
         assertEquals("playing", game.getStatus());
@@ -135,7 +135,7 @@ public class GameControlCenterTest {
     @Test
     public void testUpdateHumanMove() {
         game.setUp(board, humanPlayer, secondPlayer);
-        GameRecord record = game.getRecord();
+        MoveHistory record = game.getRecord();
         input.setInputStream("0");
         game.updateMove(humanPlayer);
         assertEquals(0, record.getLastMove());
@@ -146,7 +146,7 @@ public class GameControlCenterTest {
     public void testDisplayBoardAfterMove() {
         game.setUp(board, firstPlayer, secondPlayer);
         game.updateMove(firstPlayer);
-        GameRecord record = game.getRecord();
+        MoveHistory record = game.getRecord();
         String boardString = record.getBoard().toString();
         assertTrue(output.toString().endsWith(boardString));
     }
@@ -154,7 +154,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayBoardAtGameStart() {
         game.setUp(board, firstPlayer, secondPlayer);
-        GameRecord record = game.getRecord();
+        MoveHistory record = game.getRecord();
         String boardString = record.getBoard().toString();
         assertTrue(output.toString().endsWith(boardString));
     }

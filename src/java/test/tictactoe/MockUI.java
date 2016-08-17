@@ -25,7 +25,7 @@ public class MockUI implements GameUI {
         outputStream.println(message);
     }
 
-    public void displayBoard(GameRecord record) {
+    public void displayBoard(MoveHistory record) {
         outputStream.print(record.getBoard());
     }
 

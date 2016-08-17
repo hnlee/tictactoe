@@ -7,7 +7,7 @@ public class Simulator {
 
     public static void simulateGame(GamePlayer playerOne,
                                     GamePlayer playerTwo,
-                                    GameRecord record,
+                                    MoveHistory record,
                                     int... moves) {
         for (int move : moves) {
             if (record.getAllMoves().size() % 2 == 0) {

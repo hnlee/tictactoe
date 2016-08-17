@@ -8,7 +8,7 @@ public class GameControlCenter {
     private GameUI ui;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
-    private GameRecord record;
+    private MoveHistory record;
     private GameAnalyzer analyzer;
     private String status;
     private int moveNumber;
@@ -60,7 +60,7 @@ public class GameControlCenter {
         }
     }
 
-    public GameRecord getRecord() {
+    public MoveHistory getRecord() {
         return record;
     }
 
@@ -80,7 +80,7 @@ public class GameControlCenter {
         boolean validate = false;
         while (!validate) {
             int move = getMove(player);
-            validate = record.isValidMove(move);
+            validate = analyzer.isValidMove(move, record);
             if (validate) {
                 record.newMove(move, player);
                 ui.displayMoveNumber(moveNumber);

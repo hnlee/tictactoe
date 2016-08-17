@@ -38,7 +38,7 @@ public class CommandLineUI implements GameUI {
         return spacesWithSeparators;
     }
 
-    public String generateBoardAsString(GameRecord record) {
+    public String generateBoardAsString(MoveHistory record) {
         int numRows = record.getBoard().getNumRows();
         String boardSpaces = generateBoardElementsAsString(" %s ", "|", numRows);
         String boardRows = generateBoardElementsAsString("---", "+", numRows);
@@ -48,7 +48,7 @@ public class CommandLineUI implements GameUI {
         return board;
     }
 
-    public String convertBoardToString(GameRecord record) {
+    public String convertBoardToString(MoveHistory record) {
         int numRows = record.getBoard().getNumRows();
         Object[] labels = new String[(numRows * numRows)];
         for (int space = 0; space < (numRows * numRows); space++) {
@@ -71,7 +71,7 @@ public class CommandLineUI implements GameUI {
     }
 
     @Override
-    public void displayBoard(GameRecord record) {
+    public void displayBoard(MoveHistory record) {
         outputStream.print(convertBoardToString(record));
     }
 

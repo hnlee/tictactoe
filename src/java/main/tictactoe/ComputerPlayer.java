@@ -21,7 +21,7 @@ public class ComputerPlayer implements GamePlayer {
     };
 
     @Override
-    public int move(GameAnalyzer analyzer, GameRecord record) {
+    public int move(GameAnalyzer analyzer, MoveHistory record) {
         Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
         ArrayList<Integer> bestMoves = new ArrayList<Integer>();

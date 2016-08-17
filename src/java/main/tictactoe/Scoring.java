@@ -7,6 +7,6 @@ import java.util.Hashtable;
  */
 public interface Scoring {
 
-    Hashtable<Integer, Integer> scoreNextMoves(GameRecord record);
+    Hashtable<Integer, Integer> scoreNextMoves(MoveHistory record);
 
 }

@@ -40,21 +40,7 @@ public class GameRecordTest {
         assertEquals(playerOne, record.getLastPlayer());
     }
 
-    @Test
-    public void testValidMove() {
-        assertTrue(record.isValidMove(1));
-    }
 
-    @Test
-    public void testMoveOutOfRange() {
-        assertFalse(record.isValidMove(20));
-    }
-
-    @Test
-    public void testMoveInOccupiedSpace() {
-        record.newMove(1, playerOne);
-        assertFalse(record.isValidMove(1));
-    }
 
     @Test
     public void testWhoPlayedMove() {

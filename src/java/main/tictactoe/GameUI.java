@@ -8,7 +8,7 @@ public interface GameUI {
 
     void displayMessage(String message);
 
-    void displayBoard(GameRecord record);
+    void displayBoard(MoveHistory record);
 
     String getUserInput();
 
