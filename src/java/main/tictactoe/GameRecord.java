@@ -3,11 +3,12 @@ package tictactoe;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by hanalee on 7/28/16.
  */
-public class GameRecord {
+public class GameRecord implements MoveTree {
     private Board board;
     private GamePlayer lastPlayer;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
@@ -58,8 +59,8 @@ public class GameRecord {
         return null;
     }
 
-    public ArrayList<Integer> getAllMoves() {
-        ArrayList<Integer> allMoves = new ArrayList<Integer>();
+    public List<Integer> getAllMoves() {
+        List<Integer> allMoves = new ArrayList<Integer>();
         for (GamePlayer player : movesByPlayer.keySet()) {
             allMoves.addAll(movesByPlayer.get(player));
         }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by hanalee on 8/2/16.
  */
-public class GameAnalyzer {
+public class GameAnalyzer implements Endgame, Scoring {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
@@ -31,7 +31,7 @@ public class GameAnalyzer {
     }
 
     public int getRowOccupancy(GameRecord record, int[] row) {
-        ArrayList<Integer> allMoves = record.getAllMoves();
+        List<Integer> allMoves = record.getAllMoves();
         int occupancy = 0;
         for (int space : row) {
             if (allMoves.contains(space)) {
