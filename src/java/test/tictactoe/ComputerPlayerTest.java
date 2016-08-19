@@ -22,10 +22,10 @@ public class ComputerPlayerTest {
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        record = new GameRecord(board);
         analyzer = new GameAnalyzer();
         computer = new ComputerPlayer(xMarker);
         opponent = new MockGamePlayer(oMarker);
+
     }
 
     @Test
@@ -35,7 +35,7 @@ public class ComputerPlayerTest {
 
     @Test
     public void testMakeWinningMove() {
-        record.setPlayers(opponent, computer);
+        record = new GameRecord(board, opponent, computer);
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
         assertEquals(3, computer.move(record));
@@ -43,7 +43,7 @@ public class ComputerPlayerTest {
 
     @Test
     public void testMoveOnEmptyBoard() {
-        record.setPlayers(computer, opponent);
+        record = new GameRecord(board, computer, opponent);
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int space = 0; space < 9; space++) {
             scores.put(space, 0);

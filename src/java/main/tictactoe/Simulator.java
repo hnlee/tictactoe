@@ -7,8 +7,8 @@ public class Simulator {
 
     public static void simulateGame(MoveHistory record,
                                     int... moves) {
-        GamePlayer playerOne = record.getPlayer(1);
-        GamePlayer playerTwo = record.getPlayer(2);
+        GamePlayer playerOne = record.getPlayerOne();
+        GamePlayer playerTwo = record.getPlayerTwo();
         for (int move : moves) {
             if (record.getAllMoves().size() % 2 == 0) {
                 record.newMove(move, playerOne);

@@ -15,24 +15,21 @@ public class GameRecord implements MoveHistory {
     private GamePlayer playerTwo;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
 
-    GameRecord(Board board) {
+    GameRecord(Board board, GamePlayer playerOne, GamePlayer playerTwo) {
         this.board = board;
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
         this.movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
-    }
-
-    public void setPlayers(GamePlayer firstPlayer,
-                           GamePlayer secondPlayer) {
-        playerOne = firstPlayer;
-        playerTwo = secondPlayer;
         movesByPlayer.put(playerOne, new ArrayList<Integer>());
         movesByPlayer.put(playerTwo, new ArrayList<Integer>());
     }
 
-    public GamePlayer getPlayer(int playerNum) {
-        if (playerNum == 2) {
-            return playerTwo;
-        }
+    public GamePlayer getPlayerOne() {
         return playerOne;
+    }
+
+    public GamePlayer getPlayerTwo() {
+        return playerTwo;
     }
 
     public Board getBoard() { return board; }
@@ -81,8 +78,7 @@ public class GameRecord implements MoveHistory {
     }
 
     public MoveHistory copyRecord() {
-        GameRecord copy = new GameRecord(board);
-        copy.setPlayers(playerOne, playerTwo);
+        GameRecord copy = new GameRecord(board, playerOne, playerTwo);
         copy.setLastPlayer(getLastPlayer());
         Hashtable<GamePlayer,
                   ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();

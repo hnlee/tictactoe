@@ -25,12 +25,11 @@ public class CommandLineUITest {
         input = new MockInputStream();
         ui = new CommandLineUI(input, output);
         board = new SquareBoard(3);
-        record = new GameRecord(board);
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
-        record.setPlayers(playerOne, playerTwo);
+        record = new GameRecord(board, playerOne, playerTwo);
     }
 
     @Test
@@ -56,7 +55,8 @@ public class CommandLineUITest {
                               "---+---\n" +
                               " %s | %s \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard);
+        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard,
+                playerOne, playerTwo);
         assertEquals(boardString, ui.generateBoardAsString(twoByTwoRecord));
     }
 
@@ -76,7 +76,8 @@ public class CommandLineUITest {
                              "---+---\n" +
                              " 2 | 3 \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard);
+        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard,
+                playerOne, playerTwo);
         assertEquals(boardString, ui.convertBoardToString(twoByTwoRecord));
     }
 

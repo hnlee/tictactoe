@@ -21,11 +21,10 @@ public class AllPossibleGames {
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        record = new GameRecord(board);
         computer = new ComputerPlayer(oMarker);
         opponent = new MockGamePlayer(xMarker);
         analyzer = new GameAnalyzer();
-        record.setPlayers(opponent, computer);
+        record = new GameRecord(board, opponent, computer);
     }
 
     private boolean runGame(MoveHistory gameRecord) {

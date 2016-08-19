@@ -21,12 +21,11 @@ public class GameRecordTest {
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        record = new GameRecord(board);
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
-        record.setPlayers(playerOne, playerTwo);
+        record = new GameRecord(board, playerOne, playerTwo);
     }
 
     @Test

@@ -27,8 +27,7 @@ public class GameAnalyzerTest {
         PlayerMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
-        record = new GameRecord(board);
-        record.setPlayers(playerOne, playerTwo);
+        record = new GameRecord(board, playerOne, playerTwo);
         analyzer = new GameAnalyzer();
     }
 
@@ -170,7 +169,7 @@ public class GameAnalyzerTest {
 
     @Test
     public void testScoreWinningSpaceWithReversePlayerOrder() {
-        record.setPlayers(playerTwo, playerOne);
+        record = new GameRecord(board, playerTwo, playerOne);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 7);
         assertEquals(1, analyzer.scoreMove(record, 8, playerTwo));

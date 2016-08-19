@@ -81,10 +81,10 @@ public class GameAnalyzer implements StatusChecker, Scorer {
 
     public GamePlayer getNextPlayer(MoveHistory record) {
         GamePlayer lastPlayer = record.getLastPlayer();
-        if (record.getPlayer(1).equals(lastPlayer)) {
-            return record.getPlayer(2);
+        if (record.getPlayerOne().equals(lastPlayer)) {
+            return record.getPlayerTwo();
         }
-        return record.getPlayer(1);
+        return record.getPlayerOne();
     }
 
     public int scoreMove(MoveHistory record,

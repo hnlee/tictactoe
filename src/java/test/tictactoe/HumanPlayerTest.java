@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
 
 public class HumanPlayerTest {
     HumanPlayer human;
+    MockGamePlayer opponent;
     MockInputStream input;
     ByteArrayOutputStream output;
     GameUI ui;
@@ -26,8 +27,9 @@ public class HumanPlayerTest {
         output = new ByteArrayOutputStream();
         ui = new MockUI(input, output);
         human = new HumanPlayer(new StringMarker("X"), ui);
+        opponent = new MockGamePlayer(new StringMarker("O"));
         board = new SquareBoard(3);
-        record = new GameRecord(board);
+        record = new GameRecord(board, human, opponent);
     }
 
     @Test

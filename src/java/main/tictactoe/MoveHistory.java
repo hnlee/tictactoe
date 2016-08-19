@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface MoveHistory {
 
-    void setPlayers(GamePlayer playerOne, GamePlayer playerTwo);
+    GamePlayer getPlayerOne();
 
-    GamePlayer getPlayer(int playerNumber);
+    GamePlayer getPlayerTwo();
 
     Board getBoard();
 
