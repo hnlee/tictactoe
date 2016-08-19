@@ -41,8 +41,7 @@ public class AllPossibleGames {
                 outcomes.add(true);
                 continue;
             }
-            int move = computer.move(newRecord);
-            newRecord.newMove(move, computer);
+            computer.move(newRecord);
             if (analyzer.isGameTied(newRecord) || analyzer.isGameWon(newRecord)) {
                 outcomes.add(true);
             } else {

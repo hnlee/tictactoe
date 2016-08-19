@@ -38,7 +38,8 @@ public class ComputerPlayerTest {
         record = new GameRecord(board, opponent, computer);
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
-        assertEquals(3, computer.move(record));
+        computer.move(record);
+        assertEquals(3, record.getLastMove());
     }
 
     @Test
@@ -49,7 +50,8 @@ public class ComputerPlayerTest {
             scores.put(space, 0);
         }
         assertEquals(scores, analyzer.scoreNextMoves(record));
-        assertTrue(board.getSpaces().contains(computer.move(record)));
+        computer.move(record);
+        assertEquals(computer, record.getLastPlayer());
     }
 
 }

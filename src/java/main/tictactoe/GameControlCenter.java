@@ -37,23 +37,14 @@ public class GameControlCenter {
 
     public StatusChecker getAnalyzer() { return analyzer; }
 
-    public void updateMove(GamePlayer player) {
-        boolean validate = false;
-        while (!validate) {
-            int move = player.move(record);
-            validate = analyzer.isValidMove(move, record);
-            if (validate) {
-                record.newMove(move, player);
-                ui.displayMoveNumber(moveNumber);
-                ui.displayBoard(record);
-            } else {
-                ui.displayError("invalid");
-            }
-        }
-    }
-
     public String getStatus() {
         return status;
+    }
+
+    public void makeMove(GamePlayer currentPlayer) {
+        currentPlayer.move(record);
+        ui.displayMoveNumber(moveNumber);
+        ui.displayBoard(record);
     }
 
     public void analyzeBoard() {
@@ -77,7 +68,7 @@ public class GameControlCenter {
             } else {
                 currentPlayer = playerTwo;
             }
-            updateMove(currentPlayer);
+            makeMove(currentPlayer);
             analyzeBoard();
             moveNumber++;
         }

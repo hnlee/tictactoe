@@ -15,7 +15,7 @@ public interface MoveHistory {
 
     Board getBoard();
 
-    void newMove(int move, GamePlayer player);
+    boolean newMove(int move, GamePlayer player);
 
     int getLastMove();
 

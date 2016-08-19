@@ -11,6 +11,4 @@ public interface StatusChecker {
 
     boolean isGameTied(MoveHistory record);
 
-    boolean isValidMove(int move, MoveHistory record);
-
 }

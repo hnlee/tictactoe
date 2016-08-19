@@ -17,9 +17,16 @@ public class HumanPlayer implements GamePlayer {
         return marker;
     }
 
-    public int move(MoveHistory record) {
-        String playerInput = ui.promptMove();
-        return Integer.parseInt(playerInput);
+    public void move(MoveHistory record) {
+        boolean validate = false;
+        while (!validate) {
+            String playerInput = ui.promptMove();
+            int move = Integer.parseInt(playerInput);
+            validate = record.newMove(move, this);
+            if (!validate) {
+                ui.displayError("invalid");
+            }
+        }
     }
 
 }

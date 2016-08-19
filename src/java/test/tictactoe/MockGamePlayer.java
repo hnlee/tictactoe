@@ -19,8 +19,10 @@ public class MockGamePlayer implements GamePlayer {
         return marker;
     }
 
-    public int move(MoveHistory record) {
-        return random.nextInt(9);
+    public void move(MoveHistory record) {
+        int numRows = record.getBoard().getNumRows();
+        int move = random.nextInt(numRows * numRows);
+        boolean validate = record.newMove(move, this);
     }
 
 }

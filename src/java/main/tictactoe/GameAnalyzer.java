@@ -52,21 +52,6 @@ public class GameAnalyzer implements StatusChecker, Scorer {
         return false;
     }
 
-    public boolean isValidMove(int move, MoveHistory record) {
-        Board board = record.getBoard();
-        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer = record.getMovesByPlayer();
-        int dim = board.getNumRows();
-        if (move > dim * dim - 1 || move < 0) {
-            return false;
-        }
-        for (GamePlayer player : movesByPlayer.keySet()) {
-            if (movesByPlayer.get(player).contains(move)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public List<Integer> getEmptySpaces(MoveHistory record) {
         List<Integer> allSpaces = record.getBoard().getSpaces();
         List<Integer> allMoves = record.getAllMoves();

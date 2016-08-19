@@ -34,12 +34,27 @@ public class GameRecord implements MoveHistory {
 
     public Board getBoard() { return board; }
 
-    public void newMove(int move, GamePlayer player) {
-        lastPlayer = player;
-        if (!movesByPlayer.containsKey(player)) {
-            movesByPlayer.put(player, new ArrayList<Integer>());
+    public boolean isValidMove(int move) {
+        Board board = getBoard();
+        int dim = board.getNumRows();
+        if (move > dim * dim - 1 || move < 0) {
+            return false;
         }
-        movesByPlayer.get(player).add(move);
+        for (GamePlayer player : movesByPlayer.keySet()) {
+            if (movesByPlayer.get(player).contains(move)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean newMove(int move, GamePlayer player) {
+        boolean validate = isValidMove(move);
+        if (validate) {
+            lastPlayer = player;
+            movesByPlayer.get(player).add(move);
+        }
+        return validate;
     }
 
     public int getLastMove() {

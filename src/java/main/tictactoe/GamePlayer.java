@@ -9,6 +9,6 @@ public interface GamePlayer {
 
     PlayerMarker getMarker();
 
-    int move(MoveHistory record);
+    void move(MoveHistory record);
 
 }

@@ -37,23 +37,6 @@ public class GameAnalyzerTest {
     }
 
     @Test
-    public void testValidMove() {
-        assertTrue(analyzer.isValidMove(1, record));
-    }
-
-    @Test
-    public void testMoveOutOfRange() {
-        assertFalse(analyzer.isValidMove(20, record));
-    }
-
-    @Test
-    public void testMoveInOccupiedSpace() {
-        record.newMove(1, playerOne);
-        assertFalse(analyzer.isValidMove(1, record));
-    }
-
-
-    @Test
     public void testBlockedRow() {
         Simulator.simulateGame(record, 1, 2);
         assertEquals(2, analyzer.getRowPlayers(record,

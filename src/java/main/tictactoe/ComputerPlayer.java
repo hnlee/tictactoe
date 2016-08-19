@@ -12,10 +12,12 @@ public class ComputerPlayer implements GamePlayer {
 
     private PlayerMarker marker;
     private Scorer analyzer;
+    private Random random;
 
     public ComputerPlayer(PlayerMarker marker) {
         this.marker = marker;
         this.analyzer = new GameAnalyzer();
+        this.random = new Random();
     }
 
     public PlayerMarker getMarker() {
@@ -24,8 +26,7 @@ public class ComputerPlayer implements GamePlayer {
 
     public Scorer getAnalyzer(){ return analyzer; }
 
-    @Override
-    public int move(MoveHistory record) {
+    public void move(MoveHistory record) {
         Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
         ArrayList<Integer> bestMoves = new ArrayList<Integer>();
@@ -34,10 +35,7 @@ public class ComputerPlayer implements GamePlayer {
                 bestMoves.add(nextMove);
             }
         }
-        if (bestMoves.size() == 1) {
-            return bestMoves.get(0);
-        }
-        Random random = new Random();
-        return bestMoves.get(random.nextInt(bestMoves.size()));
+        int move = bestMoves.get(random.nextInt(bestMoves.size()));
+        boolean validate = record.newMove(move, this);
     }
 }

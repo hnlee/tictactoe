@@ -13,7 +13,6 @@ public class TicTacToe {
         GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"));
         MoveHistory record = new GameRecord(board, playerOne, playerTwo);
 
-
         GameControlCenter game = new GameControlCenter(ui, record, analyzer);
         game.start();
         game.run();

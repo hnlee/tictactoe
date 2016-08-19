@@ -62,11 +62,11 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testUpdateMove() {
+    public void testMakeMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
-        game.updateMove(firstPlayer);
-        game.updateMove(secondPlayer);
+        game.makeMove(firstPlayer);
+        game.makeMove(secondPlayer);
         assertEquals(secondPlayer, record.getLastPlayer());
     }
 
@@ -135,7 +135,7 @@ public class GameControlCenterTest {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         input.setInputStream("0");
-        game.updateMove(humanPlayer);
+        game.makeMove(humanPlayer);
         assertEquals(0, record.getLastMove());
         assertEquals(humanPlayer, record.getLastPlayer());
     }
@@ -144,7 +144,7 @@ public class GameControlCenterTest {
     public void testDisplayBoardAfterMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
-        game.updateMove(firstPlayer);
+        game.makeMove(firstPlayer);
         MoveHistory record = game.getRecord();
         String boardString = record.getBoard().toString();
         assertTrue(output.toString().endsWith(boardString));
@@ -172,7 +172,7 @@ public class GameControlCenterTest {
     public void testDisplayMoveNumber() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
-        game.updateMove(firstPlayer);
+        game.makeMove(firstPlayer);
         assertTrue(output.toString().contains("Move #1"));
     }
 
@@ -182,7 +182,7 @@ public class GameControlCenterTest {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         input.setInputStream("9\n0");
-        game.updateMove(humanPlayer);
+        game.makeMove(humanPlayer);
         assertTrue(output.toString().contains("Invalid move"));
     }
 

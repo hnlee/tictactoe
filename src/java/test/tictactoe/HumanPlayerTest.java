@@ -35,8 +35,8 @@ public class HumanPlayerTest {
     @Test
     public void testMove() {
         input.setInputStream("0");
-        int move = human.move(record);
-        assertEquals(0, move);
+        human.move(record);
+        assertEquals(0, record.getLastMove());
     }
 
 }
