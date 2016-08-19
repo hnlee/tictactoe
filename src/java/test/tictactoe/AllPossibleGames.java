@@ -14,7 +14,7 @@ public class AllPossibleGames {
     private Board board;
     private MoveHistory record;
     private GamePlayer opponent;
-    private StatusChecker analyzer;
+    GameAnalyzer analyzer;
 
     @Before
     public void setUp() {
@@ -22,7 +22,7 @@ public class AllPossibleGames {
         PlayerMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
         record = new GameRecord(board);
-        computer = new ComputerPlayer(oMarker, record);
+        computer = new ComputerPlayer(oMarker);
         opponent = new MockGamePlayer(xMarker);
         analyzer = new GameAnalyzer();
         record.setPlayers(opponent, computer);
@@ -42,7 +42,7 @@ public class AllPossibleGames {
                 outcomes.add(true);
                 continue;
             }
-            int move = computer.move();
+            int move = computer.move(newRecord);
             newRecord.newMove(move, computer);
             if (analyzer.isGameTied(newRecord) || analyzer.isGameWon(newRecord)) {
                 outcomes.add(true);
@@ -53,9 +53,9 @@ public class AllPossibleGames {
         return !outcomes.contains(false);
     }
 
-//    @Test
-//    public void testAllPossibleGames() {
-//        boolean outcome = runGame(record);
-//        assertTrue(outcome);
-//    }
+    @Test
+    public void testAllPossibleGames() {
+        boolean outcome = runGame(record);
+        assertTrue(outcome);
+    }
 }

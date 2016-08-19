@@ -19,7 +19,7 @@ public class MockGamePlayer implements GamePlayer {
         return marker;
     }
 
-    public int move() {
+    public int move(MoveHistory record) {
         return random.nextInt(9);
     }
 

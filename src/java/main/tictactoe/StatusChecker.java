@@ -13,5 +13,4 @@ public interface StatusChecker {
 
     boolean isValidMove(int move, MoveHistory record);
 
-    List<Integer> getEmptySpaces(MoveHistory record);
 }

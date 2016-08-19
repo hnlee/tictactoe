@@ -17,6 +17,8 @@ public class HumanPlayerTest {
     MockInputStream input;
     ByteArrayOutputStream output;
     GameUI ui;
+    MoveHistory record;
+    Board board;
 
     @Before
     public void setUp() {
@@ -24,12 +26,14 @@ public class HumanPlayerTest {
         output = new ByteArrayOutputStream();
         ui = new MockUI(input, output);
         human = new HumanPlayer(new StringMarker("X"), ui);
+        board = new SquareBoard(3);
+        record = new GameRecord(board);
     }
 
     @Test
     public void testMove() {
         input.setInputStream("0");
-        int move = human.move();
+        int move = human.move(record);
         assertEquals(0, move);
     }
 

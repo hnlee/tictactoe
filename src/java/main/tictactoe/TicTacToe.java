@@ -6,8 +6,15 @@ package tictactoe;
 public class TicTacToe {
 
     public static void main(String[] args) {
-        GameControlCenter game = new GameControlCenter();
-        game.setUp();
+        GameUI ui = new CommandLineUI();
+        Board board = new SquareBoard(3);
+        MoveHistory record = new GameRecord(board);
+        GamePlayer playerOne = new HumanPlayer(new StringMarker("X"), ui);
+        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"));
+
+        GameControlCenter game = new GameControlCenter(ui, board,
+                playerOne, playerTwo);
+        game.start();
         game.run();
     }
 

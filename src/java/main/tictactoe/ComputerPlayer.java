@@ -11,14 +11,11 @@ import java.util.Random;
 public class ComputerPlayer implements GamePlayer {
 
     private PlayerMarker marker;
-    private MoveHistory record;
     private Scorer analyzer;
 
-    public ComputerPlayer(PlayerMarker marker,
-                          MoveHistory record) {
+    public ComputerPlayer(PlayerMarker marker) {
         this.marker = marker;
         this.analyzer = new GameAnalyzer();
-        this.record = record;
     }
 
     public PlayerMarker getMarker() {
@@ -28,7 +25,7 @@ public class ComputerPlayer implements GamePlayer {
     public Scorer getAnalyzer(){ return analyzer; }
 
     @Override
-    public int move() {
+    public int move(MoveHistory record) {
         Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
         ArrayList<Integer> bestMoves = new ArrayList<Integer>();

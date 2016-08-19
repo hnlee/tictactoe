@@ -1,9 +1,5 @@
 package tictactoe;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-
 public class GameControlCenter {
     private GameUI ui;
     private GamePlayer playerOne;
@@ -13,52 +9,29 @@ public class GameControlCenter {
     private String status;
     private int moveNumber;
 
-
-    GameControlCenter() {
-        this.ui = new CommandLineUI();
-        this.record = new GameRecord(new SquareBoard(3));
-        this.status = "start";
-    }
-
-    GameControlCenter(GameUI ui, Board board) {
+    GameControlCenter(GameUI ui,
+                      Board board,
+                      GamePlayer playerOne,
+                      GamePlayer playerTwo) {
         this.ui = ui;
         this.record = new GameRecord(board);
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        record.setPlayers(playerOne, playerTwo);
+        this.analyzer = new GameAnalyzer();
+        this.moveNumber = 0;
         this.status = "start";
     }
 
-    public void setUp() {
-        playerOne = new HumanPlayer(new StringMarker("X"), ui);
-        playerTwo = new ComputerPlayer(new StringMarker("O"), record);
-        record.setPlayers(playerOne, playerTwo);
-        analyzer = new GameAnalyzer();
-        moveNumber = 0;
-        status = "ready";
+    public void start() {
         ui.displayTitle();
         ui.displayBoard(record);
+        this.status = "ready";
     }
 
-    public void setUp(GamePlayer firstPlayer,
-                      GamePlayer secondPlayer) {
-        playerOne = firstPlayer;
-        playerTwo = secondPlayer;
-        record.setPlayers(playerOne, playerTwo);
-        analyzer = new GameAnalyzer();
-        moveNumber = 0;
-        status = "ready";
-        ui.displayTitle();
-        ui.displayBoard(record);
-    }
+    public GamePlayer getPlayerOne() { return playerOne; }
 
-    public GameUI getUI() {
-        return ui;
-    }
-
-    public GamePlayer getPlayer(int playerNum) {
-        if (playerNum == 1) {
-            return playerOne;
-        }
-        return playerTwo;
-    }
+    public GamePlayer getPlayerTwo() { return playerTwo; }
 
     public MoveHistory getRecord() {
         return record;
@@ -69,7 +42,7 @@ public class GameControlCenter {
     public void updateMove(GamePlayer player) {
         boolean validate = false;
         while (!validate) {
-            int move = player.move();
+            int move = player.move(record);
             validate = analyzer.isValidMove(move, record);
             if (validate) {
                 record.newMove(move, player);

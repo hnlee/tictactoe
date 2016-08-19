@@ -17,7 +17,7 @@ public class HumanPlayer implements GamePlayer {
         return marker;
     }
 
-    public int move() {
+    public int move(MoveHistory record) {
         String playerInput = ui.promptMove();
         return Integer.parseInt(playerInput);
     }

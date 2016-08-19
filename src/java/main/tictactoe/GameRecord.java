@@ -50,6 +50,10 @@ public class GameRecord implements MoveHistory {
         return lastPlayerMoves.get(lastPlayerMoves.size() - 1);
     }
 
+    private void setLastPlayer(GamePlayer lastPlayer) {
+        this.lastPlayer = lastPlayer;
+    }
+
     public GamePlayer getLastPlayer() {
         return lastPlayer;
     }
@@ -78,11 +82,8 @@ public class GameRecord implements MoveHistory {
 
     public MoveHistory copyRecord() {
         GameRecord copy = new GameRecord(board);
-        if (playerOne.equals(lastPlayer)) {
-            copy.setPlayers(playerTwo, playerOne);
-        } else {
-            copy.setPlayers(playerOne, playerTwo);
-        }
+        copy.setPlayers(playerOne, playerTwo);
+        copy.setLastPlayer(getLastPlayer());
         Hashtable<GamePlayer,
                   ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();
         for (GamePlayer player : movesByPlayer.keySet()) {

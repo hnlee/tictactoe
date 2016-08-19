@@ -24,7 +24,7 @@ public class ComputerPlayerTest {
         board = new SquareBoard(3);
         record = new GameRecord(board);
         analyzer = new GameAnalyzer();
-        computer = new ComputerPlayer(xMarker, record);
+        computer = new ComputerPlayer(xMarker);
         opponent = new MockGamePlayer(oMarker);
     }
 
@@ -38,7 +38,7 @@ public class ComputerPlayerTest {
         record.setPlayers(opponent, computer);
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
-        assertEquals(3, computer.move());
+        assertEquals(3, computer.move(record));
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ComputerPlayerTest {
             scores.put(space, 0);
         }
         assertEquals(scores, analyzer.scoreNextMoves(record));
-        assertTrue(board.getSpaces().contains(computer.move()));
+        assertTrue(board.getSpaces().contains(computer.move(record)));
     }
 
 }
