@@ -22,6 +22,7 @@ public class GameControlCenterTest {
     private ComputerPlayer computerPlayer;
     private MockUI ui;
     private Board board;
+    private StatusChecker analyzer;
     private MoveHistory record;
 
     @Before
@@ -38,12 +39,13 @@ public class GameControlCenterTest {
         computerPlayer = new ComputerPlayer(oMarker);
 
         board = new SquareBoard(3);
+        analyzer = new GameAnalyzer();
     }
 
     @Test
     public void testSetup() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         assertNotNull(game.getPlayerOne());
         assertNotNull(game.getPlayerTwo());
         assertNotNull(game.getRecord());
@@ -54,7 +56,7 @@ public class GameControlCenterTest {
     @Test
     public void testStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.start();
         assertEquals("ready", game.getStatus());
     }
@@ -62,7 +64,7 @@ public class GameControlCenterTest {
     @Test
     public void testUpdateMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.updateMove(firstPlayer);
         game.updateMove(secondPlayer);
         assertEquals(secondPlayer, record.getLastPlayer());
@@ -71,7 +73,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeGameInProgress() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         record.newMove(1, firstPlayer);
         game.analyzeBoard();
         assertEquals("playing", game.getStatus());
@@ -80,7 +82,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeTiedGame() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 8, 7);
         game.analyzeBoard();
@@ -90,7 +92,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeWonGame() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 2, 8, 6);
         game.analyzeBoard();
@@ -103,7 +105,7 @@ public class GameControlCenterTest {
         firstPlayer = humanPlayer;
         secondPlayer = computerPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         assertTrue(game.getPlayerTwo() instanceof ComputerPlayer);
         assertTrue(game.getPlayerOne() instanceof HumanPlayer);
     }
@@ -113,7 +115,7 @@ public class GameControlCenterTest {
         firstPlayer = computerPlayer;
         secondPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         assertTrue(game.getPlayerOne() instanceof ComputerPlayer);
         assertTrue(game.getPlayerTwo() instanceof HumanPlayer);
     }
@@ -122,7 +124,7 @@ public class GameControlCenterTest {
     public void testRunGameWithComputer() {
         secondPlayer = computerPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.run();
         assertEquals("finish", game.getStatus());
     }
@@ -131,7 +133,7 @@ public class GameControlCenterTest {
     public void testUpdateHumanMove() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         input.setInputStream("0");
         game.updateMove(humanPlayer);
         assertEquals(0, record.getLastMove());
@@ -141,7 +143,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayBoardAfterMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.updateMove(firstPlayer);
         MoveHistory record = game.getRecord();
         String boardString = record.getBoard().toString();
@@ -151,7 +153,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayBoardAtGameStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         MoveHistory record = game.getRecord();
         String boardString = record.getBoard().toString();
         game.start();
@@ -161,7 +163,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayTitleAtGameStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.start();
         assertTrue(output.toString().startsWith("Tic Tac Toe\n"));
     }
@@ -169,7 +171,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayMoveNumber() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         game.updateMove(firstPlayer);
         assertTrue(output.toString().contains("Move #1"));
     }
@@ -178,7 +180,7 @@ public class GameControlCenterTest {
     public void testInvalidHumanMove() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record);
+        game = new GameControlCenter(ui, record, analyzer);
         input.setInputStream("9\n0");
         game.updateMove(humanPlayer);
         assertTrue(output.toString().contains("Invalid move"));

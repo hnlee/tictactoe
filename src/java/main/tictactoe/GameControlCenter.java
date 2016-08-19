@@ -10,12 +10,13 @@ public class GameControlCenter {
     private int moveNumber;
 
     GameControlCenter(GameUI ui,
-                      MoveHistory record) {
+                      MoveHistory record,
+                      StatusChecker analyzer) {
         this.ui = ui;
         this.record = record;
         this.playerOne = record.getPlayerOne();
         this.playerTwo = record.getPlayerTwo();
-        this.analyzer = new GameAnalyzer();
+        this.analyzer = analyzer;
         this.moveNumber = 0;
         this.status = "start";
     }
