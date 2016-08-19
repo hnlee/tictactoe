@@ -10,11 +10,11 @@ public class GameControlCenter {
     private int moveNumber;
 
     GameControlCenter(GameUI ui,
-                      Board board,
+                      MoveHistory record,
                       GamePlayer playerOne,
                       GamePlayer playerTwo) {
         this.ui = ui;
-        this.record = new GameRecord(board);
+        this.record = record;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         record.setPlayers(playerOne, playerTwo);

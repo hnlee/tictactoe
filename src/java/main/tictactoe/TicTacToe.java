@@ -12,7 +12,7 @@ public class TicTacToe {
         GamePlayer playerOne = new HumanPlayer(new StringMarker("X"), ui);
         GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"));
 
-        GameControlCenter game = new GameControlCenter(ui, board,
+        GameControlCenter game = new GameControlCenter(ui, record,
                 playerOne, playerTwo);
         game.start();
         game.run();
