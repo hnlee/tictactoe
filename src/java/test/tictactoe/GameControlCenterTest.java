@@ -22,7 +22,7 @@ public class GameControlCenterTest {
     private ComputerPlayer computerPlayer;
     private MockUI ui;
     private Board board;
-    private StatusChecker analyzer;
+    private GameAnalyzer analyzer;
     private MoveHistory record;
 
     @Before
@@ -31,15 +31,15 @@ public class GameControlCenterTest {
         input = new MockInputStream();
         ui = new MockUI(input, output);
 
+        board = new SquareBoard(3);
+        analyzer = new GameAnalyzer();
+
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         firstPlayer = new MockGamePlayer(xMarker);
         secondPlayer = new MockGamePlayer(oMarker);
         humanPlayer = new HumanPlayer(xMarker, ui);
-        computerPlayer = new ComputerPlayer(oMarker);
-
-        board = new SquareBoard(3);
-        analyzer = new GameAnalyzer();
+        computerPlayer = new ComputerPlayer(oMarker, analyzer);
     }
 
     @Test

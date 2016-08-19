@@ -14,9 +14,9 @@ public class ComputerPlayer implements GamePlayer {
     private Scorer analyzer;
     private Random random;
 
-    public ComputerPlayer(PlayerMarker marker) {
+    public ComputerPlayer(PlayerMarker marker, Scorer analyzer) {
         this.marker = marker;
-        this.analyzer = new GameAnalyzer();
+        this.analyzer = analyzer;
         this.random = new Random();
     }
 

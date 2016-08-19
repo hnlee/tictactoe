@@ -23,7 +23,7 @@ public class ComputerPlayerTest {
         PlayerMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
         analyzer = new GameAnalyzer();
-        computer = new ComputerPlayer(xMarker);
+        computer = new ComputerPlayer(xMarker, analyzer);
         opponent = new MockGamePlayer(oMarker);
 
     }

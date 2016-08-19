@@ -10,7 +10,7 @@ public class TicTacToe {
         Board board = new SquareBoard(3);
         GameAnalyzer analyzer = new GameAnalyzer();
         GamePlayer playerOne = new HumanPlayer(new StringMarker("X"), ui);
-        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"));
+        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"), analyzer);
         MoveHistory record = new GameRecord(board, playerOne, playerTwo);
 
         GameControlCenter game = new GameControlCenter(ui, record, analyzer);

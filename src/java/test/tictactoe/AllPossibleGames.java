@@ -21,9 +21,9 @@ public class AllPossibleGames {
         PlayerMarker xMarker = new StringMarker("X");
         PlayerMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        computer = new ComputerPlayer(oMarker);
-        opponent = new MockGamePlayer(xMarker);
         analyzer = new GameAnalyzer();
+        computer = new ComputerPlayer(oMarker, analyzer);
+        opponent = new MockGamePlayer(xMarker);
         record = new GameRecord(board, opponent, computer);
     }
 
