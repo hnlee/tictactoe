@@ -21,12 +21,16 @@ public class HumanPlayer implements GamePlayer {
         boolean validate = false;
         while (!validate) {
             String playerInput = ui.promptMove();
-            int move = Integer.parseInt(playerInput);
-            validate = record.isValidMove(move);
-            if (validate) {
-                record.newMove(move, this);
-            } else {
-                ui.displayError(1);
+            try {
+                int move = Integer.parseInt(playerInput);
+                validate = record.isValidMove(move);
+                if (validate) {
+                    record.newMove(move, this);
+                } else {
+                    ui.displayError(1);
+                }
+            } catch (NumberFormatException e) {
+                ui.displayError(2);
             }
         }
     }

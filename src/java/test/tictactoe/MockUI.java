@@ -15,7 +15,7 @@ public class MockUI implements GameUI {
     private boolean gameWon;
     private boolean gameTied;
     private boolean gameOver;
-    private boolean error;
+    private int errorCode;
 
     public MockUI() {
         gameStarted = false;
@@ -24,7 +24,7 @@ public class MockUI implements GameUI {
         gameWon = false;
         gameTied = false;
         gameOver = false;
-        error = false;
+        errorCode = 0;
     }
 
     public void setInputs(List<String> inputs) {
@@ -85,12 +85,12 @@ public class MockUI implements GameUI {
         gameOver = true;
     }
 
-    public boolean isError() {
-        return error;
+    public int getErrorCode() {
+        return errorCode;
     }
 
     public void displayError(int errorCode) {
-        error = true;
+        this.errorCode = errorCode;
     }
 
 }

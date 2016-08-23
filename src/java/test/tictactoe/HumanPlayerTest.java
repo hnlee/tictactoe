@@ -33,4 +33,11 @@ public class HumanPlayerTest {
         assertEquals(0, record.getLastMove());
     }
 
+    @Test
+    public void testCharInput() {
+        ui.setInputs(Arrays.asList("a", "0"));
+        human.move(record);
+        assertEquals(2, ui.getErrorCode());
+    }
+
 }

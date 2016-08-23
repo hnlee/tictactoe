@@ -101,6 +101,8 @@ public class CommandLineUI implements GameUI {
     public void displayError(int errorCode) {
         if (errorCode == 1) {
             displayMessage("Invalid move");
+        } else if (errorCode == 2) {
+            displayMessage("Move must be an integer");
         } else {
             displayMessage("Something went wrong");
         }

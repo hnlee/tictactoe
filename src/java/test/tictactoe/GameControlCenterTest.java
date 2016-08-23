@@ -155,13 +155,24 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testInvalidHumanMove() {
+    public void testOutOfRangeHumanInput() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         ui.setInputs(Arrays.asList("9", "0"));
         game.makeMove(humanPlayer);
-        assertTrue(ui.isError());
+        assertEquals(1, ui.getErrorCode());
+    }
+
+    @Test
+    public void testHumanInputInOccupiedSpace() {
+        firstPlayer = humanPlayer;
+        record = new GameRecord(board, firstPlayer, secondPlayer);
+        game = new GameControlCenter(ui, record, analyzer);
+        ui.setInputs(Arrays.asList("0", "0", "1"));
+        game.makeMove(humanPlayer);
+        game.makeMove(humanPlayer);
+        assertEquals(1, ui.getErrorCode());
     }
 
 }
