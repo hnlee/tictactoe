@@ -71,12 +71,11 @@ public class GameRecord implements MoveHistory {
     }
 
     public GamePlayer whoPlayedMove(int move) throws NullPointerException {
-        for (GamePlayer player : movesByPlayer.keySet()) {
-            if (movesByPlayer.get(player).contains(move)) {
-                return player;
-            }
+        if (movesByPlayer.get(playerOne).contains(move)) {
+            return playerOne;
+        } else {
+            return playerTwo;
         }
-        return null;
     }
 
     public List<Integer> getAllMoves() {
