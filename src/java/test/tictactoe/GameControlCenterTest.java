@@ -34,8 +34,8 @@ public class GameControlCenterTest {
         board = new SquareBoard(3);
         analyzer = new GameAnalyzer();
 
-        PlayerMarker xMarker = new StringMarker("X");
-        PlayerMarker oMarker = new StringMarker("O");
+        StringMarker xMarker = new StringMarker("X");
+        StringMarker oMarker = new StringMarker("O");
         firstPlayer = new MockGamePlayer(xMarker);
         secondPlayer = new MockGamePlayer(oMarker);
         humanPlayer = new HumanPlayer(xMarker, ui);

@@ -19,8 +19,8 @@ public class ComputerPlayerTest {
 
     @Before
     public void setUp() {
-        PlayerMarker xMarker = new StringMarker("X");
-        PlayerMarker oMarker = new StringMarker("O");
+        StringMarker xMarker = new StringMarker("X");
+        StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
         analyzer = new GameAnalyzer();
         computer = new ComputerPlayer(xMarker, analyzer);

@@ -5,15 +5,15 @@ package tictactoe;
  */
 public class HumanPlayer implements GamePlayer {
 
-    private PlayerMarker marker;
+    private StringMarker marker;
     private GameUI ui;
 
-    public HumanPlayer(PlayerMarker marker, GameUI ui) {
+    public HumanPlayer(StringMarker marker, GameUI ui) {
         this.marker = marker;
         this.ui = ui;
     }
 
-    public PlayerMarker getMarker() {
+    public StringMarker getMarker() {
         return marker;
     }
 

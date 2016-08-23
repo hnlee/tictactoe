@@ -25,8 +25,8 @@ public class CommandLineUITest {
         input = new MockInputStream();
         ui = new CommandLineUI(input, output);
         board = new SquareBoard(3);
-        PlayerMarker xMarker = new StringMarker("X");
-        PlayerMarker oMarker = new StringMarker("O");
+        StringMarker xMarker = new StringMarker("X");
+        StringMarker oMarker = new StringMarker("O");
         playerOne = new MockGamePlayer(xMarker);
         playerTwo = new MockGamePlayer(oMarker);
         record = new GameRecord(board, playerOne, playerTwo);

@@ -10,17 +10,17 @@ import java.util.Random;
  */
 public class ComputerPlayer implements GamePlayer {
 
-    private PlayerMarker marker;
+    private StringMarker marker;
     private Scorer analyzer;
     private Random random;
 
-    public ComputerPlayer(PlayerMarker marker, Scorer analyzer) {
+    public ComputerPlayer(StringMarker marker, Scorer analyzer) {
         this.marker = marker;
         this.analyzer = analyzer;
         this.random = new Random();
     }
 
-    public PlayerMarker getMarker() {
+    public StringMarker getMarker() {
         return marker;
     }
 

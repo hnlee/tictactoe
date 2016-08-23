@@ -8,14 +8,14 @@ import java.util.Random;
 public class MockGamePlayer implements GamePlayer {
 
     private Random random;
-    private PlayerMarker marker;
+    private StringMarker marker;
 
-    public MockGamePlayer(PlayerMarker marker) {
+    public MockGamePlayer(StringMarker marker) {
         this.random = new Random();
         this.marker = marker;
     }
 
-    public PlayerMarker getMarker() {
+    public StringMarker getMarker() {
         return marker;
     }
 
