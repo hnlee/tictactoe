@@ -6,26 +6,20 @@ package tictactoe;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.ByteArrayOutputStream;
-
+import java.util.Arrays;
 import static org.junit.Assert.*;
 
 
 public class HumanPlayerTest {
     HumanPlayer human;
     MockGamePlayer opponent;
-    MockInputStream input;
-    ByteArrayOutputStream output;
-    GameUI ui;
+    MockUI ui;
     MoveHistory record;
     Board board;
 
     @Before
     public void setUp() {
-        input = new MockInputStream();
-        output = new ByteArrayOutputStream();
-        ui = new MockUI(input, output);
+        ui = new MockUI();
         human = new HumanPlayer(new StringMarker("X"), ui);
         opponent = new MockGamePlayer(new StringMarker("O"));
         board = new SquareBoard(3);
@@ -34,7 +28,7 @@ public class HumanPlayerTest {
 
     @Test
     public void testMove() {
-        input.setInputStream("0");
+        ui.setInputs(Arrays.asList("0"));
         human.move(record);
         assertEquals(0, record.getLastMove());
     }

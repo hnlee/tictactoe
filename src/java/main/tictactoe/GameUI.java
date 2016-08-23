@@ -6,21 +6,19 @@ package tictactoe;
  */
 public interface GameUI {
 
-    void displayMessage(String message);
-
     void displayBoard(MoveHistory record);
 
-    String getUserInput();
-
-    String displayPrompt(String prompt);
+    String promptMove();
 
     void displayTitle();
 
     void displayMoveNumber(int moveNumber);
 
-    void displayEnding();
+    void displayWin(GamePlayer player);
 
-    String promptMove();
+    void displayTie();
+
+    void displayEnding();
 
     void displayError(String errorType);
 

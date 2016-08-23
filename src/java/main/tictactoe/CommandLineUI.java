@@ -106,4 +106,12 @@ public class CommandLineUI implements GameUI {
         }
     }
 
+    public void displayWin(GamePlayer player) {
+        displayMessage(String.format("%s wins", player.getMarker()));
+    }
+
+    public void displayTie() {
+        displayMessage("Tie");
+    }
+
 }

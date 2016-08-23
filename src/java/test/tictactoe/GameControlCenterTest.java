@@ -8,14 +8,10 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.util.Arrays;
 
 public class GameControlCenterTest {
     private GameControlCenter game;
-    private MockInputStream input;
-    private ByteArrayOutputStream output;
     private GamePlayer firstPlayer;
     private GamePlayer secondPlayer;
     private HumanPlayer humanPlayer;
@@ -27,9 +23,7 @@ public class GameControlCenterTest {
 
     @Before
     public void setUp() {
-        output = new ByteArrayOutputStream();
-        input = new MockInputStream();
-        ui = new MockUI(input, output);
+        ui = new MockUI();
 
         board = new SquareBoard(3);
         analyzer = new GameAnalyzer();
@@ -50,7 +44,6 @@ public class GameControlCenterTest {
         assertNotNull(game.getPlayerTwo());
         assertNotNull(game.getRecord());
         assertNotNull(game.getAnalyzer());
-        assertEquals("start", game.getStatus());
     }
 
     @Test
@@ -58,7 +51,8 @@ public class GameControlCenterTest {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         game.start();
-        assertEquals("ready", game.getStatus());
+        assertTrue(ui.isGameStarted());
+        assertTrue(ui.isBoardDisplayed());
     }
 
     @Test
@@ -76,7 +70,8 @@ public class GameControlCenterTest {
         game = new GameControlCenter(ui, record, analyzer);
         record.newMove(1, firstPlayer);
         game.analyzeBoard();
-        assertEquals("playing", game.getStatus());
+        assertFalse(ui.isGameWon());
+        assertFalse(ui.isGameTied());
     }
 
     @Test
@@ -86,7 +81,7 @@ public class GameControlCenterTest {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 8, 7);
         game.analyzeBoard();
-        assertEquals("tie", game.getStatus());
+        assertTrue(ui.isGameTied());
     }
 
     @Test
@@ -96,7 +91,7 @@ public class GameControlCenterTest {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 2, 8, 6);
         game.analyzeBoard();
-        assertEquals("win", game.getStatus());
+        assertTrue(ui.isGameWon());
     }
 
 
@@ -126,7 +121,7 @@ public class GameControlCenterTest {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         game.run();
-        assertEquals("finish", game.getStatus());
+        assertTrue(ui.isGameOver());
     }
 
     @Test
@@ -134,46 +129,29 @@ public class GameControlCenterTest {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
-        input.setInputStream("0");
+        ui.setInputs(Arrays.asList("0"));
         game.makeMove(humanPlayer);
         assertEquals(0, record.getLastMove());
         assertEquals(humanPlayer, record.getLastPlayer());
     }
 
     @Test
-    public void testDisplayBoardAfterMove() {
+    public void testDisplayMoveNumAndBoardAfterMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         game.makeMove(firstPlayer);
-        MoveHistory record = game.getRecord();
-        String boardString = record.getBoard().toString();
-        assertTrue(output.toString().endsWith(boardString));
+        assertTrue(ui.isMoveUpdated());
+        assertTrue(ui.isBoardDisplayed());
     }
 
     @Test
-    public void testDisplayBoardAtGameStart() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
-        MoveHistory record = game.getRecord();
-        String boardString = record.getBoard().toString();
-        game.start();
-        assertTrue(output.toString().endsWith(boardString));
-    }
-
-    @Test
-    public void testDisplayTitleAtGameStart() {
+    public void testDisplayTitleAndBoardAtGameStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
         game.start();
-        assertTrue(output.toString().startsWith("Tic Tac Toe\n"));
-    }
+        assertTrue(ui.isGameStarted());
+        assertTrue(ui.isBoardDisplayed());
 
-    @Test
-    public void testDisplayMoveNumber() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
-        game.makeMove(firstPlayer);
-        assertTrue(output.toString().contains("Move #1"));
     }
 
     @Test
@@ -181,9 +159,9 @@ public class GameControlCenterTest {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, analyzer);
-        input.setInputStream("9\n0");
+        ui.setInputs(Arrays.asList("9", "0"));
         game.makeMove(humanPlayer);
-        assertTrue(output.toString().contains("Invalid move"));
+        assertTrue(ui.isError());
     }
 
 }

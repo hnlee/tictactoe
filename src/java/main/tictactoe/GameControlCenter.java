@@ -6,7 +6,7 @@ public class GameControlCenter {
     private GamePlayer playerTwo;
     private MoveHistory record;
     private StatusChecker analyzer;
-    private String status;
+    private boolean isPlaying;
     private int moveNumber;
 
     GameControlCenter(GameUI ui,
@@ -18,13 +18,11 @@ public class GameControlCenter {
         this.playerTwo = record.getPlayerTwo();
         this.analyzer = analyzer;
         this.moveNumber = 0;
-        this.status = "start";
     }
 
     public void start() {
         ui.displayTitle();
         ui.displayBoard(record);
-        this.status = "ready";
     }
 
     public GamePlayer getPlayerOne() { return playerOne; }
@@ -37,10 +35,6 @@ public class GameControlCenter {
 
     public StatusChecker getAnalyzer() { return analyzer; }
 
-    public String getStatus() {
-        return status;
-    }
-
     public void makeMove(GamePlayer currentPlayer) {
         currentPlayer.move(record);
         ui.displayMoveNumber(moveNumber);
@@ -49,12 +43,14 @@ public class GameControlCenter {
 
     public void analyzeBoard() {
         if (analyzer.isGameWon(record)) {
-            status = "win";
+            isPlaying = false;
+            ui.displayWin(record.getLastPlayer());
         } else {
             if (analyzer.isGameTied(record)) {
-                status = "tie";
+                isPlaying = false;
+                ui.displayTie();
             } else {
-                status = "playing";
+                isPlaying = true;
             }
         }
     }
@@ -62,7 +58,7 @@ public class GameControlCenter {
     public void run() {
         GamePlayer currentPlayer;
         analyzeBoard();
-        while (status.equals("playing")) {
+        while (isPlaying) {
             if (moveNumber % 2 == 0) {
                 currentPlayer = playerOne;
             } else {
@@ -72,7 +68,6 @@ public class GameControlCenter {
             analyzeBoard();
             moveNumber++;
         }
-        status = "finish";
         ui.displayEnding();
     }
 }

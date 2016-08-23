@@ -1,65 +1,96 @@
 package tictactoe;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hanalee on 8/15/16.
  */
 public class MockUI implements GameUI {
 
-    private PrintStream outputStream;
-    private InputStream inputStream;
-    private Scanner scanner;
+    private ArrayList<String> inputs;
+    private boolean gameStarted;
+    private boolean boardDisplayed;
+    private boolean moveUpdated;
+    private boolean gameWon;
+    private boolean gameTied;
+    private boolean gameOver;
+    private boolean error;
 
-
-    public MockUI(InputStream input, OutputStream output) {
-        this.inputStream = input;
-        this.outputStream = new PrintStream(output);
-        this.scanner =  new Scanner(inputStream);
+    public MockUI() {
+        gameStarted = false;
+        boardDisplayed = false;
+        moveUpdated = false;
+        gameWon = false;
+        gameTied = false;
+        gameOver = false;
+        error = false;
     }
 
-    public void displayMessage(String message) {
-        outputStream.println(message);
+    public void setInputs(List<String> inputs) {
+        this.inputs = new ArrayList<String>(inputs);
+    }
+
+    public boolean isBoardDisplayed() {
+        return boardDisplayed;
     }
 
     public void displayBoard(MoveHistory record) {
-        outputStream.print(record.getBoard());
-    }
-
-    public String getUserInput() {
-        return scanner.nextLine();
-    }
-
-    public String displayPrompt(String prompt) {
-        displayMessage(prompt);
-        return getUserInput();
-    }
-
-    public void displayTitle() {
-        displayMessage("Tic Tac Toe");
-    }
-
-    public void displayMoveNumber(int moveNumber) {
-        displayMessage(String.format("Move #%d", moveNumber + 1));
-    }
-
-    public void displayEnding() {
-        displayMessage("Game over");
+        boardDisplayed = true;
     }
 
     public String promptMove() {
-        return displayPrompt("Enter move");
+        moveUpdated = false;
+        boardDisplayed = false;
+        return inputs.remove(0);
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public void displayTitle() {
+        gameStarted = true;
+    }
+
+    public boolean isMoveUpdated() {
+        return moveUpdated;
+    }
+
+    public void displayMoveNumber(int moveNumber) {
+        moveUpdated = true;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
+    public void displayWin(GamePlayer player) {
+        gameWon = true;
+    }
+
+    public boolean isGameTied() {
+        return gameTied;
+    }
+
+    public void displayTie() {
+        gameTied = true;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void displayEnding() {
+        gameOver = true;
+    }
+
+    public boolean isError() {
+        return error;
     }
 
     public void displayError(String errorType) {
-        if (errorType.equals("invalid")) {
-            displayMessage("Invalid move");
-        } else {
-            displayMessage("Error");
-        }
+        error = true;
     }
 
 }
