@@ -1,4 +1,7 @@
-package tictactoe;
+package tictactoe.player;
+
+import tictactoe.record.MoveHistory;
+import tictactoe.ui.GameUI;
 
 /**
  * Created by hanalee on 8/4/16.

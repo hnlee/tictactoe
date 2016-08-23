@@ -1,4 +1,7 @@
-package tictactoe;
+package tictactoe.player;
+
+import tictactoe.record.MoveHistory;
+import tictactoe.analyzer.Scorer;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.player;
+
+import tictactoe.player.GamePlayer;
+import tictactoe.player.StringMarker;
+import tictactoe.record.MoveHistory;
 
 import java.util.Random;
 

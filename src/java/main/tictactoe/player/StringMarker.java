@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.player;
 
 /**
  * Created by hanalee on 8/15/16.

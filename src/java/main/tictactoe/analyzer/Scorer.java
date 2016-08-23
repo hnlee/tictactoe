@@ -1,7 +1,9 @@
-package tictactoe;
+package tictactoe.analyzer;
+
+import tictactoe.player.GamePlayer;
+import tictactoe.record.MoveHistory;
 
 import java.util.Hashtable;
-import java.util.List;
 
 /**
  * Created by hanalee on 8/17/16.

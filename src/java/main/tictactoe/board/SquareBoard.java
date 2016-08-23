@@ -1,15 +1,12 @@
-package tictactoe;
+package tictactoe.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class SquareBoard implements Board {
     private int numRows;
     private int[][] rows;
 
-    SquareBoard(int numRows) {
+    public SquareBoard(int numRows) {
         this.numRows = numRows;
         setRows();
     }

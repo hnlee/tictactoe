@@ -1,10 +1,17 @@
-package tictactoe;
+package tictactoe.analyzer;
 
 import org.junit.Before;
 import org.junit.Test;
+import tictactoe.Simulator;
+import tictactoe.board.Board;
+import tictactoe.board.SquareBoard;
+import tictactoe.player.GamePlayer;
+import tictactoe.player.MockGamePlayer;
+import tictactoe.player.StringMarker;
+import tictactoe.record.GameRecord;
+import tictactoe.analyzer.GameAnalyzer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 

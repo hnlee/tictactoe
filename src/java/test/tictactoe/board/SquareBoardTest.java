@@ -1,7 +1,8 @@
-package tictactoe;
+package tictactoe.board;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import tictactoe.board.SquareBoard;
 
 public class SquareBoardTest {
 

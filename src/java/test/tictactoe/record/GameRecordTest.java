@@ -1,8 +1,16 @@
-package tictactoe;
+package tictactoe.record;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
+import tictactoe.Simulator;
+import tictactoe.board.Board;
+import tictactoe.board.SquareBoard;
+import tictactoe.player.GamePlayer;
+import tictactoe.player.MockGamePlayer;
+import tictactoe.player.StringMarker;
+import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

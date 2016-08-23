@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.player;
 
 /**
  * Created by hanalee on 8/10/16.
@@ -6,6 +6,12 @@ package tictactoe;
 
 import org.junit.Before;
 import org.junit.Test;
+import tictactoe.board.Board;
+import tictactoe.board.SquareBoard;
+import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
+import tictactoe.ui.MockUI;
+
 import java.util.Arrays;
 import static org.junit.Assert.*;
 

@@ -1,4 +1,7 @@
-package tictactoe;
+package tictactoe.record;
+
+import tictactoe.board.Board;
+import tictactoe.player.GamePlayer;
 
 import java.util.*;
 
@@ -12,7 +15,7 @@ public class GameRecord implements MoveHistory {
     private GamePlayer playerTwo;
     private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
 
-    GameRecord(Board board, GamePlayer playerOne, GamePlayer playerTwo) {
+    public GameRecord(Board board, GamePlayer playerOne, GamePlayer playerTwo) {
         this.board = board;
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;

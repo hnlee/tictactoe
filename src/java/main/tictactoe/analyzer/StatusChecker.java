@@ -1,6 +1,6 @@
-package tictactoe;
+package tictactoe.analyzer;
 
-import java.util.List;
+import tictactoe.record.MoveHistory;
 
 /**
  * Created by hanalee on 8/17/16.

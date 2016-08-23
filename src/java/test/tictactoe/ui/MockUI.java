@@ -1,4 +1,8 @@
-package tictactoe;
+package tictactoe.ui;
+
+import tictactoe.player.GamePlayer;
+import tictactoe.record.MoveHistory;
+import tictactoe.ui.GameUI;
 
 import java.util.ArrayList;
 import java.util.List;

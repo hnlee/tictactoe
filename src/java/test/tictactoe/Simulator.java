@@ -1,5 +1,8 @@
 package tictactoe;
 
+import tictactoe.player.GamePlayer;
+import tictactoe.record.MoveHistory;
+
 /**
  * Created by hanalee on 8/2/16.
  */

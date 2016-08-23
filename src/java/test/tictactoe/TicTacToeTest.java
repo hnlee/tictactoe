@@ -2,6 +2,7 @@ package tictactoe;
 
 import org.junit.Before;
 import org.junit.Test;
+import tictactoe.ui.MockInputStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;

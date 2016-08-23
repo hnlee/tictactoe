@@ -1,7 +1,13 @@
-package tictactoe;
+package tictactoe.ui;
 
 import org.junit.Before;
 import org.junit.Test;
+import tictactoe.player.MockGamePlayer;
+import tictactoe.Simulator;
+import tictactoe.board.SquareBoard;
+import tictactoe.player.GamePlayer;
+import tictactoe.player.StringMarker;
+import tictactoe.record.GameRecord;
 
 import java.io.ByteArrayOutputStream;
 

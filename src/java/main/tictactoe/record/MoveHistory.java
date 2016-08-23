@@ -1,4 +1,7 @@
-package tictactoe;
+package tictactoe.record;
+
+import tictactoe.board.Board;
+import tictactoe.player.GamePlayer;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

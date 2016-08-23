@@ -2,6 +2,16 @@ package tictactoe;
 
 import org.junit.Test;
 import org.junit.Before;
+import tictactoe.board.Board;
+import tictactoe.board.SquareBoard;
+import tictactoe.player.ComputerPlayer;
+import tictactoe.player.GamePlayer;
+import tictactoe.player.MockGamePlayer;
+import tictactoe.player.StringMarker;
+import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
+import tictactoe.analyzer.GameAnalyzer;
+
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;

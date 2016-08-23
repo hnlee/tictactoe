@@ -8,6 +8,14 @@ package tictactoe;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
+import tictactoe.board.Board;
+import tictactoe.board.SquareBoard;
+import tictactoe.player.*;
+import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
+import tictactoe.analyzer.GameAnalyzer;
+import tictactoe.ui.MockUI;
+
 import java.util.Arrays;
 
 public class GameControlCenterTest {

@@ -1,5 +1,10 @@
 package tictactoe;
 
+import tictactoe.player.GamePlayer;
+import tictactoe.record.MoveHistory;
+import tictactoe.analyzer.StatusChecker;
+import tictactoe.ui.GameUI;
+
 public class GameControlCenter {
     private GameUI ui;
     private GamePlayer playerOne;

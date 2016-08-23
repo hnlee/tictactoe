@@ -1,4 +1,4 @@
-package tictactoe;
+package tictactoe.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
