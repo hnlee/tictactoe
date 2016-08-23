@@ -22,9 +22,11 @@ public class HumanPlayer implements GamePlayer {
         while (!validate) {
             String playerInput = ui.promptMove();
             int move = Integer.parseInt(playerInput);
-            validate = record.newMove(move, this);
-            if (!validate) {
-                ui.displayError("invalid");
+            validate = record.isValidMove(move);
+            if (validate) {
+                record.newMove(move, this);
+            } else {
+                ui.displayError(1);
             }
         }
     }

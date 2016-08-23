@@ -98,11 +98,11 @@ public class CommandLineUI implements GameUI {
         return displayPrompt("Enter move");
     }
 
-    public void displayError(String errorType) {
-        if (errorType.equals("invalid")) {
+    public void displayError(int errorCode) {
+        if (errorCode == 1) {
             displayMessage("Invalid move");
         } else {
-            displayMessage("Error");
+            displayMessage("Something went wrong");
         }
     }
 

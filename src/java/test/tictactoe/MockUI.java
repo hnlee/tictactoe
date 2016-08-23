@@ -89,7 +89,7 @@ public class MockUI implements GameUI {
         return error;
     }
 
-    public void displayError(String errorType) {
+    public void displayError(int errorCode) {
         error = true;
     }
 

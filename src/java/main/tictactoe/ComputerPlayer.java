@@ -36,6 +36,6 @@ public class ComputerPlayer implements GamePlayer {
             }
         }
         int move = bestMoves.get(random.nextInt(bestMoves.size()));
-        boolean validate = record.newMove(move, this);
+        record.newMove(move, this);
     }
 }

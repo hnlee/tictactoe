@@ -59,7 +59,7 @@ public class GameRecordTest {
     @Test
     public void testWhoPlayedMove() {
         record.newMove(1, playerOne);
-        assertEquals(playerOne, record.whoPlayedMove(1));
+        assertEquals(playerOne, record.whoPlayedMove(1).get());
     }
 
     @Test

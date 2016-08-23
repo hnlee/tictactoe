@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by hanalee on 8/2/16.
@@ -13,10 +14,10 @@ public class GameAnalyzer implements StatusChecker, Scorer {
     public ArrayList<GamePlayer> getRowPlayers(MoveHistory record, int[] row) {
         ArrayList<GamePlayer> rowPlayedBy = new ArrayList<GamePlayer>();
         for (int space : row) {
-            GamePlayer spacePlayedBy = record.whoPlayedMove(space);
-            if (spacePlayedBy != null &&
-                    !rowPlayedBy.contains(spacePlayedBy)) {
-                rowPlayedBy.add(spacePlayedBy);
+            Optional<GamePlayer> isSpacePlayed = record.whoPlayedMove(space);
+            if (isSpacePlayed.isPresent() &&
+                    !rowPlayedBy.contains(isSpacePlayed.get())) {
+                rowPlayedBy.add(isSpacePlayed.get());
             }
         }
         return rowPlayedBy;

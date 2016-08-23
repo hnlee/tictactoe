@@ -22,7 +22,7 @@ public class MockGamePlayer implements GamePlayer {
     public void move(MoveHistory record) {
         int numRows = record.getBoard().getNumRows();
         int move = random.nextInt(numRows * numRows);
-        boolean validate = record.newMove(move, this);
+        record.newMove(move, this);
     }
 
 }

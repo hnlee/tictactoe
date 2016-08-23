@@ -1,9 +1,6 @@
 package tictactoe;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -48,13 +45,9 @@ public class GameRecord implements MoveHistory {
         return true;
     }
 
-    public boolean newMove(int move, GamePlayer player) {
-        boolean validate = isValidMove(move);
-        if (validate) {
-            lastPlayer = player;
-            movesByPlayer.get(player).add(move);
-        }
-        return validate;
+    public void newMove(int move, GamePlayer player) {
+        lastPlayer = player;
+        movesByPlayer.get(player).add(move);
     }
 
     public int getLastMove() {
@@ -70,11 +63,13 @@ public class GameRecord implements MoveHistory {
         return lastPlayer;
     }
 
-    public GamePlayer whoPlayedMove(int move) throws NullPointerException {
+    public Optional<GamePlayer> whoPlayedMove(int move) {
         if (movesByPlayer.get(playerOne).contains(move)) {
-            return playerOne;
+            return Optional.of(playerOne);
+        } else if (movesByPlayer.get(playerTwo).contains(move)) {
+            return Optional.of(playerTwo);
         } else {
-            return playerTwo;
+            return Optional.empty();
         }
     }
 

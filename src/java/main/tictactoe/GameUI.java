@@ -20,6 +20,6 @@ public interface GameUI {
 
     void displayEnding();
 
-    void displayError(String errorType);
+    void displayError(int errorCode);
 
 }
