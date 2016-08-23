@@ -12,33 +12,16 @@ public interface GameUI {
 
     String getUserInput();
 
-    default String displayPrompt(String prompt) {
-        displayMessage(prompt);
-        return getUserInput();
-    }
+    String displayPrompt(String prompt);
 
-    default void displayTitle() {
-        displayMessage("Tic Tac Toe");
-    }
+    void displayTitle();
 
-    default void displayMoveNumber(int moveNumber) {
-        displayMessage(String.format("Move #%d", moveNumber + 1));
-    }
+    void displayMoveNumber(int moveNumber);
 
-    default void displayEnding() {
-        displayMessage("Game over");
-    }
+    void displayEnding();
 
-    default String promptMove() {
-        return displayPrompt("Enter move");
-    }
+    String promptMove();
 
-    default void displayError(String errorType) {
-        if (errorType.equals("invalid")) {
-            displayMessage("Invalid move");
-        } else {
-            displayMessage("Error");
-        }
-    }
+    void displayError(String errorType);
 
 }

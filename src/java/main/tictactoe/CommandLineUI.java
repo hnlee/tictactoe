@@ -65,19 +65,45 @@ public class CommandLineUI implements GameUI {
         return String.format(generateBoardAsString(record), labels);
     }
 
-    @Override
     public void displayMessage(String message) {
         outputStream.println(message);
     }
 
-    @Override
     public void displayBoard(MoveHistory record) {
         outputStream.print(convertBoardToString(record));
     }
 
-    @Override
     public String getUserInput() {
         return scanner.nextLine();
+    }
+
+    public String displayPrompt(String prompt) {
+        displayMessage(prompt);
+        return getUserInput();
+    }
+
+    public void displayTitle() {
+        displayMessage("Tic Tac Toe");
+    }
+
+    public void displayMoveNumber(int moveNumber) {
+        displayMessage(String.format("Move #%d", moveNumber + 1));
+    }
+
+    public void displayEnding() {
+        displayMessage("Game over");
+    }
+
+    String promptMove() {
+        return displayPrompt("Enter move");
+    }
+
+    void displayError(String errorType) {
+        if (errorType.equals("invalid")) {
+            displayMessage("Invalid move");
+        } else {
+            displayMessage("Error");
+        }
     }
 
 }
