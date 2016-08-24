@@ -8,7 +8,7 @@ import tictactoe.record.MoveHistory;
  */
 public class Simulator {
 
-    public static void simulateGame(MoveHistory record,
+    public static MoveHistory simulateGame(MoveHistory record,
                                     int... moves) {
         GamePlayer playerOne = record.getPlayerOne();
         GamePlayer playerTwo = record.getPlayerTwo();
@@ -19,6 +19,7 @@ public class Simulator {
                 record.newMove(move, playerTwo);
             }
         }
+        return record;
     }
 
 }

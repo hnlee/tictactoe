@@ -11,8 +11,26 @@ The main purpose of this exercise:
 
 ## How to run
 
+To run from Gradle:
+
+```
+./gradlew run
+```
+
+Or compile classes to `$CLASSDIR` and run:
+
+```
+java -cp $CLASSDIR TicTacToe
+```
 
 ## Dependencies
 
+JUnit 4 is required to run tests.
 
 ## Tests
+
+To run tests from Gradle:
+
+```
+./gradlew test
+```
