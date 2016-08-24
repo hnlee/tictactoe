@@ -25,8 +25,14 @@ public class MockGamePlayer implements GamePlayer {
 
     public void move(MoveHistory record) {
         int numRows = record.getBoard().getNumRows();
-        int move = random.nextInt(numRows * numRows);
-        record.newMove(move, this);
+        boolean validate = false;
+        while (!validate) {
+            int move = random.nextInt(numRows * numRows);
+            validate = record.isValidMove(move);
+            if (validate) {
+                record.newMove(move, this);
+            }
+        }
     }
 
 }
