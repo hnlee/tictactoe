@@ -95,7 +95,10 @@ public class GameRecord implements MoveHistory {
         Hashtable<GamePlayer,
                   ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();
         for (GamePlayer player : movesByPlayer.keySet()) {
-            copyMoves.put(player, (ArrayList<Integer>) movesByPlayer.get(player).clone());
+            copyMoves.put(player, new ArrayList<Integer>());
+            for (int move : movesByPlayer.get(player)) {
+                copyMoves.get(player).add(move);
+            }
         }
         return copy;
     }
