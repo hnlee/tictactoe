@@ -28,3 +28,16 @@ task wrapper(type: Wrapper) {
 run {
     standardInput = System.in
 }
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/java/main'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/java/test'
+        }
+    }
+}
