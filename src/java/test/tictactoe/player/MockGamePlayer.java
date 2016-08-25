@@ -24,7 +24,7 @@ public class MockGamePlayer implements GamePlayer {
     }
 
     public void move(MoveHistory record) {
-        int numRows = record.getBoard().getNumRows();
+        int numRows = record.getNumRows();
         boolean validate = false;
         while (!validate) {
             int move = random.nextInt(numRows * numRows);

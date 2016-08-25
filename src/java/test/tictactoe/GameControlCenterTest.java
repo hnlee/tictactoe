@@ -13,7 +13,10 @@ import tictactoe.board.SquareBoard;
 import tictactoe.player.*;
 import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.GameAnalyzer;
+import tictactoe.rules.StandardRules;
+import tictactoe.rules.StatusChecker;
+import tictactoe.scoring.MinimaxScorer;
+import tictactoe.scoring.Scorer;
 import tictactoe.ui.MockUI;
 
 import java.util.Arrays;
@@ -26,7 +29,8 @@ public class GameControlCenterTest {
     private ComputerPlayer computerPlayer;
     private MockUI ui;
     private Board board;
-    private GameAnalyzer analyzer;
+    private StatusChecker rules;
+    private Scorer scorer;
     private MoveHistory record;
 
     @Before
@@ -34,30 +38,31 @@ public class GameControlCenterTest {
         ui = new MockUI();
 
         board = new SquareBoard(3);
-        analyzer = new GameAnalyzer();
+        rules = new StandardRules();
+        scorer = new MinimaxScorer(rules);
 
         StringMarker xMarker = new StringMarker("X");
         StringMarker oMarker = new StringMarker("O");
         firstPlayer = new MockGamePlayer(xMarker);
         secondPlayer = new MockGamePlayer(oMarker);
         humanPlayer = new HumanPlayer(xMarker, ui);
-        computerPlayer = new ComputerPlayer(oMarker, analyzer);
+        computerPlayer = new ComputerPlayer(oMarker, scorer);
     }
 
     @Test
     public void testSetup() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         assertNotNull(game.getPlayerOne());
         assertNotNull(game.getPlayerTwo());
         assertNotNull(game.getRecord());
-        assertNotNull(game.getAnalyzer());
+        assertNotNull(game.getRules());
     }
 
     @Test
     public void testStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         game.start();
         assertTrue(ui.isGameStarted());
         assertTrue(ui.isBoardDisplayed());
@@ -66,7 +71,7 @@ public class GameControlCenterTest {
     @Test
     public void testMakeMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         game.makeMove(firstPlayer);
         game.makeMove(secondPlayer);
         assertEquals(secondPlayer, record.getLastPlayer());
@@ -75,7 +80,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeGameInProgress() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         record.newMove(1, firstPlayer);
         game.analyzeBoard();
         assertFalse(ui.isGameWon());
@@ -85,7 +90,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeTiedGame() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 8, 7);
         game.analyzeBoard();
@@ -95,7 +100,7 @@ public class GameControlCenterTest {
     @Test
     public void testAnalyzeWonGame() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 2, 8, 6);
         game.analyzeBoard();
@@ -108,7 +113,7 @@ public class GameControlCenterTest {
         firstPlayer = humanPlayer;
         secondPlayer = computerPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         assertTrue(game.getPlayerTwo() instanceof ComputerPlayer);
         assertTrue(game.getPlayerOne() instanceof HumanPlayer);
     }
@@ -118,7 +123,7 @@ public class GameControlCenterTest {
         firstPlayer = computerPlayer;
         secondPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         assertTrue(game.getPlayerOne() instanceof ComputerPlayer);
         assertTrue(game.getPlayerTwo() instanceof HumanPlayer);
     }
@@ -127,7 +132,7 @@ public class GameControlCenterTest {
     public void testRunGameWithComputer() {
         secondPlayer = computerPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         game.run();
         assertTrue(ui.isGameOver());
     }
@@ -136,7 +141,7 @@ public class GameControlCenterTest {
     public void testUpdateHumanMove() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("0"));
         game.makeMove(humanPlayer);
         assertEquals(0, record.getLastMove());
@@ -146,7 +151,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayMoveNumAndBoardAfterMove() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         game.makeMove(firstPlayer);
         assertTrue(ui.isMoveUpdated());
         assertTrue(ui.isBoardDisplayed());
@@ -155,7 +160,7 @@ public class GameControlCenterTest {
     @Test
     public void testDisplayTitleAndBoardAtGameStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         game.start();
         assertTrue(ui.isGameStarted());
         assertTrue(ui.isBoardDisplayed());
@@ -166,7 +171,7 @@ public class GameControlCenterTest {
     public void testOutOfRangeHumanInput() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("9", "0"));
         game.makeMove(humanPlayer);
         assertEquals(1, ui.getErrorCode());
@@ -176,7 +181,7 @@ public class GameControlCenterTest {
     public void testHumanInputInOccupiedSpace() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, analyzer);
+        game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("0", "0", "1"));
         game.makeMove(humanPlayer);
         game.makeMove(humanPlayer);

@@ -42,7 +42,7 @@ public class CommandLineUI implements GameUI {
     }
 
     public String generateBoardAsString(MoveHistory record) {
-        int numRows = record.getBoard().getNumRows();
+        int numRows = record.getNumRows();
         String boardSpaces = generateBoardElementsAsString(" %s ", "|", numRows);
         String boardRows = generateBoardElementsAsString("---", "+", numRows);
         String board = generateBoardElementsAsString(boardSpaces + "\n",
@@ -52,7 +52,7 @@ public class CommandLineUI implements GameUI {
     }
 
     public String convertBoardToString(MoveHistory record) {
-        int numRows = record.getBoard().getNumRows();
+        int numRows = record.getNumRows();
         Object[] labels = new String[(numRows * numRows)];
         for (int space = 0; space < (numRows * numRows); space++) {
             labels[space] = String.format("%d", space);

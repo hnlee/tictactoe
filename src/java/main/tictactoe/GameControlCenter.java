@@ -2,7 +2,7 @@ package tictactoe;
 
 import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.StatusChecker;
+import tictactoe.rules.StatusChecker;
 import tictactoe.ui.GameUI;
 
 public class GameControlCenter {
@@ -10,18 +10,18 @@ public class GameControlCenter {
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private MoveHistory record;
-    private StatusChecker analyzer;
+    private StatusChecker rules;
     private boolean isPlaying;
     private int moveNumber;
 
     GameControlCenter(GameUI ui,
                       MoveHistory record,
-                      StatusChecker analyzer) {
+                      StatusChecker rules) {
         this.ui = ui;
         this.record = record;
         this.playerOne = record.getPlayerOne();
         this.playerTwo = record.getPlayerTwo();
-        this.analyzer = analyzer;
+        this.rules = rules;
         this.moveNumber = 0;
     }
 
@@ -38,7 +38,7 @@ public class GameControlCenter {
         return record;
     }
 
-    public StatusChecker getAnalyzer() { return analyzer; }
+    public StatusChecker getRules() { return rules; }
 
     public void makeMove(GamePlayer currentPlayer) {
         currentPlayer.move(record);
@@ -47,11 +47,11 @@ public class GameControlCenter {
     }
 
     public void analyzeBoard() {
-        if (analyzer.isGameWon(record)) {
+        if (rules.isGameWon(record)) {
             isPlaying = false;
             ui.displayWin(record.getLastPlayer());
         } else {
-            if (analyzer.isGameTied(record)) {
+            if (rules.isGameTied(record)) {
                 isPlaying = false;
                 ui.displayTie();
             } else {

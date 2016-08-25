@@ -10,7 +10,9 @@ import tictactoe.player.MockGamePlayer;
 import tictactoe.player.StringMarker;
 import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.GameAnalyzer;
+import tictactoe.rules.StandardRules;
+import tictactoe.rules.StatusChecker;
+import tictactoe.scoring.MinimaxScorer;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
@@ -24,35 +26,37 @@ public class AllPossibleGames {
     private Board board;
     private MoveHistory record;
     private GamePlayer opponent;
-    GameAnalyzer analyzer;
+    private MinimaxScorer scorer;
+    private StatusChecker rules;
 
     @Before
     public void setUp() {
         StringMarker xMarker = new StringMarker("X");
         StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        analyzer = new GameAnalyzer();
-        computer = new ComputerPlayer(oMarker, analyzer);
+        rules = new StandardRules();
+        scorer = new MinimaxScorer(rules);
+        computer = new ComputerPlayer(oMarker, scorer);
         opponent = new MockGamePlayer(xMarker);
         record = new GameRecord(board, opponent, computer);
     }
 
     private boolean runGame(MoveHistory gameRecord) {
-        List<Integer> emptySpaces = analyzer.getEmptySpaces(gameRecord);
+        List<Integer> emptySpaces = scorer.getEmptySpaces(gameRecord);
         ArrayList<Boolean> outcomes = new ArrayList<Boolean>();
         for (int space : emptySpaces) {
             MoveHistory newRecord = gameRecord.copyRecord();
             newRecord.newMove(space, opponent);
-            if (analyzer.isGameWon(newRecord)) {
+            if (rules.isGameWon(newRecord)) {
                 outcomes.add(false);
                 continue;
             }
-            if (analyzer.isGameTied(newRecord)) {
+            if (rules.isGameTied(newRecord)) {
                 outcomes.add(true);
                 continue;
             }
             computer.move(newRecord);
-            if (analyzer.isGameTied(newRecord) || analyzer.isGameWon(newRecord)) {
+            if (rules.isGameTied(newRecord) || rules.isGameWon(newRecord)) {
                 outcomes.add(true);
             } else {
                 outcomes.add(runGame(newRecord));

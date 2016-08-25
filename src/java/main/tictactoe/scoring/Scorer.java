@@ -1,4 +1,4 @@
-package tictactoe.analyzer;
+package tictactoe.scoring;
 
 import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;

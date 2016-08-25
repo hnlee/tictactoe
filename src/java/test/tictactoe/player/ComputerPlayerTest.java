@@ -6,8 +6,9 @@ import tictactoe.Simulator;
 import tictactoe.board.SquareBoard;
 import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.GameAnalyzer;
-import tictactoe.analyzer.Scorer;
+import tictactoe.rules.StandardRules;
+import tictactoe.scoring.MinimaxScorer;
+import tictactoe.scoring.Scorer;
 
 import static org.junit.Assert.*;
 import java.util.Hashtable;
@@ -22,22 +23,22 @@ public class ComputerPlayerTest {
     private SquareBoard board;
     private MoveHistory record;
     private GamePlayer opponent;
-    private Scorer analyzer;
+    private Scorer scorer;
 
     @Before
     public void setUp() {
         StringMarker xMarker = new StringMarker("X");
         StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        analyzer = new GameAnalyzer();
-        computer = new ComputerPlayer(xMarker, analyzer);
+        scorer = new MinimaxScorer(new StandardRules());
+        computer = new ComputerPlayer(xMarker, scorer);
         opponent = new MockGamePlayer(oMarker);
 
     }
 
     @Test
     public void testGetAnalyzer() {
-        assertNotNull(computer.getAnalyzer());
+        assertNotNull(computer.getScorer());
     }
 
     @Test
@@ -56,7 +57,7 @@ public class ComputerPlayerTest {
         for (int space = 0; space < 9; space++) {
             scores.put(space, 0);
         }
-        assertEquals(scores, analyzer.scoreNextMoves(record));
+        assertEquals(scores, scorer.scoreNextMoves(record));
         computer.move(record);
         assertEquals(computer, record.getLastPlayer());
     }

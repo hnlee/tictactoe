@@ -1,7 +1,7 @@
 package tictactoe.player;
 
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.Scorer;
+import tictactoe.scoring.Scorer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,12 +14,12 @@ import java.util.Random;
 public class ComputerPlayer implements GamePlayer {
 
     private StringMarker marker;
-    private Scorer analyzer;
+    private Scorer scorer;
     private Random random;
 
-    public ComputerPlayer(StringMarker marker, Scorer analyzer) {
+    public ComputerPlayer(StringMarker marker, Scorer scorer) {
         this.marker = marker;
-        this.analyzer = analyzer;
+        this.scorer = scorer;
         this.random = new Random();
     }
 
@@ -27,10 +27,10 @@ public class ComputerPlayer implements GamePlayer {
         return marker;
     }
 
-    public Scorer getAnalyzer(){ return analyzer; }
+    public Scorer getScorer(){ return scorer; }
 
     public void move(MoveHistory record) {
-        Hashtable<Integer, Integer> nextMoves = analyzer.scoreNextMoves(record);
+        Hashtable<Integer, Integer> nextMoves = scorer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
         ArrayList<Integer> bestMoves = new ArrayList<Integer>();
         for (int nextMove : nextMoves.keySet()) {

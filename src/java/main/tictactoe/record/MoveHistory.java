@@ -17,7 +17,12 @@ public interface MoveHistory {
 
     GamePlayer getPlayerTwo();
 
-    Board getBoard();
+//    Board getBoard();
+    int getNumRows();
+
+    int[][] getRows();
+
+    List<Integer> getSpaces();
 
     boolean isValidMove(int move);
 

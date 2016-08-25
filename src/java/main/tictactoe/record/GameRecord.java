@@ -32,10 +32,15 @@ public class GameRecord implements MoveHistory {
         return playerTwo;
     }
 
-    public Board getBoard() { return board; }
+//    public Board getBoard() { return board; }
+
+    public int getNumRows() { return board.getNumRows(); }
+
+    public int[][] getRows() { return board.getRows(); }
+
+    public List<Integer> getSpaces() { return board.getSpaces(); }
 
     public boolean isValidMove(int move) {
-        Board board = getBoard();
         int dim = board.getNumRows();
         if (move > dim * dim - 1 || move < 0) {
             return false;

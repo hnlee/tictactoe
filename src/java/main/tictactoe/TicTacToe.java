@@ -8,7 +8,10 @@ import tictactoe.player.HumanPlayer;
 import tictactoe.player.StringMarker;
 import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
-import tictactoe.analyzer.GameAnalyzer;
+import tictactoe.rules.StandardRules;
+import tictactoe.rules.StatusChecker;
+import tictactoe.scoring.MinimaxScorer;
+import tictactoe.scoring.Scorer;
 import tictactoe.ui.CommandLineUI;
 import tictactoe.ui.GameUI;
 
@@ -20,12 +23,13 @@ public class TicTacToe {
     public static void main(String[] args) {
         GameUI ui = new CommandLineUI();
         Board board = new SquareBoard(3);
-        GameAnalyzer analyzer = new GameAnalyzer();
+        StatusChecker rules = new StandardRules();
+        Scorer scorer = new MinimaxScorer(rules);
         GamePlayer playerOne = new HumanPlayer(new StringMarker("X"), ui);
-        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"), analyzer);
+        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"), scorer);
         MoveHistory record = new GameRecord(board, playerOne, playerTwo);
 
-        GameControlCenter game = new GameControlCenter(ui, record, analyzer);
+        GameControlCenter game = new GameControlCenter(ui, record, rules);
         game.start();
         game.run();
     }

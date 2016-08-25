@@ -1,4 +1,4 @@
-package tictactoe.analyzer;
+package tictactoe.rules;
 
 import tictactoe.record.MoveHistory;
 
