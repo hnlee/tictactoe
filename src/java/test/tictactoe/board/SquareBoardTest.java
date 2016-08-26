@@ -70,25 +70,5 @@ public class SquareBoardTest {
         assertFalse(board.isSpaceInRow(0, new int[] {3, 4, 5}));
     }
 
-    @Test
-    public void testGetRowsWithSpaceOne() {
-        SquareBoard board = new SquareBoard(3);
-        int[][] rowsWithOne = new int[][] {{0, 1, 2}, {1, 4, 7}};
-        assertArrayEquals(rowsWithOne, board.getRowsWithSpace(1));
-    }
 
-    @Test
-    public void testGetRowsWithSpaceZero() {
-        SquareBoard board = new SquareBoard(3);
-        int[][] rowsWithZero = new int[][] {{0, 1, 2}, {0, 3, 6}, {0, 4, 8}};
-        assertArrayEquals(rowsWithZero, board.getRowsWithSpace(0));
-    }
-
-    @Test
-    public void testGetRowsWithSpaceFour() {
-        SquareBoard board = new SquareBoard(3);
-        int[][] rowsWithFour = new int[][] {{3, 4, 5}, {1, 4, 7},
-                                            {0, 4, 8}, {2, 4, 6}};
-        assertArrayEquals(rowsWithFour, board.getRowsWithSpace(4));
-    }
 }

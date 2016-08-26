@@ -15,6 +15,4 @@ public interface Board {
 
     boolean isSpaceInRow(int space, int[] row);
 
-    int[][] getRowsWithSpace(int space);
-
 }

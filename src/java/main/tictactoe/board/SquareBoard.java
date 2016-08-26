@@ -69,14 +69,4 @@ public class SquareBoard implements Board {
                 .anyMatch((rowSpace) -> rowSpace == space);
     }
 
-    public int[][] getRowsWithSpace(int space) {
-        ArrayList<int[]> rowsWithSpace = new ArrayList<int[]>();
-        for (int[] row : rows) {
-            if (isSpaceInRow(space, row)) {
-                rowsWithSpace.add(row);
-            }
-        }
-        return rowsWithSpace.toArray(new int[rowsWithSpace.size()][numRows]);
-    }
-
 }
