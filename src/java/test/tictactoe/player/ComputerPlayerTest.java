@@ -37,11 +37,6 @@ public class ComputerPlayerTest {
     }
 
     @Test
-    public void testGetAnalyzer() {
-        assertNotNull(computer.getScorer());
-    }
-
-    @Test
     public void testMakeWinningMove() {
         record = new GameRecord(board, opponent, computer);
         Simulator.simulateGame(record,

@@ -27,8 +27,6 @@ public class ComputerPlayer implements GamePlayer {
         return marker;
     }
 
-    public Scorer getScorer(){ return scorer; }
-
     public void move(MoveHistory record) {
         Hashtable<Integer, Integer> nextMoves = scorer.scoreNextMoves(record);
         int bestScore = Collections.max(nextMoves.values());
