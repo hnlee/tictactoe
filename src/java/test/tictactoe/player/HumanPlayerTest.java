@@ -36,7 +36,7 @@ public class HumanPlayerTest {
     public void testMove() {
         ui.setInputs(Arrays.asList("0"));
         human.move(record);
-        assertEquals(0, record.getLastMove());
+        assertEquals(human, record.getLastPlayer());
     }
 
     @Test

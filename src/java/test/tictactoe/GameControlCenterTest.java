@@ -121,7 +121,6 @@ public class GameControlCenterTest {
         game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("0"));
         game.makeMove(humanPlayer);
-        assertEquals(0, record.getLastMove());
         assertEquals(humanPlayer, record.getLastPlayer());
     }
 

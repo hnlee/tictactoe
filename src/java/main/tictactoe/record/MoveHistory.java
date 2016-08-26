@@ -27,8 +27,6 @@ public interface MoveHistory {
 
     void newMove(int move, GamePlayer player);
 
-    int getLastMove();
-
     GamePlayer getLastPlayer();
 
     Optional<GamePlayer> whoPlayedMove(int move);

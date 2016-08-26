@@ -7,6 +7,7 @@ import tictactoe.board.SquareBoard;
 import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
+import tictactoe.rules.StatusChecker;
 import tictactoe.scoring.MinimaxScorer;
 import tictactoe.scoring.Scorer;
 
@@ -24,13 +25,15 @@ public class ComputerPlayerTest {
     private MoveHistory record;
     private GamePlayer opponent;
     private Scorer scorer;
+    private StatusChecker rules;
 
     @Before
     public void setUp() {
         StringMarker xMarker = new StringMarker("X");
         StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
-        scorer = new MinimaxScorer(new StandardRules());
+        rules = new StandardRules();
+        scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(xMarker, scorer);
         opponent = new MockGamePlayer(oMarker);
 
@@ -42,7 +45,7 @@ public class ComputerPlayerTest {
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
         computer.move(record);
-        assertEquals(3, record.getLastMove());
+        assertTrue(rules.isGameWon(record));
     }
 
     @Test

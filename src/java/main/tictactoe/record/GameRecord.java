@@ -51,11 +51,6 @@ public class GameRecord implements MoveHistory {
         movesByPlayer.get(player).add(move);
     }
 
-    public int getLastMove() {
-        ArrayList<Integer> lastPlayerMoves = movesByPlayer.get(lastPlayer);
-        return lastPlayerMoves.get(lastPlayerMoves.size() - 1);
-    }
-
     private void setLastPlayer(GamePlayer lastPlayer) {
         this.lastPlayer = lastPlayer;
     }
