@@ -30,10 +30,6 @@ public class GameControlCenter {
         ui.displayBoard(record);
     }
 
-    public GamePlayer getPlayerOne() { return playerOne; }
-
-    public GamePlayer getPlayerTwo() { return playerTwo; }
-
     public MoveHistory getRecord() {
         return record;
     }

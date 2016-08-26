@@ -53,8 +53,6 @@ public class GameControlCenterTest {
     public void testSetup() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
-        assertNotNull(game.getPlayerOne());
-        assertNotNull(game.getPlayerTwo());
         assertNotNull(game.getRecord());
         assertNotNull(game.getRules());
     }
@@ -105,27 +103,6 @@ public class GameControlCenterTest {
                 4, 1, 5, 3, 2, 8, 6);
         game.analyzeBoard();
         assertTrue(ui.isGameWon());
-    }
-
-
-    @Test
-    public void testSetUpHumanVsComputer() {
-        firstPlayer = humanPlayer;
-        secondPlayer = computerPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, rules);
-        assertTrue(game.getPlayerTwo() instanceof ComputerPlayer);
-        assertTrue(game.getPlayerOne() instanceof HumanPlayer);
-    }
-
-    @Test
-    public void testSetUpComputerVsHuman() {
-        firstPlayer = computerPlayer;
-        secondPlayer = humanPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, rules);
-        assertTrue(game.getPlayerOne() instanceof ComputerPlayer);
-        assertTrue(game.getPlayerTwo() instanceof HumanPlayer);
     }
 
     @Test
