@@ -4,8 +4,11 @@ import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by hanalee on 8/25/16.
@@ -13,33 +16,24 @@ import java.util.Optional;
 public class StandardRules implements StatusChecker {
 
     public boolean isGameWon(MoveHistory record) {
-        for (int[] row : record.getRows()) {
-            if (getRowOccupancy(record, row) == 3 &&
-                    getRowPlayers(record, row).size() == 1) {
-                return true;
-            }
-        }
-        return false;
+        int numRows = record.getNumRows();
+        boolean hasWinningRow = Arrays.stream(record.getRows())
+                .anyMatch((row) -> getRowOccupancy(record, row) == numRows &&
+                        getRowPlayers(record, row).size() == 1);
+        return hasWinningRow;
     }
 
     public boolean isGameTied(MoveHistory record) {
         List<Integer> allSpaces = record.getSpaces();
         List<Integer> allMoves = record.getAllMoves();
-        if (allSpaces.equals(allMoves) && !isGameWon(record)) {
-            return true;
-        }
-        return false;
+        return allSpaces.equals(allMoves) && !isGameWon(record);
     }
 
     public int getRowOccupancy(MoveHistory record, int[] row) {
         List<Integer> allMoves = record.getAllMoves();
-        int occupancy = 0;
-        for (int space : row) {
-            if (allMoves.contains(space)) {
-                occupancy++;
-            }
-        }
-        return occupancy;
+        IntStream isOccupied = Arrays.stream(row)
+                .map((space) -> allMoves.contains(space) ? 1 : 0);
+        return isOccupied.sum();
     }
 
     public ArrayList<GamePlayer> getRowPlayers(MoveHistory record, int[] row) {
@@ -53,6 +47,5 @@ public class StandardRules implements StatusChecker {
         }
         return rowPlayedBy;
     }
-
 
 }

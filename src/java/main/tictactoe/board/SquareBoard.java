@@ -1,6 +1,7 @@
 package tictactoe.board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SquareBoard implements Board {
     private int numRows;
@@ -64,12 +65,8 @@ public class SquareBoard implements Board {
     }
 
     public boolean isSpaceInRow(int space, int[] row) {
-        for (int rowSpace : row) {
-            if (space == rowSpace) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(row)
+                .anyMatch((rowSpace) -> rowSpace == space);
     }
 
     public int[][] getRowsWithSpace(int space) {

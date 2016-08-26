@@ -32,8 +32,6 @@ public class GameRecord implements MoveHistory {
         return playerTwo;
     }
 
-//    public Board getBoard() { return board; }
-
     public int getNumRows() { return board.getNumRows(); }
 
     public int[][] getRows() { return board.getRows(); }
@@ -42,15 +40,10 @@ public class GameRecord implements MoveHistory {
 
     public boolean isValidMove(int move) {
         int dim = board.getNumRows();
-        if (move > dim * dim - 1 || move < 0) {
-            return false;
-        }
-        for (GamePlayer player : movesByPlayer.keySet()) {
-            if (movesByPlayer.get(player).contains(move)) {
-                return false;
-            }
-        }
-        return true;
+        boolean isOutOfRange = move > dim * dim - 1 || move < 0;
+        boolean isOccupied = movesByPlayer.values().stream()
+                .anyMatch((moveList) -> moveList.contains(move));
+        return !isOutOfRange && !isOccupied;
     }
 
     public void newMove(int move, GamePlayer player) {

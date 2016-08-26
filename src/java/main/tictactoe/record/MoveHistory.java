@@ -17,7 +17,6 @@ public interface MoveHistory {
 
     GamePlayer getPlayerTwo();
 
-//    Board getBoard();
     int getNumRows();
 
     int[][] getRows();
