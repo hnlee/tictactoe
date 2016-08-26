@@ -50,14 +50,6 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testSetup() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, rules);
-        assertNotNull(game.getRecord());
-        assertNotNull(game.getRules());
-    }
-
-    @Test
     public void testStart() {
         record = new GameRecord(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);

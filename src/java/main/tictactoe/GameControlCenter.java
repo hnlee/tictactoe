@@ -30,12 +30,6 @@ public class GameControlCenter {
         ui.displayBoard(record);
     }
 
-    public MoveHistory getRecord() {
-        return record;
-    }
-
-    public StatusChecker getRules() { return rules; }
-
     public void makeMove(GamePlayer currentPlayer) {
         currentPlayer.move(record);
         ui.displayMoveNumber(moveNumber);
