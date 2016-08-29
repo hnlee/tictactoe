@@ -136,6 +136,23 @@ public class MinimaxScorerTest {
     }
 
     @Test
+    public void testScoreNextMovesWhenZeroMoves() {
+        Simulator.simulateGame(record,
+                4, 1, 5, 3, 6, 2, 0, 7, 8);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
+        assertEquals(scores, scorer.scoreNextMoves(record));
+    }
+
+    @Test
+    public void testScoreNextMovesWhenOneMove() {
+        Simulator.simulateGame(record,
+                4, 1, 5, 3, 6, 2, 0, 7);
+        Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
+        scores.put(8, 1);
+        assertEquals(scores, scorer.scoreNextMoves(record));
+    }
+
+    @Test
     public void testScoreNextMovesInMidGame() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 2, 6);
