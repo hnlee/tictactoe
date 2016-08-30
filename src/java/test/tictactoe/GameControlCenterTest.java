@@ -96,15 +96,6 @@ public class GameControlCenterTest {
     }
 
     @Test
-    public void testRunGameWithComputer() {
-        secondPlayer = computerPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
-        game = new GameControlCenter(ui, record, rules);
-        game.run();
-        assertTrue(ui.isGameOver());
-    }
-
-    @Test
     public void testUpdateHumanMove() {
         firstPlayer = humanPlayer;
         record = new GameRecord(board, firstPlayer, secondPlayer);

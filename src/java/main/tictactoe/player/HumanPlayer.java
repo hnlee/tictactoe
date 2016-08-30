@@ -9,7 +9,7 @@ import tictactoe.ui.GameUI;
 public class HumanPlayer implements GamePlayer {
     private GameUI ui;
 
-    public HumanPlayer( GameUI ui) {
+    public HumanPlayer(GameUI ui) {
         this.ui = ui;
     }
 
