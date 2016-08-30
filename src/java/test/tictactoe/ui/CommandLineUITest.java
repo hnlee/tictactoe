@@ -31,10 +31,10 @@ public class CommandLineUITest {
         input = new MockInputStream();
         ui = new CommandLineUI(input, output);
         board = new SquareBoard(3);
-        StringMarker xMarker = new StringMarker("X");
-        StringMarker oMarker = new StringMarker("O");
-        playerOne = new MockGamePlayer(xMarker);
-        playerTwo = new MockGamePlayer(oMarker);
+        playerOne = new MockGamePlayer();
+        playerTwo = new MockGamePlayer();
+        ui.setPlayerMarker(playerOne, "X");
+        ui.setPlayerMarker(playerTwo, "O");
         record = new GameRecord(board, playerOne, playerTwo);
     }
 

@@ -8,23 +8,13 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Random;
 
-/**
- * Created by hanalee on 8/1/16.
- */
 public class ComputerPlayer implements GamePlayer {
-
-    private StringMarker marker;
     private Scorer scorer;
     private Random random;
 
-    public ComputerPlayer(StringMarker marker, Scorer scorer) {
-        this.marker = marker;
+    public ComputerPlayer(Scorer scorer) {
         this.scorer = scorer;
         this.random = new Random();
-    }
-
-    public StringMarker getMarker() {
-        return marker;
     }
 
     public void move(MoveHistory record) {

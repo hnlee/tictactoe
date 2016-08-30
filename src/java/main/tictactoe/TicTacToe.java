@@ -15,9 +15,6 @@ import tictactoe.scoring.Scorer;
 import tictactoe.ui.CommandLineUI;
 import tictactoe.ui.GameUI;
 
-/**
- * Created by hanalee on 8/15/16.
- */
 public class TicTacToe {
 
     public static void main(String[] args) {
@@ -25,8 +22,8 @@ public class TicTacToe {
         Board board = new SquareBoard(3);
         StatusChecker rules = new StandardRules();
         Scorer scorer = new MinimaxScorer(rules);
-        GamePlayer playerOne = new HumanPlayer(new StringMarker("X"), ui);
-        GamePlayer playerTwo = new ComputerPlayer(new StringMarker("O"), scorer);
+        GamePlayer playerOne = new HumanPlayer(ui);
+        GamePlayer playerTwo = new ComputerPlayer(scorer);
         MoveHistory record = new GameRecord(board, playerOne, playerTwo);
 
         GameControlCenter game = new GameControlCenter(ui, record, rules);

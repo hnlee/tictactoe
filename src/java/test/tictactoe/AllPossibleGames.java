@@ -31,13 +31,11 @@ public class AllPossibleGames {
 
     @Before
     public void setUp() {
-        StringMarker xMarker = new StringMarker("X");
-        StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
         rules = new StandardRules();
         scorer = new MinimaxScorer(rules);
-        computer = new ComputerPlayer(oMarker, scorer);
-        opponent = new MockGamePlayer(xMarker);
+        computer = new ComputerPlayer(scorer);
+        opponent = new MockGamePlayer();
         record = new GameRecord(board, opponent, computer);
     }
 
