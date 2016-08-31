@@ -29,14 +29,11 @@ public class ComputerPlayerTest {
 
     @Before
     public void setUp() {
-        StringMarker xMarker = new StringMarker("X");
-        StringMarker oMarker = new StringMarker("O");
         board = new SquareBoard(3);
         rules = new StandardRules();
         scorer = new MinimaxScorer(rules);
-        computer = new ComputerPlayer(xMarker, scorer);
-        opponent = new MockGamePlayer(oMarker);
-
+        computer = new ComputerPlayer(scorer);
+        opponent = new MockGamePlayer();
     }
 
     @Test

@@ -26,8 +26,8 @@ public class HumanPlayerTest {
     @Before
     public void setUp() {
         ui = new MockUI();
-        human = new HumanPlayer(new StringMarker("X"), ui);
-        opponent = new MockGamePlayer(new StringMarker("O"));
+        human = new HumanPlayer(ui);
+        opponent = new MockGamePlayer();
         board = new SquareBoard(3);
         record = new GameRecord(board, human, opponent);
     }

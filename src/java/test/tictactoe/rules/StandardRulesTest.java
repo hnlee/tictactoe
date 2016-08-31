@@ -25,10 +25,8 @@ public class StandardRulesTest {
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        StringMarker xMarker = new StringMarker("X");
-        StringMarker oMarker = new StringMarker("O");
-        playerOne = new MockGamePlayer(xMarker);
-        playerTwo = new MockGamePlayer(oMarker);
+        playerOne = new MockGamePlayer();
+        playerTwo = new MockGamePlayer();
         record = new GameRecord(board, playerOne, playerTwo);
         rules = new StandardRules();
     }

@@ -41,12 +41,10 @@ public class GameControlCenterTest {
         rules = new StandardRules();
         scorer = new MinimaxScorer(rules);
 
-        StringMarker xMarker = new StringMarker("X");
-        StringMarker oMarker = new StringMarker("O");
-        firstPlayer = new MockGamePlayer(xMarker);
-        secondPlayer = new MockGamePlayer(oMarker);
-        humanPlayer = new HumanPlayer(xMarker, ui);
-        computerPlayer = new ComputerPlayer(oMarker, scorer);
+        firstPlayer = new MockGamePlayer();
+        secondPlayer = new MockGamePlayer();
+        humanPlayer = new HumanPlayer(ui);
+        computerPlayer = new ComputerPlayer(scorer);
     }
 
     @Test

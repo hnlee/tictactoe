@@ -7,17 +7,10 @@ import tictactoe.ui.GameUI;
  * Created by hanalee on 8/4/16.
  */
 public class HumanPlayer implements GamePlayer {
-
-    private StringMarker marker;
     private GameUI ui;
 
-    public HumanPlayer(StringMarker marker, GameUI ui) {
-        this.marker = marker;
+    public HumanPlayer(GameUI ui) {
         this.ui = ui;
-    }
-
-    public StringMarker getMarker() {
-        return marker;
     }
 
     public void move(MoveHistory record) {

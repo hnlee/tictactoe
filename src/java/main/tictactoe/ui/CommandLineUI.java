@@ -15,21 +15,27 @@ import java.util.Scanner;
  * Created by hanalee on 7/28/16.
  */
 public class CommandLineUI implements GameUI {
-
     private PrintStream outputStream;
     private InputStream inputStream;
     private Scanner scanner;
+    private Hashtable<GamePlayer, String> markers;
 
     public CommandLineUI() {
         this.inputStream = System.in;
         this.outputStream = System.out;
         this.scanner = new Scanner(inputStream);
+        this.markers = new Hashtable<GamePlayer, String>();
     }
 
     public CommandLineUI(InputStream input, OutputStream output) {
         this.inputStream = input;
         this.outputStream = new PrintStream(output);
         this.scanner = new Scanner(inputStream);
+        this.markers = new Hashtable<GamePlayer, String>();
+    }
+
+    public void setPlayerMarker(GamePlayer player, String marker) {
+      this.markers.put(player, marker);
     }
 
     private String generateBoardElementsAsString(String space,
@@ -61,7 +67,7 @@ public class CommandLineUI implements GameUI {
         if (movesByPlayer != null) {
             for (GamePlayer player : movesByPlayer.keySet()) {
                 for (int move : movesByPlayer.get(player)) {
-                    labels[move] = String.format("%s", player.getMarker());
+                    labels[move] = String.format("%s", this.markers.get(player));
                 }
             }
         }
@@ -112,7 +118,7 @@ public class CommandLineUI implements GameUI {
     }
 
     public void displayWin(GamePlayer player) {
-        displayMessage(String.format("%s wins", player.getMarker()));
+        displayMessage(String.format("%s wins", this.markers.get(player)));
     }
 
     public void displayTie() {
