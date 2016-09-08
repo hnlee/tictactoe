@@ -34,7 +34,7 @@ public class MinimaxScorerTest {
         board = new SquareBoard(3);
         playerOne = new MockGamePlayer();
         playerTwo = new MockGamePlayer();
-        record = new GameRecord(board, playerOne, playerTwo);
+        record = new MoveHistory(board, playerOne, playerTwo);
         rules = new StandardRules();
         scorer = new MinimaxScorer(rules);
     }
@@ -79,7 +79,7 @@ public class MinimaxScorerTest {
 
     @Test
     public void testScoreWinningSpaceWithReversePlayerOrder() {
-        record = new GameRecord(board, playerTwo, playerOne);
+        record = new MoveHistory(board, playerTwo, playerOne);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 7);
         assertEquals(1, scorer.scoreMove(record, 8, playerTwo));

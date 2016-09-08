@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by hanalee on 7/28/16.
  */
-public class GameRecord implements MoveHistory {
+public class GameRecord {
     private Board board;
     private GamePlayer lastPlayer;
     private GamePlayer playerOne;
@@ -82,7 +82,7 @@ public class GameRecord implements MoveHistory {
         return movesByPlayer;
     }
 
-    public MoveHistory copyRecord() {
+    public GameRecord copyRecord() {
         GameRecord copy = new GameRecord(board, playerOne, playerTwo);
         copy.setLastPlayer(getLastPlayer());
         Hashtable<GamePlayer,

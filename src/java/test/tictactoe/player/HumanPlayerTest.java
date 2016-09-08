@@ -29,7 +29,7 @@ public class HumanPlayerTest {
         human = new HumanPlayer(ui);
         opponent = new MockGamePlayer();
         board = new SquareBoard(3);
-        record = new GameRecord(board, human, opponent);
+        record = new MoveHistory(board, human, opponent);
     }
 
     @Test

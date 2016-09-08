@@ -38,7 +38,7 @@ public class ComputerPlayerTest {
 
     @Test
     public void testMakeWinningMove() {
-        record = new GameRecord(board, opponent, computer);
+        record = new MoveHistory(board, opponent, computer);
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
         computer.move(record);
@@ -47,7 +47,7 @@ public class ComputerPlayerTest {
 
     @Test
     public void testMoveOnEmptyBoard() {
-        record = new GameRecord(board, computer, opponent);
+        record = new MoveHistory(board, computer, opponent);
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int space = 0; space < 9; space++) {
             scores.put(space, 0);

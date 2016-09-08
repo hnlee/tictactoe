@@ -8,8 +8,6 @@ import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.MockGamePlayer;
-import tictactoe.player.StringMarker;
-import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
 
 import java.util.ArrayList;
@@ -19,10 +17,10 @@ import java.util.Collections;
 /**
  * Created by hanalee on 7/28/16.
  */
-public class GameRecordTest {
+public class MoveHistoryTest {
 
     private Board board;
-    private GameRecord record;
+    private MoveHistory record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
@@ -31,7 +29,7 @@ public class GameRecordTest {
         board = new SquareBoard(3);
         playerOne = new MockGamePlayer();
         playerTwo = new MockGamePlayer();
-        record = new GameRecord(board, playerOne, playerTwo);
+        record = new MoveHistory(board, playerOne, playerTwo);
     }
 
     @Test

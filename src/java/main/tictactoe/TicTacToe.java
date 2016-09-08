@@ -24,7 +24,7 @@ public class TicTacToe {
         Scorer scorer = new MinimaxScorer(rules);
         GamePlayer playerOne = new HumanPlayer(ui);
         GamePlayer playerTwo = new ComputerPlayer(scorer);
-        MoveHistory record = new GameRecord(board, playerOne, playerTwo);
+        MoveHistory record = new MoveHistory(board, playerOne, playerTwo);
 
         GameControlCenter game = new GameControlCenter(ui, record, rules);
         game.start();

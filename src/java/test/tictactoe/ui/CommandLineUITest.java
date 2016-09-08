@@ -7,7 +7,7 @@ import tictactoe.Simulator;
 import tictactoe.board.SquareBoard;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.StringMarker;
-import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
 
 import java.io.ByteArrayOutputStream;
 
@@ -21,7 +21,7 @@ public class CommandLineUITest {
     private MockInputStream input;
     private CommandLineUI ui;
     private SquareBoard board;
-    private GameRecord record;
+    private MoveHistory record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
 
@@ -35,7 +35,7 @@ public class CommandLineUITest {
         playerTwo = new MockGamePlayer();
         ui.setPlayerMarker(playerOne, "X");
         ui.setPlayerMarker(playerTwo, "O");
-        record = new GameRecord(board, playerOne, playerTwo);
+        record = new MoveHistory(board, playerOne, playerTwo);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class CommandLineUITest {
                               "---+---\n" +
                               " %s | %s \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard,
+        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard,
                 playerOne, playerTwo);
         assertEquals(boardString, ui.generateBoardAsString(twoByTwoRecord));
     }
@@ -82,7 +82,7 @@ public class CommandLineUITest {
                              "---+---\n" +
                              " 2 | 3 \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        GameRecord twoByTwoRecord = new GameRecord(twoByTwoBoard,
+        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard,
                 playerOne, playerTwo);
         assertEquals(boardString, ui.convertBoardToString(twoByTwoRecord));
     }

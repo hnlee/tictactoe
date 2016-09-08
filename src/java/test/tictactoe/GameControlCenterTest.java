@@ -11,7 +11,7 @@ import org.junit.Before;
 import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
 import tictactoe.player.*;
-import tictactoe.record.GameRecord;
+import tictactoe.record.MoveHistory;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 import tictactoe.rules.StatusChecker;
@@ -49,7 +49,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testStart() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         game.start();
         assertTrue(ui.isGameStarted());
@@ -58,7 +58,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testMakeMove() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         game.makeMove(firstPlayer);
         game.makeMove(secondPlayer);
@@ -67,7 +67,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeGameInProgress() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         record.newMove(1, firstPlayer);
         game.analyzeBoard();
@@ -77,7 +77,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeTiedGame() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 8, 7);
@@ -87,7 +87,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testAnalyzeWonGame() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 2, 8, 6);
@@ -98,7 +98,7 @@ public class GameControlCenterTest {
     @Test
     public void testUpdateHumanMove() {
         firstPlayer = humanPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("0"));
         game.makeMove(humanPlayer);
@@ -107,7 +107,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testDisplayMoveNumAndBoardAfterMove() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         game.makeMove(firstPlayer);
         assertTrue(ui.isMoveUpdated());
@@ -116,7 +116,7 @@ public class GameControlCenterTest {
 
     @Test
     public void testDisplayTitleAndBoardAtGameStart() {
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         game.start();
         assertTrue(ui.isGameStarted());
@@ -127,7 +127,7 @@ public class GameControlCenterTest {
     @Test
     public void testOutOfRangeHumanInput() {
         firstPlayer = humanPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("9", "0"));
         game.makeMove(humanPlayer);
@@ -137,7 +137,7 @@ public class GameControlCenterTest {
     @Test
     public void testHumanInputInOccupiedSpace() {
         firstPlayer = humanPlayer;
-        record = new GameRecord(board, firstPlayer, secondPlayer);
+        record = new MoveHistory(board, firstPlayer, secondPlayer);
         game = new GameControlCenter(ui, record, rules);
         ui.setInputs(Arrays.asList("0", "0", "1"));
         game.makeMove(humanPlayer);

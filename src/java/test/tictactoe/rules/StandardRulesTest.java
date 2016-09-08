@@ -27,7 +27,7 @@ public class StandardRulesTest {
         board = new SquareBoard(3);
         playerOne = new MockGamePlayer();
         playerTwo = new MockGamePlayer();
-        record = new GameRecord(board, playerOne, playerTwo);
+        record = new MoveHistory(board, playerOne, playerTwo);
         rules = new StandardRules();
     }
 

@@ -36,7 +36,7 @@ public class AllPossibleGames {
         scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(scorer);
         opponent = new MockGamePlayer();
-        record = new GameRecord(board, opponent, computer);
+        record = new MoveHistory(board, opponent, computer);
     }
 
     private boolean runGame(MoveHistory gameRecord) {
