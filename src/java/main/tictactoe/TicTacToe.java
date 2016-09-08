@@ -5,8 +5,6 @@ import tictactoe.board.SquareBoard;
 import tictactoe.player.ComputerPlayer;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.HumanPlayer;
-import tictactoe.player.StringMarker;
-import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 import tictactoe.rules.StatusChecker;

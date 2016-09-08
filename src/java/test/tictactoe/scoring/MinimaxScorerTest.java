@@ -7,8 +7,6 @@ import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.MockGamePlayer;
-import tictactoe.player.StringMarker;
-import tictactoe.record.GameRecord;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 
