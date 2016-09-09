@@ -22,6 +22,8 @@ public class CommandLineUI implements GameUI {
         this.outputStream = System.out;
         this.scanner = new Scanner(inputStream);
         this.markers = new Hashtable<Integer, String>();
+        this.setPlayerMarker(1, "X");
+        this.setPlayerMarker(2, "O");
     }
 
     public CommandLineUI(InputStream input, OutputStream output) {
