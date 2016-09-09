@@ -7,7 +7,7 @@ package tictactoe.player;
 import org.junit.Before;
 import org.junit.Test;
 import tictactoe.board.Board;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 import tictactoe.record.MoveHistory;
 import tictactoe.ui.MockUI;
 
@@ -25,7 +25,7 @@ public class HumanPlayerTest {
     public void setUp() {
         ui = new MockUI();
         human = new HumanPlayer(ui);
-        board = new SquareBoard(3);
+        board = new Board(3);
         record = new MoveHistory(board.getNumRows());
     }
 

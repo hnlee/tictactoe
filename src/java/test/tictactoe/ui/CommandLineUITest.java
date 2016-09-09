@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import tictactoe.player.MockGamePlayer;
 import tictactoe.Simulator;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 
@@ -19,7 +19,7 @@ public class CommandLineUITest {
     private ByteArrayOutputStream output;
     private MockInputStream input;
     private CommandLineUI ui;
-    private SquareBoard board;
+    private Board board;
     private MoveHistory record;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
@@ -29,7 +29,7 @@ public class CommandLineUITest {
         output = new ByteArrayOutputStream();
         input = new MockInputStream();
         ui = new CommandLineUI(input, output);
-        board = new SquareBoard(3);
+        board = new Board(3);
         playerOne = new MockGamePlayer();
         playerTwo = new MockGamePlayer();
         ui.setPlayerMarker(1, "X");
@@ -59,7 +59,7 @@ public class CommandLineUITest {
         String boardString =  " %s | %s \n" +
                               "---+---\n" +
                               " %s | %s \n";
-        SquareBoard twoByTwoBoard = new SquareBoard(2);
+        Board twoByTwoBoard = new Board(2);
         MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard.getNumRows());
         assertEquals(boardString, ui.generateBoardAsString(twoByTwoBoard));
     }
@@ -79,7 +79,7 @@ public class CommandLineUITest {
         String boardString = " 0 | 1 \n" +
                              "---+---\n" +
                              " 2 | 3 \n";
-        SquareBoard twoByTwoBoard = new SquareBoard(2);
+        Board twoByTwoBoard = new Board(2);
         MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard.getNumRows());
         assertEquals(boardString, ui.convertBoardToString(twoByTwoBoard,
                                                           twoByTwoRecord));

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.Before;
 import tictactoe.Simulator;
 import tictactoe.board.Board;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -22,7 +22,7 @@ public class MoveHistoryTest {
 
     @Before
     public void setUp() {
-        board = new SquareBoard(3);
+        board = new Board(3);
         record = new MoveHistory(board.getNumRows());
     }
 

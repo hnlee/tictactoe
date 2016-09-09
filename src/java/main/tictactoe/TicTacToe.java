@@ -1,7 +1,6 @@
 package tictactoe;
 
 import tictactoe.board.Board;
-import tictactoe.board.SquareBoard;
 import tictactoe.player.ComputerPlayer;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.HumanPlayer;
@@ -16,7 +15,7 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         GameUI ui = new CommandLineUI();
-        Board board = new SquareBoard(3);
+        Board board = new Board(3);
         StatusChecker rules = new StandardRules(board);
         Scorer scorer = new MinimaxScorer(rules);
         GamePlayer playerOne = new HumanPlayer(ui);

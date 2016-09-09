@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 import tictactoe.board.Board;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 import tictactoe.player.*;
 import tictactoe.rules.StandardRules;
 import tictactoe.rules.StatusChecker;
@@ -29,7 +29,7 @@ public class GameControlCenterTest {
     @Before
     public void setUp() {
         ui = new MockUI();
-        board = new SquareBoard(3);
+        board = new Board(3);
         rules = new StandardRules(board);
         firstPlayer = new MockGamePlayer();
         secondPlayer = new MockGamePlayer();

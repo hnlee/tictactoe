@@ -3,7 +3,7 @@ package tictactoe;
 import org.junit.Test;
 import org.junit.Before;
 import tictactoe.board.Board;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 import tictactoe.player.ComputerPlayer;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.MockGamePlayer;
@@ -28,7 +28,7 @@ public class AllPossibleGames {
 
     @Before
     public void setUp() {
-        board = new SquareBoard(3);
+        board = new Board(3);
         rules = new StandardRules(board);
         scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(scorer);

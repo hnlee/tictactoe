@@ -3,7 +3,7 @@ package tictactoe.player;
 import org.junit.Before;
 import org.junit.Test;
 import tictactoe.Simulator;
-import tictactoe.board.SquareBoard;
+import tictactoe.board.Board;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 import tictactoe.rules.StatusChecker;
@@ -20,14 +20,14 @@ import java.util.Hashtable;
 public class ComputerPlayerTest {
 
     private ComputerPlayer computer;
-    private SquareBoard board;
+    private Board board;
     private MoveHistory record;
     private Scorer scorer;
     private StatusChecker rules;
 
     @Before
     public void setUp() {
-        board = new SquareBoard(3);
+        board = new Board(3);
         rules = new StandardRules(board);
         scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(scorer);
