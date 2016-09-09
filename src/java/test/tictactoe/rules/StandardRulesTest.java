@@ -5,7 +5,6 @@ import org.junit.Test;
 import tictactoe.Simulator;
 import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
-import tictactoe.player.GamePlayer;
 import tictactoe.player.MockGamePlayer;
 import tictactoe.record.MoveHistory;
 import static org.junit.Assert.*;
@@ -16,17 +15,13 @@ import static org.junit.Assert.*;
 public class StandardRulesTest {
     private StandardRules rules;
     private Board board;
-    private GamePlayer playerOne;
-    private GamePlayer playerTwo;
     private MoveHistory record;
 
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        playerOne = new MockGamePlayer();
-        playerTwo = new MockGamePlayer();
-        record = new MoveHistory(board, playerOne, playerTwo);
-        rules = new StandardRules();
+        record = new MoveHistory(board.getNumRows());
+        rules = new StandardRules(board);
     }
 
     @Test

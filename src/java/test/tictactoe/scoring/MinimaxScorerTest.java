@@ -5,8 +5,6 @@ import org.junit.Test;
 import tictactoe.Simulator;
 import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
-import tictactoe.player.GamePlayer;
-import tictactoe.player.MockGamePlayer;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 
@@ -22,24 +20,20 @@ import static org.junit.Assert.*;
 public class MinimaxScorerTest {
     private StandardRules rules;
     private Board board;
-    private GamePlayer playerOne;
-    private GamePlayer playerTwo;
     private MoveHistory record;
     private MinimaxScorer scorer;
 
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        playerOne = new MockGamePlayer();
-        playerTwo = new MockGamePlayer();
-        record = new MoveHistory(board, playerOne, playerTwo);
-        rules = new StandardRules();
+        record = new MoveHistory(board.getNumRows());
+        rules = new StandardRules(board);
         scorer = new MinimaxScorer(rules);
     }
 
     @Test
     public void testGetEmptySpacesFromEmptyBoard() {
-        List<Integer> emptySpaces = record.getSpaces();
+        List<Integer> emptySpaces = rules.getSpaces();
         assertEquals(emptySpaces, scorer.getEmptySpaces(record));
     }
 
@@ -65,70 +59,50 @@ public class MinimaxScorerTest {
     public void testScoreTyingSpaceWithOneMoveLeft() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 8);
-        assertEquals(0, scorer.scoreMove(record, 7, playerOne));
+        assertEquals(0, scorer.scoreMove(record, 7));
     }
 
     @Test
     public void testScoreWinningSpaceWithOneMoveLeft() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, scorer.scoreMove(record, 8, playerOne));
+        assertEquals(1, scorer.scoreMove(record, 8));
     }
 
-    @Test
-    public void testScoreWinningSpaceWithReversePlayerOrder() {
-        record = new MoveHistory(board, playerTwo, playerOne);
-        Simulator.simulateGame(record,
-                4, 1, 5, 3, 6, 2, 0, 7);
-        assertEquals(1, scorer.scoreMove(record, 8, playerTwo));
-    }
-
-    @Test
-    public void testGetNextPlayerInMidGame() {
-        Simulator.simulateGame(record, 1);
-        assertEquals(playerTwo, scorer.getNextPlayer(record));
-        record.newMove(2, playerTwo);
-        assertEquals(playerOne, scorer.getNextPlayer(record));
-    }
-
-    @Test
-    public void testGetNextPlayerInStartOfGame() {
-        assertEquals(playerOne, scorer.getNextPlayer(record));
-    }
 
     @Test
     public void testScoreLosingSpace() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 0);
-        assertEquals(-1, scorer.scoreMove(record, 7, playerTwo));
+        assertEquals(-1, scorer.scoreMove(record, 7));
     }
 
     @Test
     public void testScoreWinningSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(1, scorer.scoreMove(record, 0, playerTwo));
+        assertEquals(1, scorer.scoreMove(record, 0));
     }
 
     @Test
     public void testScoreTyingSpaceWithTwoMovesLeft() {
         Simulator.simulateGame(record,
                 4, 1, 5, 3, 6, 2, 7);
-        assertEquals(0, scorer.scoreMove(record, 8, playerTwo));
+        assertEquals(0, scorer.scoreMove(record, 8));
     }
 
     @Test
     public void testScoreWinningSpaceAfterFourMoves() {
         Simulator.simulateGame(record,
                 4, 1, 5, 0);
-        assertEquals(1, scorer.scoreMove(record, 3, playerOne));
+        assertEquals(1, scorer.scoreMove(record, 3));
     }
 
     @Test
     public void testScoreLosingSpaceAfterThreeMoves() {
         Simulator.simulateGame(record,
                 4, 1, 5);
-        assertEquals(-1, scorer.scoreMove(record, 0, playerTwo));
+        assertEquals(-1, scorer.scoreMove(record, 0));
     }
 
     @Test

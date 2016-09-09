@@ -1,6 +1,5 @@
 package tictactoe;
 
-import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 
 /**
@@ -10,14 +9,8 @@ public class Simulator {
 
     public static MoveHistory simulateGame(MoveHistory record,
                                     int... moves) {
-        GamePlayer playerOne = record.getPlayerOne();
-        GamePlayer playerTwo = record.getPlayerTwo();
         for (int move : moves) {
-            if (record.getAllMoves().size() % 2 == 0) {
-                record.newMove(move, playerOne);
-            } else {
-                record.newMove(move, playerTwo);
-            }
+            record.newMove(move);
         }
         return record;
     }

@@ -1,6 +1,6 @@
 package tictactoe.rules;
 
-import tictactoe.player.GamePlayer;
+import tictactoe.board.Board;
 import tictactoe.record.MoveHistory;
 
 import java.util.ArrayList;
@@ -14,16 +14,30 @@ import java.util.stream.IntStream;
  */
 public class StandardRules implements StatusChecker {
 
+    private Board board;
+
+    public StandardRules(Board board) {
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<Integer> getSpaces() {
+        return board.getSpaces();
+    }
+
     public boolean isGameWon(MoveHistory record) {
-        int numRows = record.getNumRows();
-        boolean hasWinningRow = Arrays.stream(record.getRows())
+        int numRows = board.getNumRows();
+        boolean hasWinningRow = Arrays.stream(board.getRows())
                 .anyMatch((row) -> getRowOccupancy(record, row) == numRows &&
                         getRowPlayers(record, row).size() == 1);
         return hasWinningRow;
     }
 
     public boolean isGameTied(MoveHistory record) {
-        List<Integer> allSpaces = record.getSpaces();
+        List<Integer> allSpaces = board.getSpaces();
         List<Integer> allMoves = record.getAllMoves();
         return allSpaces.equals(allMoves) && !isGameWon(record);
     }
@@ -35,10 +49,10 @@ public class StandardRules implements StatusChecker {
         return isOccupied.sum();
     }
 
-    public ArrayList<GamePlayer> getRowPlayers(MoveHistory record, int[] row) {
-        ArrayList<GamePlayer> rowPlayedBy = new ArrayList<GamePlayer>();
+    public List<Integer> getRowPlayers(MoveHistory record, int[] row) {
+        List<Integer> rowPlayedBy = new ArrayList<Integer>();
         for (int space : row) {
-            Optional<GamePlayer> isSpacePlayed = record.whoPlayedMove(space);
+            Optional<Integer> isSpacePlayed = record.whoPlayedMove(space);
             if (isSpacePlayed.isPresent() &&
                     !rowPlayedBy.contains(isSpacePlayed.get())) {
                 rowPlayedBy.add(isSpacePlayed.get());

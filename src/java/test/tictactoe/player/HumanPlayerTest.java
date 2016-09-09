@@ -16,26 +16,24 @@ import static org.junit.Assert.*;
 
 
 public class HumanPlayerTest {
-    HumanPlayer human;
-    MockGamePlayer opponent;
-    MockUI ui;
-    MoveHistory record;
-    Board board;
+    private HumanPlayer human;
+    private MockUI ui;
+    private MoveHistory record;
+    private Board board;
 
     @Before
     public void setUp() {
         ui = new MockUI();
         human = new HumanPlayer(ui);
-        opponent = new MockGamePlayer();
         board = new SquareBoard(3);
-        record = new MoveHistory(board, human, opponent);
+        record = new MoveHistory(board.getNumRows());
     }
 
     @Test
     public void testMove() {
         ui.setInputs(Arrays.asList("0"));
         human.move(record);
-        assertEquals(human, record.getLastPlayer());
+        assertTrue(record.getAllMoves().contains(0));
     }
 
     @Test

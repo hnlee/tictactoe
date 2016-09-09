@@ -6,7 +6,6 @@ import tictactoe.player.MockGamePlayer;
 import tictactoe.Simulator;
 import tictactoe.board.SquareBoard;
 import tictactoe.player.GamePlayer;
-import tictactoe.player.StringMarker;
 import tictactoe.record.MoveHistory;
 
 import java.io.ByteArrayOutputStream;
@@ -33,9 +32,9 @@ public class CommandLineUITest {
         board = new SquareBoard(3);
         playerOne = new MockGamePlayer();
         playerTwo = new MockGamePlayer();
-        ui.setPlayerMarker(playerOne, "X");
-        ui.setPlayerMarker(playerTwo, "O");
-        record = new MoveHistory(board, playerOne, playerTwo);
+        ui.setPlayerMarker(1, "X");
+        ui.setPlayerMarker(2, "O");
+        record = new MoveHistory(board.getNumRows());
     }
 
     @Test
@@ -52,7 +51,7 @@ public class CommandLineUITest {
                               " %s | %s | %s \n" +
                               "---+---+---\n" +
                               " %s | %s | %s \n";
-        assertEquals(boardString, ui.generateBoardAsString(record));
+        assertEquals(boardString, ui.generateBoardAsString(board));
     }
 
     @Test
@@ -61,9 +60,8 @@ public class CommandLineUITest {
                               "---+---\n" +
                               " %s | %s \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard,
-                playerOne, playerTwo);
-        assertEquals(boardString, ui.generateBoardAsString(twoByTwoRecord));
+        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard.getNumRows());
+        assertEquals(boardString, ui.generateBoardAsString(twoByTwoBoard));
     }
 
     @Test
@@ -73,7 +71,7 @@ public class CommandLineUITest {
                              " 3 | 4 | 5 \n" +
                              "---+---+---\n" +
                              " 6 | 7 | 8 \n";
-        assertEquals(boardString, ui.convertBoardToString(record));
+        assertEquals(boardString, ui.convertBoardToString(board, record));
     }
 
     @Test
@@ -82,9 +80,9 @@ public class CommandLineUITest {
                              "---+---\n" +
                              " 2 | 3 \n";
         SquareBoard twoByTwoBoard = new SquareBoard(2);
-        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard,
-                playerOne, playerTwo);
-        assertEquals(boardString, ui.convertBoardToString(twoByTwoRecord));
+        MoveHistory twoByTwoRecord = new MoveHistory(twoByTwoBoard.getNumRows());
+        assertEquals(boardString, ui.convertBoardToString(twoByTwoBoard,
+                                                          twoByTwoRecord));
     }
 
     @Test
@@ -96,7 +94,7 @@ public class CommandLineUITest {
                              " 6 | 7 | 8 \n";
         Simulator.simulateGame(record,
                 4, 1, 5, 3);
-        assertEquals(boardString, ui.convertBoardToString(record));
+        assertEquals(boardString, ui.convertBoardToString(board, record));
     }
 
     @Test
@@ -106,7 +104,7 @@ public class CommandLineUITest {
                              " 3 | 4 | 5 \n" +
                              "---+---+---\n" +
                              " 6 | 7 | 8 \n";
-        ui.displayBoard(record);
+        ui.displayBoard(board, record);
         assertEquals(boardString, output.toString());
     }
 
@@ -119,7 +117,7 @@ public class CommandLineUITest {
                              " 6 | 7 | 8 \n";
         Simulator.simulateGame(record,
                 4, 1, 5, 3);
-        ui.displayBoard(record);
+        ui.displayBoard(board, record);
         assertEquals(boardString, output.toString());
     }
 

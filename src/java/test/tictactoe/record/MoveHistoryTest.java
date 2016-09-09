@@ -6,13 +6,11 @@ import org.junit.Before;
 import tictactoe.Simulator;
 import tictactoe.board.Board;
 import tictactoe.board.SquareBoard;
-import tictactoe.player.GamePlayer;
-import tictactoe.player.MockGamePlayer;
-import tictactoe.record.MoveHistory;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -21,21 +19,17 @@ public class MoveHistoryTest {
 
     private Board board;
     private MoveHistory record;
-    private GamePlayer playerOne;
-    private GamePlayer playerTwo;
 
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        playerOne = new MockGamePlayer();
-        playerTwo = new MockGamePlayer();
-        record = new MoveHistory(board, playerOne, playerTwo);
+        record = new MoveHistory(board.getNumRows());
     }
 
     @Test
     public void testNewMove() {
-        record.newMove(1, playerOne);
-        assertEquals(playerOne, record.getLastPlayer());
+        record.newMove(1);
+        assertEquals(1, record.getLastPlayer());
     }
 
     @Test
@@ -50,21 +44,22 @@ public class MoveHistoryTest {
 
     @Test
     public void testMoveInOccupiedSpace() {
-        record.newMove(1, playerOne);
+        record.newMove(1);
         assertFalse(record.isValidMove(1));
     }
 
     @Test
     public void testWhoPlayedMove() {
-        record.newMove(1, playerOne);
-        assertEquals(playerOne, record.whoPlayedMove(1).get());
+        record.newMove(1);
+        Integer playerNum = 1;
+        assertEquals(playerNum, record.whoPlayedMove(1).get());
     }
 
     @Test
     public void testGetAllMoves() {
-        record.newMove(1, playerOne);
-        record.newMove(2, playerTwo);
-        ArrayList<Integer> allMoves = new ArrayList<Integer>();
+        record.newMove(1);
+        record.newMove(2);
+        List<Integer> allMoves = new ArrayList<Integer>();
         allMoves.add(1);
         allMoves.add(2);
         Collections.sort(allMoves);
@@ -73,30 +68,30 @@ public class MoveHistoryTest {
 
     @Test
     public void testGetLastPlayerAfterZeroMoves() {
-        assertNull(record.getLastPlayer());
+        assertEquals(0, record.getLastPlayer());
     }
 
     @Test
     public void testGetLastPlayerAfterOneMove() {
         Simulator.simulateGame(record, 1);
-        assertEquals(playerOne, record.getLastPlayer());
+        assertEquals(1, record.getLastPlayer());
     }
 
     @Test
     public void testGetLastPlayerAfterTwoMoves() {
         Simulator.simulateGame(record, 1, 2);
-        assertEquals(playerTwo, record.getLastPlayer());
+        assertEquals(2, record.getLastPlayer());
     }
 
     @Test
     public void testGetMovesByPlayer() {
         Simulator.simulateGame(record, 1, 2);
-        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
-        movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
-        movesByPlayer.put(playerOne, new ArrayList<Integer>());
-        movesByPlayer.put(playerTwo, new ArrayList<Integer>());
-        movesByPlayer.get(playerOne).add(1);
-        movesByPlayer.get(playerTwo).add(2);
+        Hashtable<Integer, List<Integer>> movesByPlayer;
+        movesByPlayer = new Hashtable<Integer, List<Integer>>();
+        movesByPlayer.put(1, new ArrayList<Integer>());
+        movesByPlayer.put(2, new ArrayList<Integer>());
+        movesByPlayer.get(1).add(1);
+        movesByPlayer.get(2).add(2);
         assertEquals(movesByPlayer, record.getMovesByPlayer());
     }
 
@@ -105,20 +100,20 @@ public class MoveHistoryTest {
         Simulator.simulateGame(record, 1, 2);
         MoveHistory newRecord = record.copyRecord();
         assertNotEquals(newRecord, record);
-        assertEquals(newRecord.getMovesByPlayer().keySet(),
-                     record.getMovesByPlayer().keySet());
+        assertEquals(newRecord.getMovesByPlayer().get(1),
+                     record.getMovesByPlayer().get(1));
+        assertEquals(newRecord.getMovesByPlayer().get(2),
+                     record.getMovesByPlayer().get(2));
     }
 
     @Test
     public void testAddNewMoveToCopy() {
         Simulator.simulateGame(record, 1, 2);
         MoveHistory newRecord = record.copyRecord();
-        assertEquals(newRecord.getMovesByPlayer().get(playerOne),
-                     record.getMovesByPlayer().get(playerOne));
-        newRecord.newMove(0, playerOne);
-        assertNotEquals(newRecord.getMovesByPlayer().get(playerOne),
-                        record.getMovesByPlayer().get(playerOne));
-        assertEquals(2, newRecord.getMovesByPlayer().get(playerOne).size());
-        assertEquals(1, record.getMovesByPlayer().get(playerOne).size());
+        newRecord.newMove(0);
+        assertNotEquals(newRecord.getMovesByPlayer().get(1),
+                        record.getMovesByPlayer().get(1));
+        assertEquals(2, newRecord.getMovesByPlayer().get(1).size());
+        assertEquals(1, record.getMovesByPlayer().get(2).size());
     }
 }

@@ -27,6 +27,6 @@ public class ComputerPlayer implements GamePlayer {
             }
         }
         int move = bestMoves.get(random.nextInt(bestMoves.size()));
-        record.newMove(move, this);
+        record.newMove(move);
     }
 }

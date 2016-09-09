@@ -1,5 +1,6 @@
 package tictactoe;
 
+import tictactoe.board.Board;
 import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 import tictactoe.rules.StatusChecker;
@@ -7,6 +8,7 @@ import tictactoe.ui.GameUI;
 
 public class GameControlCenter {
     private GameUI ui;
+    private Board board;
     private GamePlayer playerOne;
     private GamePlayer playerTwo;
     private MoveHistory record;
@@ -14,26 +16,32 @@ public class GameControlCenter {
     private boolean isPlaying;
     private int moveNumber;
 
-    GameControlCenter(GameUI ui,
-                      MoveHistory record,
+    public GameControlCenter(GameUI ui,
+                      GamePlayer playerOne,
+                      GamePlayer playerTwo,
                       StatusChecker rules) {
         this.ui = ui;
-        this.record = record;
-        this.playerOne = record.getPlayerOne();
-        this.playerTwo = record.getPlayerTwo();
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
         this.rules = rules;
+        this.board = rules.getBoard();
+        this.record = new MoveHistory(board.getNumRows());
         this.moveNumber = 0;
+    }
+
+    public MoveHistory getRecord() {
+        return record;
     }
 
     public void start() {
         ui.displayTitle();
-        ui.displayBoard(record);
+        ui.displayBoard(board, record);
     }
 
     public void makeMove(GamePlayer currentPlayer) {
         currentPlayer.move(record);
         ui.displayMoveNumber(moveNumber);
-        ui.displayBoard(record);
+        ui.displayBoard(board, record);
     }
 
     public void analyzeBoard() {

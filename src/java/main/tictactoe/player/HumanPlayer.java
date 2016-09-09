@@ -21,7 +21,7 @@ public class HumanPlayer implements GamePlayer {
                 int move = Integer.parseInt(playerInput);
                 validate = record.isValidMove(move);
                 if (validate) {
-                    record.newMove(move, this);
+                    record.newMove(move);
                 } else {
                     ui.displayError(1);
                 }

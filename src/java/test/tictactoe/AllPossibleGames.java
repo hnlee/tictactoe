@@ -23,18 +23,16 @@ public class AllPossibleGames {
     private ComputerPlayer computer;
     private Board board;
     private MoveHistory record;
-    private GamePlayer opponent;
     private MinimaxScorer scorer;
     private StatusChecker rules;
 
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        rules = new StandardRules();
+        rules = new StandardRules(board);
         scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(scorer);
-        opponent = new MockGamePlayer();
-        record = new MoveHistory(board, opponent, computer);
+        record = new MoveHistory(board.getNumRows());
     }
 
     private boolean runGame(MoveHistory gameRecord) {
@@ -42,7 +40,7 @@ public class AllPossibleGames {
         ArrayList<Boolean> outcomes = new ArrayList<Boolean>();
         for (int space : emptySpaces) {
             MoveHistory newRecord = gameRecord.copyRecord();
-            newRecord.newMove(space, opponent);
+            newRecord.newMove(space);
             if (rules.isGameWon(newRecord)) {
                 outcomes.add(false);
                 continue;

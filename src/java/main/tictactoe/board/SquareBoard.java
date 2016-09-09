@@ -2,13 +2,16 @@ package tictactoe.board;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SquareBoard implements Board {
     private int numRows;
     private int[][] rows;
+    private List<Integer> spaces;
 
     public SquareBoard(int numRows) {
         this.numRows = numRows;
+        setSpaces();
         setRows();
     }
 
@@ -16,12 +19,15 @@ public class SquareBoard implements Board {
         return numRows;
     }
 
-    public ArrayList<Integer> getSpaces() {
-        ArrayList<Integer> spaces = new ArrayList<Integer>();
+    public List<Integer> getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces() {
+        spaces = new ArrayList<Integer>();
         for (int i = 0; i < (numRows * numRows); i++) {
             spaces.add(i);
         }
-        return spaces;
     }
 
     public int[][] getHorizontalRows() {

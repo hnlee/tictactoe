@@ -1,15 +1,12 @@
 package tictactoe.ui;
 
-import tictactoe.player.GamePlayer;
+import tictactoe.board.Board;
 import tictactoe.record.MoveHistory;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Hashtable;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by hanalee on 7/28/16.
@@ -18,24 +15,24 @@ public class CommandLineUI implements GameUI {
     private PrintStream outputStream;
     private InputStream inputStream;
     private Scanner scanner;
-    private Hashtable<GamePlayer, String> markers;
+    private Hashtable<Integer, String> markers;
 
     public CommandLineUI() {
         this.inputStream = System.in;
         this.outputStream = System.out;
         this.scanner = new Scanner(inputStream);
-        this.markers = new Hashtable<GamePlayer, String>();
+        this.markers = new Hashtable<Integer, String>();
     }
 
     public CommandLineUI(InputStream input, OutputStream output) {
         this.inputStream = input;
         this.outputStream = new PrintStream(output);
         this.scanner = new Scanner(inputStream);
-        this.markers = new Hashtable<GamePlayer, String>();
+        this.markers = new Hashtable<Integer, String>();
     }
 
-    public void setPlayerMarker(GamePlayer player, String marker) {
-      this.markers.put(player, marker);
+    public void setPlayerMarker(int player, String marker) {
+        this.markers.put(player, marker);
     }
 
     private String generateBoardElementsAsString(String space,
@@ -47,39 +44,41 @@ public class CommandLineUI implements GameUI {
         return spacesWithSeparators;
     }
 
-    public String generateBoardAsString(MoveHistory record) {
-        int numRows = record.getNumRows();
+    public String generateBoardAsString(Board board) {
+        int numRows = board.getNumRows();
         String boardSpaces = generateBoardElementsAsString(" %s ", "|", numRows);
         String boardRows = generateBoardElementsAsString("---", "+", numRows);
-        String board = generateBoardElementsAsString(boardSpaces + "\n",
+        String boardGrid = generateBoardElementsAsString(boardSpaces + "\n",
                 boardRows + "\n",
                 numRows);
-        return board;
+        return boardGrid;
     }
 
-    public String convertBoardToString(MoveHistory record) {
-        int numRows = record.getNumRows();
+    public String convertBoardToString(Board board,
+                                       MoveHistory record) {
+        int numRows = board.getNumRows();
         Object[] labels = new String[(numRows * numRows)];
         for (int space = 0; space < (numRows * numRows); space++) {
             labels[space] = String.format("%d", space);
         }
-        Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer = record.getMovesByPlayer();
+        Hashtable<Integer, List<Integer>> movesByPlayer = record.getMovesByPlayer();
         if (movesByPlayer != null) {
-            for (GamePlayer player : movesByPlayer.keySet()) {
+            for (int player : movesByPlayer.keySet()) {
                 for (int move : movesByPlayer.get(player)) {
                     labels[move] = String.format("%s", this.markers.get(player));
                 }
             }
         }
-        return String.format(generateBoardAsString(record), labels);
+        return String.format(generateBoardAsString(board), labels);
     }
 
     public void displayMessage(String message) {
         outputStream.println(message);
     }
 
-    public void displayBoard(MoveHistory record) {
-        outputStream.print(convertBoardToString(record));
+    public void displayBoard(Board board,
+                             MoveHistory record) {
+        outputStream.print(convertBoardToString(board, record));
     }
 
     public String getUserInput() {
@@ -117,8 +116,8 @@ public class CommandLineUI implements GameUI {
         }
     }
 
-    public void displayWin(GamePlayer player) {
-        displayMessage(String.format("%s wins", this.markers.get(player)));
+    public void displayWin(int player) {
+        displayMessage(String.format("Player %d wins", player));
     }
 
     public void displayTie() {

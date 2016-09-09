@@ -1,7 +1,7 @@
 package tictactoe.ui;
 
 
-import tictactoe.player.GamePlayer;
+import tictactoe.board.Board;
 import tictactoe.record.MoveHistory;
 
 /**
@@ -9,7 +9,7 @@ import tictactoe.record.MoveHistory;
  */
 public interface GameUI {
 
-    void displayBoard(MoveHistory record);
+    void displayBoard(Board board, MoveHistory record);
 
     String promptMove();
 
@@ -17,7 +17,7 @@ public interface GameUI {
 
     void displayMoveNumber(int moveNumber);
 
-    void displayWin(GamePlayer player);
+    void displayWin(int player);
 
     void displayTie();
 

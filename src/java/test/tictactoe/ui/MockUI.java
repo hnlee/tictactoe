@@ -1,5 +1,6 @@
 package tictactoe.ui;
 
+import tictactoe.board.Board;
 import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 import tictactoe.ui.GameUI;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class MockUI implements GameUI {
 
-    private ArrayList<String> inputs;
+    private List<String> inputs;
     private boolean gameStarted;
     private boolean boardDisplayed;
     private boolean moveUpdated;
@@ -39,7 +40,7 @@ public class MockUI implements GameUI {
         return boardDisplayed;
     }
 
-    public void displayBoard(MoveHistory record) {
+    public void displayBoard(Board board, MoveHistory record) {
         boardDisplayed = true;
     }
 
@@ -69,7 +70,7 @@ public class MockUI implements GameUI {
         return gameWon;
     }
 
-    public void displayWin(GamePlayer player) {
+    public void displayWin(int player) {
         gameWon = true;
     }
 

@@ -1,6 +1,5 @@
 package tictactoe.scoring;
 
-import tictactoe.player.GamePlayer;
 import tictactoe.record.MoveHistory;
 
 import java.util.Hashtable;
@@ -10,7 +9,7 @@ import java.util.Hashtable;
  */
 public interface Scorer {
 
-    int scoreMove(MoveHistory record, int emptySpace, GamePlayer player);
+    int scoreMove(MoveHistory record, int emptySpace);
 
     Hashtable<Integer, Integer> scoreNextMoves(MoveHistory record);
 

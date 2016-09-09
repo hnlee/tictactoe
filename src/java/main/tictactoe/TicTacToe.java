@@ -5,7 +5,6 @@ import tictactoe.board.SquareBoard;
 import tictactoe.player.ComputerPlayer;
 import tictactoe.player.GamePlayer;
 import tictactoe.player.HumanPlayer;
-import tictactoe.record.MoveHistory;
 import tictactoe.rules.StandardRules;
 import tictactoe.rules.StatusChecker;
 import tictactoe.scoring.MinimaxScorer;
@@ -18,13 +17,14 @@ public class TicTacToe {
     public static void main(String[] args) {
         GameUI ui = new CommandLineUI();
         Board board = new SquareBoard(3);
-        StatusChecker rules = new StandardRules();
+        StatusChecker rules = new StandardRules(board);
         Scorer scorer = new MinimaxScorer(rules);
         GamePlayer playerOne = new HumanPlayer(ui);
         GamePlayer playerTwo = new ComputerPlayer(scorer);
-        MoveHistory record = new MoveHistory(board, playerOne, playerTwo);
-
-        GameControlCenter game = new GameControlCenter(ui, record, rules);
+        GameControlCenter game = new GameControlCenter(ui,
+                                                       playerOne,
+                                                       playerTwo,
+                                                       rules);
         game.start();
         game.run();
     }

@@ -22,22 +22,20 @@ public class ComputerPlayerTest {
     private ComputerPlayer computer;
     private SquareBoard board;
     private MoveHistory record;
-    private GamePlayer opponent;
     private Scorer scorer;
     private StatusChecker rules;
 
     @Before
     public void setUp() {
         board = new SquareBoard(3);
-        rules = new StandardRules();
+        rules = new StandardRules(board);
         scorer = new MinimaxScorer(rules);
         computer = new ComputerPlayer(scorer);
-        opponent = new MockGamePlayer();
     }
 
     @Test
     public void testMakeWinningMove() {
-        record = new MoveHistory(board, opponent, computer);
+        record = new MoveHistory(board.getNumRows());
         Simulator.simulateGame(record,
                 1, 4, 8, 5, 2);
         computer.move(record);
@@ -46,14 +44,14 @@ public class ComputerPlayerTest {
 
     @Test
     public void testMoveOnEmptyBoard() {
-        record = new MoveHistory(board, computer, opponent);
+        record = new MoveHistory(board.getNumRows());
         Hashtable<Integer, Integer> scores = new Hashtable<Integer, Integer>();
         for (int space = 0; space < 9; space++) {
             scores.put(space, 0);
         }
         assertEquals(scores, scorer.scoreNextMoves(record));
         computer.move(record);
-        assertEquals(computer, record.getLastPlayer());
+        assertEquals(1, record.getAllMoves().size());
     }
 
 }

@@ -1,93 +1,71 @@
 package tictactoe.record;
 
-import tictactoe.board.Board;
-import tictactoe.player.GamePlayer;
-
 import java.util.*;
 
 /**
  * Created by hanalee on 7/28/16.
  */
 public class MoveHistory {
-    private Board board;
-    private GamePlayer lastPlayer;
-    private GamePlayer playerOne;
-    private GamePlayer playerTwo;
-    private Hashtable<GamePlayer, ArrayList<Integer>> movesByPlayer;
+    private Hashtable<Integer, List<Integer>> movesByPlayer;
+    private int numRows;
+    private int lastPlayer;
 
-    public MoveHistory(Board board, GamePlayer playerOne, GamePlayer playerTwo) {
-        this.board = board;
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
-        this.movesByPlayer = new Hashtable<GamePlayer, ArrayList<Integer>>();
-        movesByPlayer.put(playerOne, new ArrayList<Integer>());
-        movesByPlayer.put(playerTwo, new ArrayList<Integer>());
+    public MoveHistory(int numRows) {
+        this.movesByPlayer = new Hashtable<Integer, List<Integer>>();
+        for (int player = 1; player <= 2; player++) {
+            movesByPlayer.put(player, new ArrayList<Integer>());
+        }
+        this.numRows = numRows;
     }
-
-    public GamePlayer getPlayerOne() {
-        return playerOne;
-    }
-
-    public GamePlayer getPlayerTwo() {
-        return playerTwo;
-    }
-
-    public int getNumRows() { return board.getNumRows(); }
-
-    public int[][] getRows() { return board.getRows(); }
-
-    public List<Integer> getSpaces() { return board.getSpaces(); }
 
     public boolean isValidMove(int move) {
-        int dim = board.getNumRows();
-        boolean isOutOfRange = move > dim * dim - 1 || move < 0;
+        boolean isOutOfRange = move > numRows * numRows - 1 || move < 0;
         boolean isOccupied = movesByPlayer.values().stream()
                 .anyMatch((moveList) -> moveList.contains(move));
         return !isOutOfRange && !isOccupied;
     }
 
-    public void newMove(int move, GamePlayer player) {
-        lastPlayer = player;
+    public void newMove(int move) {
+        int player = getAllMoves().size() % 2 + 1;
         movesByPlayer.get(player).add(move);
+        lastPlayer = player;
     }
 
-    private void setLastPlayer(GamePlayer lastPlayer) {
+    private void setLastPlayer(int lastPlayer) {
         this.lastPlayer = lastPlayer;
     }
 
-    public GamePlayer getLastPlayer() {
+    public int getLastPlayer() {
         return lastPlayer;
     }
 
-    public Optional<GamePlayer> whoPlayedMove(int move) {
-        if (movesByPlayer.get(playerOne).contains(move)) {
-            return Optional.of(playerOne);
-        } else if (movesByPlayer.get(playerTwo).contains(move)) {
-            return Optional.of(playerTwo);
-        } else {
-            return Optional.empty();
+    public Optional<Integer> whoPlayedMove(int move) {
+        for (int player : movesByPlayer.keySet()) {
+            if (movesByPlayer.get(player).contains(move)) {
+                return Optional.of(player);
+            }
         }
+        return Optional.empty();
     }
 
     public List<Integer> getAllMoves() {
         List<Integer> allMoves = new ArrayList<Integer>();
-        for (GamePlayer player : movesByPlayer.keySet()) {
+        for (int player : movesByPlayer.keySet()) {
             allMoves.addAll(movesByPlayer.get(player));
         }
         Collections.sort(allMoves);
         return allMoves;
     }
 
-    public Hashtable<GamePlayer, ArrayList<Integer>> getMovesByPlayer() {
+    public Hashtable<Integer, List<Integer>> getMovesByPlayer() {
         return movesByPlayer;
     }
 
     public MoveHistory copyRecord() {
-        MoveHistory copy = new MoveHistory(board, playerOne, playerTwo);
+        MoveHistory copy = new MoveHistory(numRows);
         copy.setLastPlayer(getLastPlayer());
-        Hashtable<GamePlayer,
-                ArrayList<Integer>> copyMoves = copy.getMovesByPlayer();
-        for (GamePlayer player : movesByPlayer.keySet()) {
+        Hashtable<Integer, List<Integer>> copyMoves = copy.getMovesByPlayer();
+        for (int player : movesByPlayer.keySet()) {
             copyMoves.put(player, new ArrayList<Integer>());
             for (int move : movesByPlayer.get(player)) {
                 copyMoves.get(player).add(move);
