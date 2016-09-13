@@ -6,13 +6,15 @@ import java.util.List;
 
 public class Board {
     private int numRows;
-    private int[][] rows;
+    private int[][] grid;
     private List<Integer> spaces;
 
     public Board(int numRows) {
         this.numRows = numRows;
-        setSpaces();
-        setRows();
+        grid = new int[numRows][numRows];
+        for (int i = 0; i < numRows; i++)
+            for (int j = 0; j < numRows; j++)
+                grid[i][j] = i * numRows + j;
     }
 
     public int getNumRows() {
@@ -20,53 +22,28 @@ public class Board {
     }
 
     public List<Integer> getSpaces() {
+        if (spaces == null) {
+            spaces = new ArrayList<>();
+            for (int i = 0; i < (numRows * numRows); i++) {
+                spaces.add(i);
+            }
+        }
         return spaces;
     }
 
-    public void setSpaces() {
-        spaces = new ArrayList<Integer>();
-        for (int i = 0; i < (numRows * numRows); i++) {
-            spaces.add(i);
-        }
-    }
-
-    public int[][] getHorizontalRows() {
-        int[][] horizontalRows = new int[numRows][numRows];
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numRows; j++) {
-                horizontalRows[i][j] = (i * numRows) + j;
-            }
-        }
-        return horizontalRows;
-    }
-
-    public int[][] getVerticalRows() {
-        int[][] verticalRows = new int[numRows][numRows];
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numRows; j++) {
-                verticalRows[i][j] = i + (j * numRows);
-            }
-        }
-        return verticalRows;
-    }
-
-    public int[][] getDiagonalRows() {
-        int[][] diagonalRows = new int[2][numRows];
-        for (int j = 0; j < numRows; j++) {
-            diagonalRows[0][j] = (numRows + 1) * j;
-            diagonalRows[1][j] = (numRows - 1) * (j + 1);
-        }
-        return diagonalRows;
-    }
-
-    public void setRows() {
-        rows = new int[(numRows + 1) * 2][numRows];
-        System.arraycopy(getHorizontalRows(), 0, rows, 0, numRows);
-        System.arraycopy(getVerticalRows(), 0, rows, numRows, numRows);
-        System.arraycopy(getDiagonalRows(), 0, rows, 2 * numRows, 2);
-    }
-
     public int[][] getRows() {
+        int[][] rows = new int[numRows * 2 + 2][numRows];
+
+        // Horizontal rows
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                rows[i][j] = grid[i][j];
+                rows[i + numRows][j] = grid[j][i];
+            }
+            rows[numRows * 2][i] = grid[i][i];
+            rows[numRows * 2 + 1][i] = grid[i][numRows - i - 1];
+        }
+
         return rows;
     }
 
